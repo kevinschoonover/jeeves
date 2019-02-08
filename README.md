@@ -45,8 +45,22 @@ $ docker-compose up
 ```
 in the project directory
 
+open up another Docker Quickstart Terminal and run
+```
+$ echo $DOCKER_HOST
+```
+to get the IP address 
 
-Then, navigate to ``http://localhost/`` on your favorite web browser. You should
+or run  
+```
+$ docker-machine ls
+```
+to see a list of running machines.
+
+
+
+
+Then, navigate to ``http://localhost/``, or  ``http://(your ip)`` if Windows, on your favorite web browser. You should
 see 'Hello, World!'.
 
 ## Note(s)
