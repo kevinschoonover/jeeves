@@ -19,8 +19,6 @@ services:
       - web_nw
     depends_on: 
       - db 
-    # env_file:
-    #   - ./.docker/web.env
     environment: 
       - DB_HOST=db
       - DB_USERNAME=jeeves
