@@ -37,6 +37,15 @@ To start the server and all dependencies, run:
 $ docker-compose up
 ```
 
+On Windows,
+start Docker QuickStart Terminal
+run 
+```
+$ docker-compose up
+```
+in the project directory
+
+
 Then, navigate to ``http://localhost/`` on your favorite web browser. You should
 see 'Hello, World!'.
 
