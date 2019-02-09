@@ -1,0 +1,76 @@
+{
+  "name": "server",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "yarn run lint && tsc",
+    "lint": "tslint -c tslint.json -p tsconfig.json --force",
+    "lint:fix": "tslint -c tslint.json -p tsconfig.json --fix --force",
+    "image:build": "docker build --tag jeeves .",
+    "image:force": "docker build --rm --tag jeeves .",
+    "image:run": "docker run -p 3000:3000 --rm -ti jeeves",
+    "start:dev": "NODE_ENV='development' nodemon --watch 'src/**/*' -e ts,tsx --exec \"ts-node\" ./src/app.ts",
+    "start:prod": "NODE_ENV='production' node build/app.js",
+    "test": "NODE_ENV='test' jest",
+    "test:watch": "NODE_ENV='test' jest --watchAll --coverage",
+    "test:coverage": "NODE_ENV='test' yarn run test --coverage",
+    "test:coveralls": "NODE_ENV='test' jest --coverage && cat ./coverage/lcov.info | coveralls",
+    "typecli": "yarn ts-node ./node_modules/typeorm/cli.js",
+    "migration:generate": "yarn typecli migration:generate"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.48",
+    "@types/koa-bodyparser": "^4.2.1",
+    "@types/koa-router": "^7.0.39",
+    "@types/node": "^10.12.23",
+    "@types/supertest": "^2.0.7",
+    "nock": "^10.0.6",
+    "nodemon": "^1.18.9",
+    "supertest": "^3.4.2",
+    "ts-jest": "^23.10.5",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "@koa/cors": "^2.2.3",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-logger": "^3.2.0",
+    "koa-passport": "^4.1.1",
+    "koa-router": "^7.4.0",
+    "koa-session": "^5.10.1",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0",
+    "pg": "^7.8.0",
+    "routing-controllers": "^0.7.7",
+    "typeorm": "^0.2.12",
+    "typeorm-routing-controllers-extensions": "^0.2.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.ts?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(js?|ts?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/dist/",
+      "<rootDir>/build/"
+    ],
+    "collectCoverageFrom": [
+      "<rootDir>/**/*.ts",
+      "!<rootDir>/src/entity/*.ts",
+      "!<rootDir>/src/migration/*.ts",
+      "!<rootDir>/src/config.ts"
+    ],
+    "collectCoverage": true
+  }
+}

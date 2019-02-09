@@ -1,0 +1,9 @@
+*/
+
+# add project directories to include here
+!/server/
+!/clients/*
+
+node_modules
+.git
+.yarnrc

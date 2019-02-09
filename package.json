@@ -1,0 +1,17 @@
+{
+  "name": "jeeves",
+  "private": true,
+  "workspaces": [
+    "clients/*",
+    "server"
+  ],
+  "scripts": {
+    "lernaupdate": "lernaupdate",
+    "lerna": "lerna",
+    "bootstrap": "lerna bootstrap"
+  },
+  "devDependencies": {
+    "lerna": "^3.10.7",
+    "lerna-update-wizard": "^0.11.1"
+  }
+}
