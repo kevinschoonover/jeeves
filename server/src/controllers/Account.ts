@@ -19,7 +19,7 @@ export class AccountController {
 
   @Get("/accounts/:id/")
   public async get(@Param("id") id: string) {
-    return Account.findOne({ id }, {relations: ["groups", "permissions", "applications"]});
+    return Account.findOne({ id });
   }
 
   @Patch("/accounts/:id/")

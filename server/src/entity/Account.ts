@@ -1,6 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, ManyToMany, OneToMany, JoinTable } from "typeorm";
 
-Entity()
+@Entity()
 export class Account extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
