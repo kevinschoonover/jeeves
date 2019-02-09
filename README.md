@@ -37,7 +37,30 @@ To start the server and all dependencies, run:
 $ docker-compose up
 ```
 
-Then, navigate to ``http://localhost/`` on your favorite web browser. You should
+On Windows,
+start Docker QuickStart Terminal
+run 
+```
+$ docker-compose up
+```
+in the project directory
+
+open up another Docker Quickstart Terminal and run
+```
+$ echo $DOCKER_HOST
+```
+to get the IP address 
+
+or run  
+```
+$ docker-machine ls
+```
+to see a list of running machines.
+
+
+
+
+Then, navigate to ``http://localhost/``, or  ``http://(your ip)`` if Windows, on your favorite web browser. You should
 see 'Hello, World!'.
 
 ## Note(s)
