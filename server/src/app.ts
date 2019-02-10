@@ -11,36 +11,40 @@ import { passport } from "./middleware/auth";
 
 import { config } from "./config";
 import { router } from "./routes";
+import { MenuItemController } from "./controllers/MenuItem";
+import { MenuController } from "./controllers/Menu";
+import { RestaurantController } from "./controllers/Restaurant";
+
+
+                                                                 
+
 
 export const app = new Koa();
 
 app.keys = ['put secret key here'];
-
 app.use(koaBody());
 app.use(cors());
 app.use(logger());
 app.use(session(app));
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(router.routes());
 app.use(router.allowedMethods());
 
+
 useKoaServer(app, {
-  controllers: [AccountController],
+    controllers: [AccountController, MenuItemController, MenuController, RestaurantController],
   currentUserChecker: async (action: Action) => {
     const user = action.context.state.user;
     const auth_header = action.context.headers.authorization;
     if (user) {
       return user;
     }
-
     await passport.authenticate('bearer', { session: false })(action.context, async () => {});
     return action.context.state.user;
   },
   routePrefix: "/api/v1",
 });
-
 /* istanbul ignore next */
 if (!module.parent) {
   createConnection().then(async connection => {
