@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\clients",
+    "\\server",
+    "\\server\\src",
+    "\\server\\src\\controllers",
+    "\\server\\src\\entity",
+    "\\server\\src\\middleware",
+    "\\server\\src\\routes"
+  ],
+  "PreviewInSolutionExplorer": false
+}
