@@ -1,4 +1,10 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, ManyToMany, OneToMany, JoinTable } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Account extends BaseEntity {
@@ -6,31 +12,26 @@ export class Account extends BaseEntity {
   public id: string;
 
   @Column({
-      length: 50
+    length: 50,
   })
   public firstName: string;
 
   @Column({
-      length: 50
+    length: 50,
   })
   public lastName: string;
 
   @Column({
-      unique: true
+    unique: true,
   })
   public email: string;
 
   @Column({
     default: false,
-    select: false
+    select: false,
   })
   public isSuperAdmin: boolean;
 
   @CreateDateColumn()
   public dateJoined: Date;
-
-  @Column({
-    default: true
-  })
-  public isActive: boolean;
 }
