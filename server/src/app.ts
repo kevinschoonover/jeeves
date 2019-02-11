@@ -11,9 +11,8 @@ import { passport } from './middleware/auth';
 
 import { config } from './config';
 import { router } from './routes';
-import { MenuItemController } from './controllers/MenuItem';
-import { MenuController } from './controllers/Menu';
-import { RestaurantController } from './controllers/Restaurant';
+
+import * as controllers from './controllers';
 
 export const app = new Koa();
 
@@ -30,12 +29,7 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 useKoaServer(app, {
-  controllers: [
-    AccountController,
-    MenuItemController,
-    MenuController,
-    RestaurantController,
-  ],
+  controllers: Object.keys(controllers).map((key) => controllers[key]),
   currentUserChecker: async (action: Action) => {
     const user = action.context.state.user;
     const auth_header = action.context.headers.authorization;

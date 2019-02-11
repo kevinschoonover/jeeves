@@ -3,11 +3,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
-  ManyToMany,
-  OneToMany,
   JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import { Shift } from './Shift';
 
 @Entity()
 export class Account extends BaseEntity {
@@ -42,4 +45,7 @@ export class Account extends BaseEntity {
     default: true,
   })
   public isActive: boolean;
+
+  @ManyToOne((type) => Shift, (shift) => shift.server)
+  public shifts: Shift[];
 }
