@@ -1,25 +1,31 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm";
-import { MenuItem } from './MenuItem'
-import { Restaurant } from './Restaurant'
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
+} from 'typeorm';
+import { MenuItem } from './MenuItem';
+import { Restaurant } from './Restaurant';
 
 @Entity()
 export class Menu extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    public id: string;
+  @PrimaryGeneratedColumn('uuid')
+  public id: string;
 
-    
-    @OneToMany(()=>MenuItem, (menuitem)=>menuitem.menu)
-    public menuItems: MenuItem[];
+  @CreateDateColumn()
+  public dateJoined: Date;
 
-    @ManyToOne(() => Restaurant, (restaurant) => restaurant.menus)
-    public restaurant: Restaurant;
- 
+  @Column({
+    default: true,
+  })
+  public isActive: boolean;
 
-    @CreateDateColumn()
-    public dateJoined: Date;
+  @OneToMany(() => MenuItem, (menuitem) => menuitem.menu)
+  public menuItems: MenuItem[];
 
-    @Column({
-        default: true
-    })
-    public isActive: boolean;
+  @ManyToOne(() => Restaurant, (restaurant) => restaurant.menus)
+  public restaurant: Restaurant;
 }
