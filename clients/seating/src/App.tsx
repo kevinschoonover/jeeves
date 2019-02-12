@@ -1,46 +1,14 @@
 import React from 'react';
-import {
-  Button,
-  withStyles,
-  Theme,
-  createStyles,
-  WithStyles,
-} from '@material-ui/core';
+import Layout from './components/Layout';
+import Navbar from './components/Navbar';
 
-const styles = (theme: Theme) =>
-  createStyles({
-    root: {
-      textAlign: 'center',
-      marginTop: '400px',
-    },
-    apple: {
-      margin: theme.spacing.unit * 3,
-    },
-  });
-
-type Props = WithStyles<typeof styles>;
-
-const App: React.FC<Props> = ({ classes }) => {
-  const [count, setCount] = React.useState(0);
-
-  const handleClick = () => {
-    setCount((prevCount) => (prevCount + 1) % 10);
-  };
-
+function App() {
   return (
-    <div className={classes.root}>
-      <h1>Seating client</h1>
-      <div>Clicked {count} times!</div>
-      <Button
-        className={classes.apple}
-        onClick={handleClick}
-        color="primary"
-        variant="contained"
-      >
-        Click Me!
-      </Button>
-    </div>
+    <>
+      <Navbar />
+      <Layout />
+    </>
   );
-};
+}
 
-export default withStyles(styles)(App);
+export default App;
