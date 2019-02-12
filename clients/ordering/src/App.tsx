@@ -39,19 +39,14 @@ const App: React.FC<Props> = ({ classes }) => {
 
   return (
     <div className={classes.root}>
-      <h1>Ordering client</h1>
-      <div>Clicked {count} times!</div>
-      <Button
-        className={classes.apple}
-        onClick={handleClick}
-        color="primary"
-        variant="contained"
+      <h1>Menu Items</h1>
+      <Grid
+        container={true}
+        spacing={16}
+        alignItems={'center'}
+        justify={'center'}
       >
-        Click Me!
-      </Button>
-      <Grid container={true} spacing={16}>
         <Grid item={true} xs={12} md={6}>
-          <Typography variant="h6">Menu Items</Typography>
           <List>
             <ListItem>
               <ListItemText
