@@ -5,7 +5,17 @@ import {
   Theme,
   createStyles,
   WithStyles,
+  Typography,
+  ListItemAvatar,
+  Avatar,
+  ListItemSecondaryAction,
 } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -39,6 +49,46 @@ const App: React.FC<Props> = ({ classes }) => {
       >
         Click Me!
       </Button>
+      <Grid container={true} spacing={16}>
+        <Grid item={true} xs={12} md={6}>
+          <Typography variant="h6">Menu Items</Typography>
+          <List>
+            <ListItem>
+              <ListItemText
+                primary="Big Mac"
+                secondary="This is the famous one"
+              />
+              <ListItemSecondaryAction>
+                <IconButton aria-label="Delete">
+                  <AddBoxIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+            <ListItem>
+              <ListItemText
+                primary="Quarter Pounder"
+                secondary="A different type of burger"
+              />
+              <ListItemSecondaryAction>
+                <IconButton aria-label="Delete">
+                  <AddBoxIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+            <ListItem>
+              <ListItemText
+                primary="Double Cheeseburger"
+                secondary="This is the cheap one"
+              />
+              <ListItemSecondaryAction>
+                <IconButton aria-label="Delete">
+                  <AddBoxIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          </List>
+        </Grid>
+      </Grid>
     </div>
   );
 };
