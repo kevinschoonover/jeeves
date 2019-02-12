@@ -46,6 +46,6 @@ export class Account extends BaseEntity {
   })
   public isActive: boolean;
 
-  @ManyToOne((type) => Shift, (shift) => shift.server)
+  @OneToMany((type) => Shift, (shift) => shift.server)
   public shifts: Shift[];
 }
