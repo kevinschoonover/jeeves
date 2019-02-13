@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 
 import { Shift } from './Shift';
+import { Visit } from './Visit';
 
 @Entity()
 export class Account extends BaseEntity {
@@ -48,4 +49,7 @@ export class Account extends BaseEntity {
 
   @OneToMany((type) => Shift, (shift) => shift.server)
   public shifts: Shift[];
+
+  @ManyToMany((type) => Visit, (visit) => visit.users)
+  public visits: Visit[];
 }
