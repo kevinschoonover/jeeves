@@ -6,7 +6,6 @@ import * as session from 'koa-session';
 
 import { Action, useKoaServer } from 'routing-controllers';
 import { createConnection } from 'typeorm';
-import { AccountController } from './controllers/Account';
 import { passport } from './middleware/auth';
 
 import { config } from './config';

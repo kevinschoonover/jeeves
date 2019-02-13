@@ -11,6 +11,8 @@ import {
 } from 'typeorm';
 
 import { Shift } from './Shift';
+import { Restaurant } from './Restaurant';
+import { Reservation } from './Reservation';
 
 @Entity()
 export class Account extends BaseEntity {
@@ -46,6 +48,12 @@ export class Account extends BaseEntity {
   })
   public isActive: boolean;
 
-  @OneToMany((type) => Shift, (shift) => shift.server)
+  @OneToMany(() => Shift, (shift) => shift.server)
   public shifts: Shift[];
+
+  @ManyToMany(() => Restaurant, (restaurant) => restaurant.managers)
+  public restaurants: Restaurant[];
+
+  @ManyToMany(() => Reservation, (reservation) => reservation.guests)
+  public reservations: Reservation[];
 }

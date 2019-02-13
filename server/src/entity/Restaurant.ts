@@ -4,11 +4,13 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  ManyToOne,
   OneToMany,
-  JoinTable,
+  ManyToMany,
+  ManyToOne,
 } from 'typeorm';
 import { Menu } from './Menu';
+import { Account } from './Account';
+import { Reservation } from './Reservation';
 
 export enum cuisineTypes {
   AMERICAN = 'American',
@@ -57,7 +59,7 @@ export class Restaurant extends BaseEntity {
   public location: {};
 
   @Column({
-    default: null,
+    default: 'default_img.jpg',
   })
   public imgPath: string;
 
@@ -103,4 +105,10 @@ export class Restaurant extends BaseEntity {
 
   @OneToMany(() => Menu, (menu) => menu.restaurant)
   public menus: Menu[];
+
+  @ManyToMany(() => Account, (account) => account.restaurants)
+  public managers: Account[];
+
+  @ManyToOne(() => Reservation, (reservation) => reservation.restaurant)
+  public reservations: Reservation[];
 }
