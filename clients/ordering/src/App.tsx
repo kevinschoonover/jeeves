@@ -6,27 +6,34 @@ import {
   createStyles,
   WithStyles,
   Typography,
-  ListItemAvatar,
-  Avatar,
-  ListItemSecondaryAction,
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import IconButton from '@material-ui/core/IconButton';
-import AddBoxIcon from '@material-ui/icons/AddBox';
+import MenuCard from './components/card';
 
 const styles = (theme: Theme) =>
   createStyles({
     root: {
       textAlign: 'center',
-      marginTop: '400px',
+      marginTop: '100px',
     },
     apple: {
       margin: theme.spacing.unit * 3,
     },
+    grid: {
+      marginTop: '75px',
+    },
   });
+
+const menucards = [
+  {
+    id: 1,
+    avatar: '1',
+    title: 'Big Mac',
+    subheader: 'Our Class Burger',
+    image: '',
+    description: 'This is a test, hope it works',
+  },
+];
 
 type Props = WithStyles<typeof styles>;
 
@@ -41,47 +48,38 @@ const App: React.FC<Props> = ({ classes }) => {
     <div className={classes.root}>
       <h1>Menu Items</h1>
       <Grid
+        className={classes.grid}
         container={true}
-        spacing={16}
+        spacing={32}
         alignItems={'center'}
-        justify={'center'}
+        justify={'space-evenly'}
       >
-        <Grid item={true} xs={12} md={6}>
-          <List>
-            <ListItem>
-              <ListItemText
-                primary="Big Mac"
-                secondary="This is the famous one"
-              />
-              <ListItemSecondaryAction>
-                <IconButton aria-label="Delete">
-                  <AddBoxIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary="Quarter Pounder"
-                secondary="A different type of burger"
-              />
-              <ListItemSecondaryAction>
-                <IconButton aria-label="Delete">
-                  <AddBoxIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary="Double Cheeseburger"
-                secondary="This is the cheap one"
-              />
-              <ListItemSecondaryAction>
-                <IconButton aria-label="Delete">
-                  <AddBoxIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          </List>
+        <Grid item={true}>
+          <MenuCard
+            avatar="1"
+            title="Sweet & Sour Pork"
+            subheader="$5.60/$8.36"
+            image="/clients/ordering/photos/sweetsour.jpg"
+            description="Sweet and Sour Chicken with crispy chicken, pineapple and bell peppers just like your favorite takeout place without the food coloring."
+          />
+        </Grid>
+        <Grid item={true}>
+          <MenuCard
+            avatar="2"
+            title="General Tso's Chicken"
+            subheader="$5.60/$8.36"
+            image="/clients/ordering/photos/sweetsour.jpg"
+            description="With a flair of peanut oil, a streak of sesame, a dash of orange, and a sweet spot for hot, this is sure to be a favorite. Serve with steamed broccoli and white rice."
+          />
+        </Grid>
+        <Grid item={true}>
+          <MenuCard
+            avatar="3"
+            title="Orange Chicken"
+            subheader="$5.60/$8.36"
+            image="/clients/ordering/photos/sweetsour.jpg"
+            description="Our signature dish. Crispy chicken wok-tossed in a sweet and spicy orange sauce."
+          />
         </Grid>
       </Grid>
     </div>
