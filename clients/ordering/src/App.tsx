@@ -57,9 +57,9 @@ const App: React.FC<Props> = ({ classes }) => {
         <Grid item={true}>
           <MenuCard
             avatar="1"
-            title="Sweet & Sour Pork"
+            title="Sweet and Sour Pork"
             subheader="$5.60/$8.36"
-            image="/clients/ordering/photos/sweetsour.jpg"
+            image="./paella.jpg"
             description="Sweet and Sour Chicken with crispy chicken, pineapple and bell peppers just like your favorite takeout place without the food coloring."
           />
         </Grid>
