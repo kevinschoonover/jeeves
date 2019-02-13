@@ -15,7 +15,7 @@ import { Section } from './Section';
 
 @Entity()
 export class Shift extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   public id: string;
 
   @Column()

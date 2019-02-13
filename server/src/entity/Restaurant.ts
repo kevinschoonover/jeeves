@@ -11,6 +11,7 @@ import {
 import { Menu } from './Menu';
 import { Account } from './Account';
 import { Reservation } from './Reservation';
+import { Review } from './Review';
 
 export enum cuisineTypes {
   AMERICAN = 'American',
@@ -103,8 +104,26 @@ export class Restaurant extends BaseEntity {
   })
   public isActive: boolean;
 
+  @Column({
+    default: false,
+  })
+  public hasWifi: boolean;
+
+  @Column({
+    default: false,
+  })
+  public hasTV: boolean;
+
+  @Column({
+    default: false,
+  })
+  public hasParking: boolean;
+
   @OneToMany(() => Menu, (menu) => menu.restaurant)
   public menus: Menu[];
+
+  @OneToMany(() => Review, (review) => review.restaurant)
+  public reviews: Review[];
 
   @ManyToMany(() => Account, (account) => account.restaurants)
   public managers: Account[];

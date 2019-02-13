@@ -13,7 +13,7 @@ import {
 import { Shift } from './Shift';
 import { Restaurant } from './Restaurant';
 import { Reservation } from './Reservation';
-
+import { Review } from './Review';
 @Entity()
 export class Account extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -50,6 +50,9 @@ export class Account extends BaseEntity {
 
   @OneToMany(() => Shift, (shift) => shift.server)
   public shifts: Shift[];
+
+  @OneToMany(() => Review, (review) => review.reviewer)
+  public reviews: Review[];
 
   @ManyToMany(() => Restaurant, (restaurant) => restaurant.managers)
   public restaurants: Restaurant[];

@@ -5,10 +5,12 @@ import {
   Entity,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { InventoryItem } from './InventoryItem';
 import { Menu } from './Menu';
+import { Review } from './Review';
 
 export enum itemCategorys {
   STARTER = 'starter',
@@ -118,6 +120,9 @@ export class MenuItem extends BaseEntity {
     default: true,
   })
   public isActive: boolean;
+
+  @OneToMany(() => Review, (review) => review.menuItem)
+  public reviews: Review[];
 
   @ManyToOne(() => Menu, (menu) => menu.menuItems)
   public menu: Menu;
