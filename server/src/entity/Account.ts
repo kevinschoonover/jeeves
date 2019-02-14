@@ -48,15 +48,15 @@ export class Account extends BaseEntity {
   })
   public isActive: boolean;
 
-  @OneToMany(() => Shift, (shift) => shift.server)
+  @OneToMany((type) => Shift, (shift) => shift.server)
   public shifts: Shift[];
 
-  @OneToMany(() => Review, (review) => review.reviewer)
+  @OneToMany((type) => Review, (review) => review.reviewer)
   public reviews: Review[];
 
-  @ManyToMany(() => Restaurant, (restaurant) => restaurant.managers)
+  @ManyToMany((type) => Restaurant, (restaurant) => restaurant.managers)
   public restaurants: Restaurant[];
 
-  @ManyToMany(() => Reservation, (reservation) => reservation.guests)
+  @ManyToMany((type) => Reservation, (reservation) => reservation.guests)
   public reservations: Reservation[];
 }

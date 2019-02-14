@@ -20,10 +20,8 @@ export enum itemCategory {
 
 @Entity()
 export class InventoryItem extends BaseEntity {
-  @(PrimaryColumn()({
-    length: 50,
-  }))
-  public ingredientName: string;
+  @PrimaryColumn()
+  public name: string;
 
   @Column({
     default: 0,
@@ -51,6 +49,6 @@ export class InventoryItem extends BaseEntity {
   })
   public isActive: boolean;
 
-  @ManyToMany(() => MenuItem, (menuitem) => menuitem.ingredients)
+  @ManyToMany((type) => MenuItem, (menuitem) => menuitem.ingredients)
   public menuItems: MenuItem[];
 }

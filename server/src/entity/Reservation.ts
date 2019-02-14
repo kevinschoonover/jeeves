@@ -24,9 +24,9 @@ export class Reservation extends BaseEntity {
   @Column({ default: 1 })
   public numGuests: number;
 
-  @ManyToMany(() => Account, (account) => account.reservations)
+  @ManyToMany((type) => Account, (account) => account.reservations)
   public guests: Account[];
 
-  @ManyToOne(() => Restaurant, (restaurant) => restaurant.reservations)
+  @ManyToOne((type) => Restaurant, (restaurant) => restaurant.reservations)
   public restaurant: Restaurant;
 }

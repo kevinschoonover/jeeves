@@ -119,15 +119,15 @@ export class Restaurant extends BaseEntity {
   })
   public hasParking: boolean;
 
-  @OneToMany(() => Menu, (menu) => menu.restaurant)
+  @OneToMany((type) => Menu, (menu) => menu.restaurant)
   public menus: Menu[];
 
-  @OneToMany(() => Review, (review) => review.restaurant)
+  @OneToMany((type) => Review, (review) => review.restaurant)
   public reviews: Review[];
 
-  @ManyToMany(() => Account, (account) => account.restaurants)
+  @ManyToMany((type) => Account, (account) => account.restaurants)
   public managers: Account[];
 
-  @ManyToOne(() => Reservation, (reservation) => reservation.restaurant)
+  @ManyToOne((type) => Reservation, (reservation) => reservation.restaurant)
   public reservations: Reservation[];
 }

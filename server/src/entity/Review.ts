@@ -19,32 +19,20 @@ export class Review extends BaseEntity {
   @CreateDateColumn()
   public dateReviewed: Date;
 
-  @Column({
-    default: 0,
-  })
-  public restaurantReviewScore: number;
+  @Column()
+  public score: number;
 
   @Column({
     default: '',
   })
-  public restaurantReviewComment: string;
+  public comment: string;
 
-  @Column({
-    default: 0,
-  })
-  public itemReviewScore: number;
-
-  @Column({
-    default: '',
-  })
-  public itemReviewComment: string;
-
-  @ManyToOne(() => Restaurant, (restaurant) => restaurant.reviews)
+  @ManyToOne((type) => Restaurant, (restaurant) => restaurant.reviews)
   public restaurant: Restaurant;
 
-  @ManyToOne(() => MenuItem, (menuitem) => menuitem.reviews)
+  @ManyToOne((type) => MenuItem, (menuitem) => menuitem.reviews)
   public menuItem: MenuItem;
 
-  @ManyToOne(() => Account, (account) => account.reviews)
+  @ManyToOne((type) => Account, (account) => account.reviews)
   public reviewer: Account;
 }

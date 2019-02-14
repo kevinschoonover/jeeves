@@ -121,12 +121,15 @@ export class MenuItem extends BaseEntity {
   })
   public isActive: boolean;
 
-  @OneToMany(() => Review, (review) => review.menuItem)
+  @OneToMany((type) => Review, (review) => review.menuItem)
   public reviews: Review[];
 
-  @ManyToOne(() => Menu, (menu) => menu.menuItems)
+  @ManyToOne((type) => Menu, (menu) => menu.menuItems)
   public menu: Menu;
 
-  @ManyToMany(() => InventoryItem, (inventoryitem) => inventoryitem.menuItems)
+  @ManyToMany(
+    (type) => InventoryItem,
+    (inventoryitem) => inventoryitem.menuItems
+  )
   public ingredients: InventoryItem[];
 }
