@@ -17,7 +17,6 @@ import { Reservation } from '../entity/Reservation';
 export class ReservationController {
   @Get('/reservations/')
   public async getAll() {
-    console.log('hello');
     return Reservation.find();
   }
 

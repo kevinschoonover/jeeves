@@ -16,18 +16,13 @@ export class Reservation extends BaseEntity {
   public id: string;
 
   @CreateDateColumn()
-  public dateJoined: Date;
+  public dateCreated: Date;
 
   @Column()
   public startTime: Date;
 
-  @Column({ default: 0 })
+  @Column({ default: 1 })
   public numGuests: number;
-
-  @Column({
-    default: true,
-  })
-  public isActive: boolean;
 
   @ManyToMany(() => Account, (account) => account.reservations)
   public guests: Account[];

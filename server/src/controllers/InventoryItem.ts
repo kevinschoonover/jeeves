@@ -17,7 +17,6 @@ import { InventoryItem } from '../entity/InventoryItem';
 export class InventoryItemController {
   @Get('/inventoryitems/')
   public async getAll() {
-    console.log('hello');
     return InventoryItem.find();
   }
 

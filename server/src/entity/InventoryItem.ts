@@ -5,6 +5,7 @@ import {
   Entity,
   ManyToMany,
   PrimaryGeneratedColumn,
+  PrimaryColumn,
 } from 'typeorm';
 import { MenuItem } from './MenuItem';
 
@@ -19,12 +20,9 @@ export enum itemCategory {
 
 @Entity()
 export class InventoryItem extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  public id: string;
-
-  @Column({
+  @(PrimaryColumn()({
     length: 50,
-  })
+  }))
   public ingredientName: string;
 
   @Column({

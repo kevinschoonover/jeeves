@@ -14,7 +14,7 @@ import { Table } from './Table';
 
 @Entity()
 export class Section extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   public id: number;
 
   @Column({

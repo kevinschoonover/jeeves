@@ -21,7 +21,7 @@ export enum tableStatus {
 
 @Entity()
 export class Table extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   public id: string;
 
   @Column()
