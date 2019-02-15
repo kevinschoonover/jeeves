@@ -28,6 +28,10 @@ export class Service extends BaseEntity {
   @PrimaryColumn()
   public tableId: string;
 
-  @Column()
+  @Column({
+    default: serviceType.UNKNOWN,
+    enum: serviceType,
+    type: 'enum',
+  })
   public type: serviceType;
 }
