@@ -9,7 +9,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   PrimaryColumn,
+  OneToOne,
 } from 'typeorm';
+import { Visit } from './Visit';
 
 @Entity()
 export class Transaction extends BaseEntity {
@@ -21,6 +23,9 @@ export class Transaction extends BaseEntity {
 
   @PrimaryColumn()
   public userId: string;
+
+  @OneToMany((type) => Visit, (visit) => visit.transactions)
+  public visit: Visit;
 
   @PrimaryColumn()
   public time: Date;

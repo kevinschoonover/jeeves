@@ -13,6 +13,7 @@ import {
 
 import { Account } from './Account';
 import { Shift } from './Shift';
+import { Transaction } from './Transaction';
 
 export enum paymentMethod {
   SPLIT = 'split',
@@ -38,7 +39,8 @@ export class Visit extends BaseEntity {
   @Column()
   public departure: Date;
 
-  // TODO: insert transaction here
+  @ManyToOne((type) => Transaction, (transaction) => transaction.visit)
+  public transactions: Transaction[];
 
   @Column({
     default: paymentMethod.ALTOGETHER,
