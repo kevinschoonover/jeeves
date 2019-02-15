@@ -5,3 +5,6 @@ export * from './Restaurant';
 export * from './Section';
 export * from './Shift';
 export * from './Table';
+export * from './InventoryItem';
+export * from './Reservation';
+export * from './Review';
