@@ -13,7 +13,10 @@ import {
 
 export enum serviceType {
   REFILL_DRINK = 'refill_drink',
+  SERVE_FOOD = 'serve_food',
   TAKE_ORDER = 'take_order',
+  CHECK_ON_TABLE = 'check_on_table',
+  ALLERGEN_ASSISTANCE = 'allergen_assistance',
   UNKNOWN = 'unknown',
 }
 
