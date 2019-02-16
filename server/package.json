@@ -56,6 +56,7 @@
     "passport-local": "^1.0.0",
     "pg": "^7.8.0",
     "routing-controllers": "^0.7.7",
+    "routing-controllers-openapi": "^1.6.0",
     "typeorm": "^0.2.12",
     "typeorm-routing-controllers-extensions": "^0.2.0"
   },
