@@ -17,8 +17,8 @@ import { Visit } from './Visit';
 
 @Entity()
 export class Transaction extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  public id: string;
+  @PrimaryGeneratedColumn()
+  public id: number;
 
   @OneToOne((type) => Visit, (visit) => visit.id)
   public visitId: number;
