@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {
   createMuiTheme,
   MuiThemeProvider as ThemeProvider,
+  CssBaseline,
 } from '@material-ui/core';
 
 import './index.css';
@@ -17,6 +18,7 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
+    <CssBaseline />
     <App />
   </ThemeProvider>,
   document.getElementById('root')

@@ -1,60 +1,64 @@
 import React from 'react';
-import { withStyles, createStyles, WithStyles } from '@material-ui/core';
-import grey from '@material-ui/core/colors/grey';
+import Rectangle, { RectangleColor, Orientation } from './tables/Rectangle';
+import Circle from './tables/Circle';
+import { TableStatus } from './Layout';
 
-const styles = () =>
-  createStyles({
-    table: {
-      '&:hover': {
-        fill: grey[200],
-        cursor: 'pointer',
-      },
-      stroke: 'black',
-      transition: '200ms',
-      transitionTimingFunction: 'ease-in-out',
-    },
-  });
-
-export interface TableProps extends WithStyles<typeof styles> {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+export interface TableProps {
+  // TODO: This shouldn't have to be a prop of the Table
+  shape?: TableShape;
+  orientation?: Orientation;
+  details: {
+    seatingCapacity: number;
+    status: string;
+  };
   onTableClick(): void;
 }
 
+export type TableShape = 'circle' | 'rectangle' | 'square';
+
+const TABLE_STATUS_COLOR_MAP: { [key in TableStatus]: RectangleColor } = {
+  cleaning: 'success',
+  eating: 'primary',
+  ordering: 'purple',
+  open: 'grey',
+};
+
+// TODO: Not sure how we'll handle orientation in context of table data
 const Table: React.FC<TableProps> = ({
-  x,
-  y,
-  width,
-  height,
+  details,
   onTableClick,
-  classes,
   children,
+  orientation,
+  shape = 'circle',
 }) => {
+  if (shape === 'circle') {
+    return (
+      <Circle
+        onClick={onTableClick}
+        color={(TABLE_STATUS_COLOR_MAP as any)[details.status]}
+        size={details.seatingCapacity <= 2 ? 'small' : 'large'}
+      >
+        {children}
+      </Circle>
+    );
+  }
+
   return (
-    <svg
-      width={width}
-      height={height}
-      x={x}
-      y={y}
+    <Rectangle
       onClick={onTableClick}
-      tabIndex={1}
+      color={(TABLE_STATUS_COLOR_MAP as any)[details.status]}
+      orientation={orientation}
+      size={
+        details.seatingCapacity <= 2
+          ? 'small'
+          : details.seatingCapacity <= 4
+          ? 'square'
+          : 'large'
+      }
     >
-      <g>
-        <circle
-          className={classes.table}
-          cx="50%"
-          cy="50%"
-          r="48%"
-          fill="#FFFFFF"
-        />
-        <text x="50%" y="51%" textAnchor="middle">
-          {children}
-        </text>
-      </g>
-    </svg>
+      {children}
+    </Rectangle>
   );
 };
 
-export default withStyles(styles)(Table);
+export default Table;
