@@ -27,19 +27,19 @@ export class VisitController {
   }
 
   @Get('/visits/:id/')
-  public async get(@Param('id') id: string) {
+  public async get(@Param('id') id: number) {
     return Visit.findOne({ id });
   }
 
   @Patch('/visits/:id/')
-  public async patch(@Param('id') id: string, @Body() visit: object) {
+  public async patch(@Param('id') id: number, @Body() visit: object) {
     await Visit.update(id, visit);
     return Visit.findOne({ id });
   }
 
   @Delete('/visits/:id/')
   @OnUndefined(204)
-  public async remove(@Param('id') id: string) {
+  public async remove(@Param('id') id: number) {
     return Visit.delete({ id });
   }
 }

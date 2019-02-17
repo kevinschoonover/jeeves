@@ -27,19 +27,19 @@ export class TableController {
   }
 
   @Get('/tables/:id/')
-  public async get(@Param('id') id: string) {
+  public async get(@Param('id') id: number) {
     return Table.findOne({ id });
   }
 
   @Patch('/tables/:id/')
-  public async patch(@Param('id') id: string, @Body() table: object) {
+  public async patch(@Param('id') id: number, @Body() table: object) {
     await Table.update(id, table);
     return Table.findOne({ id });
   }
 
   @Delete('/tables/:id/')
   @OnUndefined(204)
-  public async remove(@Param('id') id: string) {
+  public async remove(@Param('id') id: number) {
     return Table.delete({ id });
   }
 }

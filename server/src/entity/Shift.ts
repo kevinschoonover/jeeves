@@ -17,7 +17,7 @@ import { Visit } from './Visit';
 @Entity()
 export class Shift extends BaseEntity {
   @PrimaryGeneratedColumn()
-  public id: string;
+  public id: number;
 
   @Column()
   public startTime: Date;

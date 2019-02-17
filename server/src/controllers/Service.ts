@@ -16,30 +16,30 @@ import { Service } from '../entity/Service';
 
 @JsonController()
 export class ServiceController {
-  @Get('/service/')
+  @Get('/services/')
   public async getAll() {
     return Service.find();
   }
 
-  @Post('/service/')
+  @Post('/services/')
   public save(@EntityFromBody() service: Service) {
     return service.save();
   }
 
-  @Get('/service/:id/')
-  public async get(@Param('id') id: string) {
+  @Get('/services/:id/')
+  public async get(@Param('id') id: number) {
     return Service.findOne({ id });
   }
 
-  @Patch('/service/:id/')
-  public async patch(@Param('id') id: string, @Body() service: object) {
+  @Patch('/services/:id/')
+  public async patch(@Param('id') id: number, @Body() service: object) {
     await Service.update(id, service);
     return Service.findOne({ id });
   }
 
-  @Delete('/service/:id/')
+  @Delete('/services/:id/')
   @OnUndefined(204)
-  public async remove(@Param('id') id: string) {
+  public async remove(@Param('id') id: number) {
     return Service.delete({ id });
   }
 }

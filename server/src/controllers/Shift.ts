@@ -27,19 +27,19 @@ export class ShiftController {
   }
 
   @Get('/shifts/:id/')
-  public async get(@Param('id') id: string) {
+  public async get(@Param('id') id: number) {
     return Shift.findOne({ id });
   }
 
   @Patch('/shifts/:id/')
-  public async patch(@Param('id') id: string, @Body() shift: object) {
+  public async patch(@Param('id') id: number, @Body() shift: object) {
     await Shift.update(id, shift);
     return Shift.findOne({ id });
   }
 
   @Delete('/shifts/:id/')
   @OnUndefined(204)
-  public async remove(@Param('id') id: string) {
+  public async remove(@Param('id') id: number) {
     return Shift.delete({ id });
   }
 }

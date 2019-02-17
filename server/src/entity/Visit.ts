@@ -22,8 +22,8 @@ export enum paymentMethod {
 
 @Entity()
 export class Visit extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  public id: string;
+  @PrimaryGeneratedColumn()
+  public id: number;
 
   @ManyToMany((type) => Account, (account) => account.visits)
   public users: Account[];
@@ -41,11 +41,4 @@ export class Visit extends BaseEntity {
 
   @ManyToOne((type) => Transaction, (transaction) => transaction.visit)
   public transactions: Transaction[];
-
-  @Column({
-    default: paymentMethod.ALTOGETHER,
-    enum: paymentMethod,
-    type: 'enum',
-  })
-  public methodOfPayment: paymentMethod;
 }

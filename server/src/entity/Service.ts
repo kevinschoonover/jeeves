@@ -9,7 +9,10 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   PrimaryColumn,
+  OneToOne,
 } from 'typeorm';
+import { Account } from './Account';
+import { Table } from './Table';
 
 export enum serviceType {
   REFILL_DRINK = 'refill_drink',
@@ -23,13 +26,13 @@ export enum serviceType {
 @Entity()
 export class Service extends BaseEntity {
   @PrimaryGeneratedColumn()
-  public id: string;
+  public id: number;
 
-  @PrimaryColumn()
+  @OneToOne((type) => Account, (account) => account.id)
   public userId: string;
 
-  @PrimaryColumn()
-  public tableId: string;
+  @OneToOne((type) => Table, (table) => table.id)
+  public tableId: number;
 
   @Column({
     default: serviceType.UNKNOWN,

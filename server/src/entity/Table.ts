@@ -22,7 +22,7 @@ export enum tableStatus {
 @Entity()
 export class Table extends BaseEntity {
   @PrimaryGeneratedColumn()
-  public id: string;
+  public id: number;
 
   @Column()
   public seatingCapacity: number;
