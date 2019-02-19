@@ -20,14 +20,11 @@ export class Transaction extends BaseEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @OneToOne((type) => Visit, (visit) => visit.id)
-  public visitId: number;
-
-  @OneToOne((type) => Account, (account) => account.id)
-  public userId: string;
-
   @OneToMany((type) => Visit, (visit) => visit.transactions)
   public visit: Visit;
+
+  @OneToMany((type) => Account, (account) => account.transactions)
+  public user: Account;
 
   @CreateDateColumn()
   public time: Date;

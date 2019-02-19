@@ -8,9 +8,12 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 
 import { Shift } from './Shift';
+import { Transaction } from './Transaction';
 import { Visit } from './Visit';
 
 @Entity()
@@ -49,6 +52,9 @@ export class Account extends BaseEntity {
 
   @OneToMany((type) => Shift, (shift) => shift.server)
   public shifts: Shift[];
+
+  @ManyToOne((type) => Transaction, (transaction) => transaction.user)
+  public transactions: Transaction[];
 
   @ManyToMany((type) => Visit, (visit) => visit.users)
   public visits: Visit[];
