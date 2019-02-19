@@ -23,9 +23,9 @@ export class Menu extends BaseEntity {
   })
   public isActive: boolean;
 
-  @OneToMany(() => MenuItem, (menuitem) => menuitem.menu)
+  @OneToMany((type) => MenuItem, (menuitem) => menuitem.menu)
   public menuItems: MenuItem[];
 
-  @ManyToOne(() => Restaurant, (restaurant) => restaurant.menus)
+  @ManyToOne((type) => Restaurant, (restaurant) => restaurant.menus)
   public restaurant: Restaurant;
 }

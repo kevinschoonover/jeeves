@@ -3,10 +3,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
+  ManyToMany,
   ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+import { InventoryItem } from './InventoryItem';
 import { Menu } from './Menu';
+import { Review } from './Review';
 
 export enum itemCategorys {
   STARTER = 'starter',
@@ -54,13 +58,8 @@ export class MenuItem extends BaseEntity {
   public price: number;
 
   @Column({
-    type: 'simple-array',
-    default: [],
-  })
-  ingredients: string[];
-
-  @Column({
     type: 'simple-json',
+    nullable: true,
   })
   public nutrition: {};
 
@@ -95,7 +94,8 @@ export class MenuItem extends BaseEntity {
   public spicyLevel: number;
 
   @Column({
-    default: null,
+    default: 'default.jpg',
+    nullable: true,
   })
   public imgPath: string;
 
@@ -121,6 +121,15 @@ export class MenuItem extends BaseEntity {
   })
   public isActive: boolean;
 
-  @ManyToOne(() => Menu, (menu) => menu.menuItems)
+  @OneToMany((type) => Review, (review) => review.menuItem)
+  public reviews: Review[];
+
+  @ManyToOne((type) => Menu, (menu) => menu.menuItems)
   public menu: Menu;
+
+  @ManyToMany(
+    (type) => InventoryItem,
+    (inventoryitem) => inventoryitem.menuItems
+  )
+  public ingredients: InventoryItem[];
 }

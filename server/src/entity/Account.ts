@@ -16,6 +16,9 @@ import { Service } from './Service';
 import { Shift } from './Shift';
 import { Transaction } from './Transaction';
 import { Visit } from './Visit';
+import { Restaurant } from './Restaurant';
+import { Reservation } from './Reservation';
+import { Review } from './Review';
 
 @Entity()
 export class Account extends BaseEntity {
@@ -54,6 +57,7 @@ export class Account extends BaseEntity {
   @OneToMany((type) => Shift, (shift) => shift.server)
   public shifts: Shift[];
 
+
   @ManyToOne((type) => Transaction, (transaction) => transaction.user)
   public transactions: Transaction[];
 
@@ -62,4 +66,13 @@ export class Account extends BaseEntity {
 
   @ManyToMany((type) => Visit, (visit) => visit.users)
   public visits: Visit[];
+
+  @OneToMany((type) => Review, (review) => review.reviewer)
+  public reviews: Review[];
+
+  @ManyToMany((type) => Restaurant, (restaurant) => restaurant.managers)
+  public restaurants: Restaurant[];
+
+  @ManyToMany((type) => Reservation, (reservation) => reservation.guests)
+  public reservations: Reservation[];
 }

@@ -4,11 +4,14 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  ManyToOne,
   OneToMany,
-  JoinTable,
+  ManyToMany,
+  ManyToOne,
 } from 'typeorm';
 import { Menu } from './Menu';
+import { Account } from './Account';
+import { Reservation } from './Reservation';
+import { Review } from './Review';
 
 export enum cuisineTypes {
   AMERICAN = 'American',
@@ -57,7 +60,7 @@ export class Restaurant extends BaseEntity {
   public location: {};
 
   @Column({
-    default: null,
+    default: 'default_img.jpg',
   })
   public imgPath: string;
 
@@ -101,6 +104,30 @@ export class Restaurant extends BaseEntity {
   })
   public isActive: boolean;
 
-  @OneToMany(() => Menu, (menu) => menu.restaurant)
+  @Column({
+    default: false,
+  })
+  public hasWifi: boolean;
+
+  @Column({
+    default: false,
+  })
+  public hasTV: boolean;
+
+  @Column({
+    default: false,
+  })
+  public hasParking: boolean;
+
+  @OneToMany((type) => Menu, (menu) => menu.restaurant)
   public menus: Menu[];
+
+  @OneToMany((type) => Review, (review) => review.restaurant)
+  public reviews: Review[];
+
+  @ManyToMany((type) => Account, (account) => account.restaurants)
+  public managers: Account[];
+
+  @ManyToOne((type) => Reservation, (reservation) => reservation.restaurant)
+  public reservations: Reservation[];
 }
