@@ -24,6 +24,12 @@ Then, install [docker](https://docs.docker.com/toolbox/toolbox_install_windows/)
 and [docker-compose](https://docs.docker.com/compose/install/) for the server.
 
 ## Starting Client(s)
+Before starting a client, you need to build the `common` package. This package will hold all reusable UI components and utilities that might be commonly used with all clients. To build the `common` package, navigate to `clients/common` and run:
+```bash
+yarn build
+```
+If you plan on adding any code into the `common` package, you need to rebuild the package before using it any other packages, so you'll need to run `yarn build` after every change or you can run `yarn watch`, so Typescript will watch the files in `common/src` and automatically rebuild whenever it detects any changes.
+
 To start up a client for development, navigate to the client's directory and run:
 ```bash
 yarn start
