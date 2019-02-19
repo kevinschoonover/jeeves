@@ -8,12 +8,18 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 
+import { Service } from './Service';
 import { Shift } from './Shift';
+import { Transaction } from './Transaction';
+import { Visit } from './Visit';
 import { Restaurant } from './Restaurant';
 import { Reservation } from './Reservation';
 import { Review } from './Review';
+
 @Entity()
 export class Account extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -50,6 +56,16 @@ export class Account extends BaseEntity {
 
   @OneToMany((type) => Shift, (shift) => shift.server)
   public shifts: Shift[];
+
+
+  @ManyToOne((type) => Transaction, (transaction) => transaction.user)
+  public transactions: Transaction[];
+
+  @ManyToOne((type) => Service, (service) => service.user)
+  public services: Service[];
+
+  @ManyToMany((type) => Visit, (visit) => visit.users)
+  public visits: Visit[];
 
   @OneToMany((type) => Review, (review) => review.reviewer)
   public reviews: Review[];

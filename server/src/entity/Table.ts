@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 
 import { Section } from './Section';
+import { Service } from './Service';
 
 export enum tableStatus {
   OPEN = 'open',
@@ -22,7 +23,7 @@ export enum tableStatus {
 @Entity()
 export class Table extends BaseEntity {
   @PrimaryGeneratedColumn()
-  public id: string;
+  public id: number;
 
   @Column()
   public seatingCapacity: number;
@@ -33,6 +34,9 @@ export class Table extends BaseEntity {
     type: 'enum',
   })
   public status: tableStatus;
+
+  @ManyToOne((type) => Service, (service) => service.table)
+  public services: Service[];
 
   @Column({
     default: false,

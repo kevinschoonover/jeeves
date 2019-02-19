@@ -12,11 +12,12 @@ import {
 
 import { Account } from './Account';
 import { Section } from './Section';
+import { Visit } from './Visit';
 
 @Entity()
 export class Shift extends BaseEntity {
   @PrimaryGeneratedColumn()
-  public id: string;
+  public id: number;
 
   @Column()
   public startTime: Date;
@@ -29,4 +30,7 @@ export class Shift extends BaseEntity {
 
   @ManyToOne((type) => Section, (section) => section.tables)
   public section: Section;
+
+  @ManyToOne((type) => Visit, (visit) => visit.assignee)
+  public visits: Visit[];
 }
