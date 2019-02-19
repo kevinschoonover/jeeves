@@ -22,16 +22,66 @@ const styles = (theme: Theme) =>
     grid: {
       marginTop: '75px',
     },
+    input: {
+      display: 'none',
+    },
+    button_entrees: {
+      color: 'green',
+      margin: theme.spacing.unit,
+    },
+    button_starter: {
+      color: 'red',
+      margin: theme.spacing.unit,
+    },
+    button_dessert: {
+      color: 'purple',
+      margin: theme.spacing.unit,
+    },
+    button_drink: {
+      color: 'blue',
+      margin: theme.spacing.unit,
+    },
   });
 
 const menucards = [
   {
     id: 1,
     avatar: '1',
-    title: 'Big Mac',
-    subheader: 'Our Class Burger',
-    image: '',
-    description: 'This is a test, hope it works',
+    title: 'Sweet and Sour Chicken',
+    category: 'entree',
+    subheader: '$5.60/$8.36',
+    image: './paella.jpg',
+    description:
+      'Sweet & Sour sauce, chicken, pineapple, onion, bell peppers, ginge',
+  },
+  {
+    id: 2,
+    avatar: '2',
+    title: 'Kung Pao Chicken',
+    category: 'entree',
+    subheader: '$5.60/$8.36',
+    image: '/clients/ordering/photos/sweetsour.jpg',
+    description:
+      'Spicy Sichuan chili sauce, chicken, peanuts, green onion, red chili peppers.',
+  },
+  {
+    id: 3,
+    avatar: '3',
+    title: 'Orange Chicken',
+    category: 'entree',
+    subheader: '$5.60/$8.36',
+    image: '/clients/ordering/photos/sweetsour.jpg',
+    description: 'Hunan chili sauce, chicken, fresh orange slices.',
+  },
+  {
+    id: 4,
+    avatar: '4',
+    title: 'Mongolian Beef',
+    category: 'starter',
+    subheader: '$5.95/$8.75',
+    image: '/clients/ordering/photos/sweetsour.jpg',
+    description:
+      'Sweet soy glaze, flank steak, garlic and snipped green onion.',
   },
 ];
 
@@ -44,9 +94,31 @@ const App: React.FC<Props> = ({ classes }) => {
     setCount((prevCount) => (prevCount + 1) % 10);
   };
 
+  const allEntrees = () => {
+    // menucards = menucards.filter((menucard) => menucard.category === 'entree');
+  };
+
   return (
     <div className={classes.root}>
       <h1>Menu Items</h1>
+      <div>
+        <Button variant={'outlined'} className={classes.button_starter}>
+          Starters
+        </Button>
+        <Button
+          variant={'outlined'}
+          className={classes.button_entrees}
+          onClick={allEntrees}
+        >
+          Entrees
+        </Button>
+        <Button variant={'outlined'} className={classes.button_dessert}>
+          Desserts
+        </Button>
+        <Button variant={'outlined'} className={classes.button_drink}>
+          Drinks
+        </Button>
+      </div>
       <Grid
         className={classes.grid}
         container={true}
@@ -54,33 +126,9 @@ const App: React.FC<Props> = ({ classes }) => {
         alignItems={'center'}
         justify={'space-evenly'}
       >
-        <Grid item={true}>
-          <MenuCard
-            avatar="1"
-            title="Sweet and Sour Pork"
-            subheader="$5.60/$8.36"
-            image="./paella.jpg"
-            description="Sweet and Sour Chicken with crispy chicken, pineapple and bell peppers just like your favorite takeout place without the food coloring."
-          />
-        </Grid>
-        <Grid item={true}>
-          <MenuCard
-            avatar="2"
-            title="General Tso's Chicken"
-            subheader="$5.60/$8.36"
-            image="/clients/ordering/photos/sweetsour.jpg"
-            description="With a flair of peanut oil, a streak of sesame, a dash of orange, and a sweet spot for hot, this is sure to be a favorite. Serve with steamed broccoli and white rice."
-          />
-        </Grid>
-        <Grid item={true}>
-          <MenuCard
-            avatar="3"
-            title="Orange Chicken"
-            subheader="$5.60/$8.36"
-            image="/clients/ordering/photos/sweetsour.jpg"
-            description="Our signature dish. Crispy chicken wok-tossed in a sweet and spicy orange sauce."
-          />
-        </Grid>
+        {menucards.map((menucard) => (
+          <MenuCard key={menucard.id} {...menucard} />
+        ))}
       </Grid>
     </div>
   );
