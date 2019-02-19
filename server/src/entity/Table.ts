@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 
 import { Section } from './Section';
+import { Service } from './Service';
 
 export enum tableStatus {
   OPEN = 'open',
@@ -33,6 +34,9 @@ export class Table extends BaseEntity {
     type: 'enum',
   })
   public status: tableStatus;
+
+  @ManyToOne((type) => Service, (service) => service.table)
+  public services: Service[];
 
   @Column({
     default: false,

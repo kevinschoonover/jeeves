@@ -12,6 +12,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 
+import { Service } from './Service';
 import { Shift } from './Shift';
 import { Transaction } from './Transaction';
 import { Visit } from './Visit';
@@ -55,6 +56,9 @@ export class Account extends BaseEntity {
 
   @ManyToOne((type) => Transaction, (transaction) => transaction.user)
   public transactions: Transaction[];
+
+  @ManyToOne((type) => Service, (service) => service.user)
+  public services: Service[];
 
   @ManyToMany((type) => Visit, (visit) => visit.users)
   public visits: Visit[];
