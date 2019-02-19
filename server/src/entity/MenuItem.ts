@@ -8,8 +8,10 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { InventoryItem } from './InventoryItem';
 import { Menu } from './Menu';
+import { Order } from './Order';
 import { Review } from './Review';
 
 export enum itemCategorys {
@@ -121,9 +123,6 @@ export class MenuItem extends BaseEntity {
   })
   public isActive: boolean;
 
-  @OneToMany((type) => Review, (review) => review.menuItem)
-  public reviews: Review[];
-
   @ManyToOne((type) => Menu, (menu) => menu.menuItems)
   public menu: Menu;
 
@@ -132,4 +131,10 @@ export class MenuItem extends BaseEntity {
     (inventoryitem) => inventoryitem.menuItems
   )
   public ingredients: InventoryItem[];
+
+  @ManyToMany((type) => Order, (order) => order.menuItems)
+  public orders: Order[];
+
+  @OneToMany((type) => Review, (review) => review.menuItem)
+  public reviews: Review[];
 }
