@@ -24,6 +24,7 @@ export class AccountController {
   @OpenAPI({
     summary: 'Returns all Accounts registered in the database',
   })
+  @ResponseSchema(Account)
   public async getAll() {
     return Account.find();
   }

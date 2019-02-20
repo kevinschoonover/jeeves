@@ -1,17 +1,19 @@
 // Basic Routes
 import * as Koa from 'koa';
 import * as Router from 'koa-router';
+import { getFromContainer, MetadataStorage } from 'class-validator';
 import { routingControllersToSpec } from 'routing-controllers-openapi';
+import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
 import { getMetadataArgsStorage } from 'routing-controllers';
-
+import * as controllers from '../controllers';
+import { spec } from '../app';
 const router = new Router();
 
 /**
  * Base route, return a 401
  */
 router.get('', async (ctx: Koa.ParameterizedContext) => {
-  const storage = getMetadataArgsStorage();
-  const spec = routingControllersToSpec(storage);
+  console.log(spec);
   ctx.body = JSON.stringify(spec, null, 2);
   ctx.status = 200;
 });
