@@ -1,8 +1,15 @@
 import React from 'react';
-import { withStyles, createStyles, WithStyles, Theme } from '@material-ui/core';
+import {
+  withStyles,
+  createStyles,
+  WithStyles,
+  Theme,
+  LinearProgress,
+} from '@material-ui/core';
 import classNames from 'classnames';
 import grey from '@material-ui/core/colors/grey';
 import Table from './Table';
+import { Section } from '../mocks';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -17,6 +24,9 @@ const styles = (theme: Theme) =>
       [theme.breakpoints.down('lg')]: {
         overflowX: 'scroll',
       },
+    },
+    loader: {
+      width: '100vw',
     },
     element: {
       alignItems: 'center',
@@ -36,117 +46,57 @@ const styles = (theme: Theme) =>
     },
     three: {
       gridColumn: '2 / 5',
-      gridRow: '3 / 7',
+      gridRow: '3 / 5',
       display: 'flex',
       flexDirection: 'row',
     },
     four: {
       gridColumn: '2 / 5',
-      gridRow: '7 / 10',
+      gridRow: '5 / 10',
       display: 'flex',
       flexFlow: 'row wrap',
       justifyContent: 'space-around',
     },
   });
 
-export enum TableStatus {
-  OPEN = 'open',
-  ORDERING = 'ordering',
-  EATING = 'eating',
-  CLEANING = 'cleaning',
-}
-
-const tables = [
-  {
-    id: 1,
-    x: 100,
-    y: 100,
-    width: 200,
-    height: 200,
-    details: {
-      seatingCapacity: 4,
-      status: TableStatus.OPEN,
-    },
-  },
-  {
-    id: 2,
-    x: 500,
-    y: 100,
-    width: 200,
-    height: 200,
-    details: {
-      seatingCapacity: 4,
-      status: TableStatus.OPEN,
-    },
-  },
-  {
-    id: 3,
-    x: 900,
-    y: 100,
-    width: 200,
-    height: 200,
-    details: {
-      seatingCapacity: 4,
-      status: TableStatus.OPEN,
-    },
-  },
-  {
-    id: 4,
-    x: 100,
-    y: 500,
-    width: 200,
-    height: 200,
-    details: {
-      seatingCapacity: 4,
-      status: TableStatus.OPEN,
-    },
-  },
-  {
-    id: 5,
-    x: 500,
-    y: 500,
-    width: 200,
-    height: 200,
-    details: {
-      seatingCapacity: 4,
-      status: TableStatus.OPEN,
-    },
-  },
-  {
-    id: 6,
-    x: 900,
-    y: 500,
-    width: 200,
-    height: 200,
-    details: {
-      seatingCapacity: 4,
-      status: TableStatus.OPEN,
-    },
-  },
-];
-
-interface Table {
-  id: number;
-  details: {
-    seatingCapacity: number;
-    status: TableStatus;
-  };
-}
-
 export interface LayoutProps extends WithStyles<typeof styles> {
   yOffset: number;
+  sections: Section[];
+  isLoading: boolean;
+  setSelectedTable: (tableId: number) => () => void;
 }
 
-const Layout: React.FC<LayoutProps> = ({ classes, yOffset }) => {
-  const [selectedTable, setSelectedTable] = React.useState<string | null>(null);
-  const handleTableClick = () => {
-    setSelectedTable('1');
-  };
-
+const Layout: React.FC<LayoutProps> = ({
+  classes,
+  yOffset,
+  sections,
+  isLoading,
+  setSelectedTable,
+}) => {
   const one = classNames(classes.element, classes.one);
   const two = classNames(classes.element, classes.two);
   const three = classNames(classes.element, classes.three);
   const four = classNames(classes.element, classes.four);
+
+  const sectionTableStyles = {
+    one: {
+      className: one,
+      shape: 'rectangle',
+      orientation: 'horizontal',
+    },
+    two: {
+      className: two,
+      shape: 'rectangle',
+    },
+    three: {
+      className: three,
+      shape: 'circle',
+    },
+    four: {
+      className: four,
+      shape: 'circle',
+    },
+  } as any;
 
   return (
     <div
@@ -155,129 +105,30 @@ const Layout: React.FC<LayoutProps> = ({ classes, yOffset }) => {
         top: yOffset,
       }}
     >
-      <div className={one}>
-        <Table
-          onTableClick={handleTableClick}
-          shape="square"
-          details={{ seatingCapacity: 4, status: TableStatus.OPEN }}
-        >
-          1
-        </Table>
-        <Table
-          onTableClick={handleTableClick}
-          shape="rectangle"
-          orientation="horizontal"
-          details={{ seatingCapacity: 8, status: TableStatus.CLEANING }}
-        >
-          2
-        </Table>
-        <Table
-          onTableClick={handleTableClick}
-          shape="rectangle"
-          orientation="horizontal"
-          details={{ seatingCapacity: 8, status: TableStatus.ORDERING }}
-        >
-          3
-        </Table>
-        <Table
-          onTableClick={handleTableClick}
-          shape="rectangle"
-          orientation="horizontal"
-          details={{ seatingCapacity: 8, status: TableStatus.EATING }}
-        >
-          4
-        </Table>
-      </div>
-      <div className={two}>
-        <Table
-          shape="rectangle"
-          onTableClick={handleTableClick}
-          details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
-        >
-          Two
-        </Table>
-        <Table
-          shape="rectangle"
-          onTableClick={handleTableClick}
-          details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
-        >
-          Two
-        </Table>
-        <Table
-          shape="rectangle"
-          onTableClick={handleTableClick}
-          details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
-        >
-          Two
-        </Table>
-      </div>
-      <div className={three}>
-        <Table
-          shape="rectangle"
-          onTableClick={handleTableClick}
-          details={{ seatingCapacity: 8, status: TableStatus.OPEN }}
-        >
-          Three
-        </Table>
-        <Table
-          shape="rectangle"
-          onTableClick={handleTableClick}
-          details={{ seatingCapacity: 8, status: TableStatus.OPEN }}
-        >
-          Three
-        </Table>
-        <Table
-          shape="circle"
-          onTableClick={handleTableClick}
-          details={{ seatingCapacity: 8, status: TableStatus.OPEN }}
-        >
-          Three
-        </Table>
-      </div>
-      <div className={four}>
-        <Table
-          shape="circle"
-          onTableClick={handleTableClick}
-          details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
-        >
-          Three
-        </Table>
-        <Table
-          shape="circle"
-          onTableClick={handleTableClick}
-          details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
-        >
-          Three
-        </Table>
-        <Table
-          shape="circle"
-          onTableClick={handleTableClick}
-          details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
-        >
-          Three
-        </Table>
-        <Table
-          shape="circle"
-          onTableClick={handleTableClick}
-          details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
-        >
-          Three
-        </Table>
-        <Table
-          shape="circle"
-          onTableClick={handleTableClick}
-          details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
-        >
-          Three
-        </Table>
-        <Table
-          shape="circle"
-          onTableClick={handleTableClick}
-          details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
-        >
-          Three
-        </Table>
-      </div>
+      {isLoading && !sections.length ? (
+        <LinearProgress className={classes.loader} />
+      ) : (
+        sections.map((section) => (
+          <div
+            key={section.sectionId}
+            className={sectionTableStyles[section.className].className}
+          >
+            {section.tables.map((table) => (
+              <Table
+                key={table.id}
+                onTableClick={setSelectedTable(table.id)}
+                details={{
+                  seatingCapacity: table.seatingCapacity,
+                  status: table.status,
+                }}
+                {...sectionTableStyles[section.className]}
+              >
+                {table.id}
+              </Table>
+            ))}
+          </div>
+        ))
+      )}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import Rectangle, { RectangleColor, Orientation } from './tables/Rectangle';
 import Circle from './tables/Circle';
-import { TableStatus } from './Layout';
+import { TableStatus } from '../mocks';
 
 export interface TableProps {
   // TODO: This shouldn't have to be a prop of the Table
