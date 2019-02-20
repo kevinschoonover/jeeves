@@ -1,20 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  createMuiTheme,
   MuiThemeProvider as ThemeProvider,
   CssBaseline,
 } from '@material-ui/core';
+import { theme } from '@jeeves/common';
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
-const theme = createMuiTheme({
-  typography: {
-    useNextVariants: true,
-  },
-});
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

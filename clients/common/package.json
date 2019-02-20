@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "name": "@jeeves/common",
+  "version": "1.0.0",
+  "description": "Reusable components and utilities for all Jeeves clients.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "watch": "tsc --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@material-ui/core": "3.9.2",
+    "react": "16.8.2",
+    "react-dom": "16.8.2"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.2",
+    "@types/react-dom": "^16.8.0",
+    "rimraf": "^2.6.3",
+    "typescript": "3.3.1"
+  }
+}
