@@ -10,7 +10,7 @@ Welcome to Jeeves!
 Assuming you've installed node and yarn, run the following command to setup the project and install all required dependencies.
 
 ```bash
-yarn bootstrap
+yarn install
 ```
 
 If you're using VS Code (or any other editor), I'd recommend installing the extensions `Prettier` and `Tslint` and updating your `settings.json` to include:
@@ -24,6 +24,12 @@ Then, install [docker](https://docs.docker.com/toolbox/toolbox_install_windows/)
 and [docker-compose](https://docs.docker.com/compose/install/) for the server.
 
 ## Starting Client(s)
+Before starting a client, you need to build the `common` package. This package will hold all reusable UI components and utilities that might be commonly used with all clients. To build the `common` package, navigate to `clients/common` and run:
+```bash
+yarn build
+```
+If you plan on adding any code into the `common` package, you need to rebuild the package before using it any other packages, so you'll need to run `yarn build` after every change or you can run `yarn watch`, so Typescript will watch the files in `common/src` and automatically rebuild whenever it detects any changes.
+
 To start up a client for development, navigate to the client's directory and run:
 ```bash
 yarn start
@@ -32,36 +38,35 @@ yarn start
 This will start a local dev server at [localhost:3000](http://localhost:3000) where you can view your live changes. Making a change in one of your files will automatically update in the browser (i.e. you don't have to refresh the page!).
 
 ## Starting Server
-To start the server and all dependencies, run:
+### Linux
+To start the server and install all dependencies, run the following in the root
+project directory:
 ```
 $ docker-compose up
 ```
 
-On Windows,
-start Docker QuickStart Terminal
-run 
+Wait a few seconds for docker to spin up and then navigate to
+``http://localhost`` on your favorite web browser. You should see 'Hello,
+World!'.
+
+### Windows or Mac
+Start the Docker QuickStart Terminal, navigate to the root project directory,
+and run:
 ```
 $ docker-compose up
 ```
-in the project directory
 
-open up another Docker Quickstart Terminal and run
+Then, open another Docker Quickstart Terminal and get the IP address of the
+docker host by running:
 ```
-$ echo $DOCKER_HOST
+$ echo $DOCKER_HOST // Echo to terminal your current DOCKER_HOSt
+// or
+$ docker-machine ls // List all running docker machines
 ```
-to get the IP address 
 
-or run  
-```
-$ docker-machine ls
-```
-to see a list of running machines.
-
-
-
-
-Then, navigate to ``http://localhost/``, or  ``http://(your ip)`` if Windows, on your favorite web browser. You should
-see 'Hello, World!'.
+Wait a few seconds for docker to spin up and then navigate to
+``http://$(DOCKER_HOST)`` (where $DOCKER_HOST is the IP output by the previous
+command) on your favorite web browser. You should see 'Hello, World!'.
 
 ## Note(s)
 If you plan on running multiple clients, you should repeat the previous instructions for each client. However, create-react-app will try to start the dev server on port 3000 and if that is taken, it will try to start on the next available port (i.e. 3001, 3002, etc).
