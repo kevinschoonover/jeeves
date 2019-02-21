@@ -26,15 +26,15 @@ export class Shift extends BaseEntity {
   @Column()
   public endTime: Date;
 
+  @OneToMany((type) => Order, (order) => order.shift)
+  public orders: Order[];
+
+  @OneToMany((type) => Visit, (visit) => visit.assignee)
+  public visits: Visit[];
+
   @ManyToOne((type) => Account, (account) => account.shifts)
   public server: Account;
 
-  @ManyToOne((type) => Section, (section) => section.tables)
-  public section: Section;
-
-  @ManyToOne((type) => Order, (order) => order.shift)
-  public orders: Order[];
-
-  @ManyToOne((type) => Visit, (visit) => visit.assignee)
-  public visits: Visit[];
+  @ManyToMany((type) => Section, (section) => section.shifts)
+  public sections: Section[];
 }

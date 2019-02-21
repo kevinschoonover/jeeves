@@ -32,14 +32,14 @@ export class Visit extends BaseEntity {
   @Column()
   public departure: Date;
 
-  @OneToMany((type) => Shift, (shift) => shift.visits)
-  public assignee: Shift;
-
-  @ManyToOne((type) => Order, (order) => order.shift)
+  @OneToMany((type) => Order, (order) => order.shift)
   public orders: Order[];
 
-  @ManyToOne((type) => Transaction, (transaction) => transaction.visit)
+  @OneToMany((type) => Transaction, (transaction) => transaction.visit)
   public transactions: Transaction[];
+
+  @ManyToOne((type) => Shift, (shift) => shift.visits)
+  public assignee: Shift;
 
   @ManyToMany((type) => Account, (account) => account.visits)
   public users: Account[];

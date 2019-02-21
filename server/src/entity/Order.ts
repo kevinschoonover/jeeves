@@ -18,10 +18,10 @@ export class Order extends BaseEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @OneToMany((type) => Shift, (shift) => shift.orders)
+  @ManyToOne((type) => Shift, (shift) => shift.orders)
   public shift: Shift;
 
-  @OneToMany((type) => Visit, (visit) => visit.orders)
+  @ManyToOne((type) => Visit, (visit) => visit.orders)
   public visit: Visit;
 
   @ManyToMany((type) => MenuItem, (menuItem) => menuItem.orders)
