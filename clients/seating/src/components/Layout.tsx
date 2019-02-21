@@ -3,6 +3,7 @@ import { withStyles, createStyles, WithStyles, Theme } from '@material-ui/core';
 import classNames from 'classnames';
 import grey from '@material-ui/core/colors/grey';
 import Table from './Table';
+import Reserve from '../Dialogs/Reserve';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -139,8 +140,18 @@ export interface LayoutProps extends WithStyles<typeof styles> {
 
 const Layout: React.FC<LayoutProps> = ({ classes, yOffset }) => {
   const [selectedTable, setSelectedTable] = React.useState<string | null>(null);
-  const handleTableClick = () => {
-    setSelectedTable('1');
+  const handleTableClick = (tableId: string) => () => {
+    setSelectedTable(tableId);
+  };
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClickClose = () => {
+    setOpen(false);
   };
 
   const one = classNames(classes.element, classes.one);
@@ -156,15 +167,16 @@ const Layout: React.FC<LayoutProps> = ({ classes, yOffset }) => {
       }}
     >
       <div className={one}>
+        <Reserve open={open} onClose={handleClickClose} />
         <Table
-          onTableClick={handleTableClick}
+          onTableClick={handleClickOpen}
           shape="square"
           details={{ seatingCapacity: 4, status: TableStatus.OPEN }}
         >
           1
         </Table>
         <Table
-          onTableClick={handleTableClick}
+          onTableClick={handleClickOpen}
           shape="rectangle"
           orientation="horizontal"
           details={{ seatingCapacity: 8, status: TableStatus.CLEANING }}
@@ -172,7 +184,7 @@ const Layout: React.FC<LayoutProps> = ({ classes, yOffset }) => {
           2
         </Table>
         <Table
-          onTableClick={handleTableClick}
+          onTableClick={handleClickOpen}
           shape="rectangle"
           orientation="horizontal"
           details={{ seatingCapacity: 8, status: TableStatus.ORDERING }}
@@ -180,7 +192,7 @@ const Layout: React.FC<LayoutProps> = ({ classes, yOffset }) => {
           3
         </Table>
         <Table
-          onTableClick={handleTableClick}
+          onTableClick={handleClickOpen}
           shape="rectangle"
           orientation="horizontal"
           details={{ seatingCapacity: 8, status: TableStatus.EATING }}
@@ -191,21 +203,21 @@ const Layout: React.FC<LayoutProps> = ({ classes, yOffset }) => {
       <div className={two}>
         <Table
           shape="rectangle"
-          onTableClick={handleTableClick}
+          onTableClick={handleClickOpen}
           details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
         >
           Two
         </Table>
         <Table
           shape="rectangle"
-          onTableClick={handleTableClick}
+          onTableClick={handleClickOpen}
           details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
         >
           Two
         </Table>
         <Table
           shape="rectangle"
-          onTableClick={handleTableClick}
+          onTableClick={handleClickOpen}
           details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
         >
           Two
@@ -214,21 +226,21 @@ const Layout: React.FC<LayoutProps> = ({ classes, yOffset }) => {
       <div className={three}>
         <Table
           shape="rectangle"
-          onTableClick={handleTableClick}
+          onTableClick={handleClickOpen}
           details={{ seatingCapacity: 8, status: TableStatus.OPEN }}
         >
           Three
         </Table>
         <Table
           shape="rectangle"
-          onTableClick={handleTableClick}
+          onTableClick={handleClickOpen}
           details={{ seatingCapacity: 8, status: TableStatus.OPEN }}
         >
           Three
         </Table>
         <Table
           shape="circle"
-          onTableClick={handleTableClick}
+          onTableClick={handleClickOpen}
           details={{ seatingCapacity: 8, status: TableStatus.OPEN }}
         >
           Three
@@ -237,42 +249,42 @@ const Layout: React.FC<LayoutProps> = ({ classes, yOffset }) => {
       <div className={four}>
         <Table
           shape="circle"
-          onTableClick={handleTableClick}
+          onTableClick={handleClickOpen}
           details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
         >
           Three
         </Table>
         <Table
           shape="circle"
-          onTableClick={handleTableClick}
+          onTableClick={handleClickOpen}
           details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
         >
           Three
         </Table>
         <Table
           shape="circle"
-          onTableClick={handleTableClick}
+          onTableClick={handleClickOpen}
           details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
         >
           Three
         </Table>
         <Table
           shape="circle"
-          onTableClick={handleTableClick}
+          onTableClick={handleClickOpen}
           details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
         >
           Three
         </Table>
         <Table
           shape="circle"
-          onTableClick={handleTableClick}
+          onTableClick={handleClickOpen}
           details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
         >
           Three
         </Table>
         <Table
           shape="circle"
-          onTableClick={handleTableClick}
+          onTableClick={handleClickOpen}
           details={{ seatingCapacity: 2, status: TableStatus.OPEN }}
         >
           Three
