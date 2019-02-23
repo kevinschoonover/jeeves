@@ -19,7 +19,7 @@
     "image:run": "docker run -p 3000:3000 --rm -ti jeeves",
     "start:dev": "NODE_ENV='development' nodemon --watch 'src/**/*' -e ts,tsx --exec \"ts-node\" ./src/app.ts",
     "start:prod": "NODE_ENV='production' node build/app.js",
-    "test": "NODE_ENV='test' jest",
+    "test": "jest",
     "test:watch": "NODE_ENV='test' jest --watchAll --coverage",
     "test:coverage": "NODE_ENV='test' yarn run test --coverage",
     "test:coveralls": "NODE_ENV='test' jest --coverage && cat ./coverage/lcov.info | coveralls",
@@ -44,6 +44,7 @@
   "dependencies": {
     "@koa/cors": "^2.2.3",
     "@types/node": "^10.12.24",
+    "class-validator-jsonschema": "^1.2.0",
     "jest": "^24.1.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
@@ -56,6 +57,8 @@
     "passport-local": "^1.0.0",
     "pg": "^7.8.0",
     "routing-controllers": "^0.7.7",
+    "routing-controllers-openapi": "^1.6.0",
+    "supertest": "^3.4.2",
     "typeorm": "^0.2.12",
     "typeorm-routing-controllers-extensions": "^0.2.0"
   },

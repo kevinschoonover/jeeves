@@ -11,6 +11,7 @@ import {
   UnauthorizedError,
 } from 'routing-controllers';
 import { EntityFromBody } from 'typeorm-routing-controllers-extensions';
+import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 
 import { Menu } from '../entity/Menu';
 

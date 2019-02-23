@@ -12,6 +12,10 @@ import { config } from './config';
 import { router } from './routes';
 
 import * as controllers from './controllers';
+import { getFromContainer, MetadataStorage } from 'class-validator';
+import { routingControllersToSpec } from 'routing-controllers-openapi';
+import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
+import { getMetadataArgsStorage } from 'routing-controllers';
 
 export const app = new Koa();
 
@@ -57,3 +61,30 @@ if (!module.parent) {
     })
     .catch((error) => console.log('TypeORM connection error: ', error));
 }
+
+// Parse class-validator classes into JSON Schema:
+const metadatas = (getFromContainer(MetadataStorage) as any)
+  .validationMetadatas;
+const schemas = validationMetadatasToSchemas(metadatas, {
+  refPointerPrefix: '#/components/schemas/',
+});
+console.log(schemas);
+const routingControllersOptions = {
+  controllers: Object.keys(controllers).map((key) => controllers[key]),
+  routePrefix: '/api/v1',
+};
+const storage = getMetadataArgsStorage();
+export const spec = routingControllersToSpec(
+  storage,
+  routingControllersOptions,
+  {
+    components: {
+      schemas,
+    },
+    info: {
+      description: 'Generated with `routing-controllers-openapi`',
+      title: 'A sample API',
+      version: '1.0.0',
+    },
+  }
+);
