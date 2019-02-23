@@ -8,7 +8,6 @@ const router = new Router();
  * Base route, return a 401
  */
 router.get('', async (ctx: Koa.ParameterizedContext) => {
-  console.log(spec);
   ctx.body = JSON.stringify(spec, null, 2);
   ctx.status = 200;
 });
