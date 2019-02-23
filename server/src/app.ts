@@ -80,12 +80,6 @@ export const spec = routingControllersToSpec(
   {
     components: {
       schemas,
-      securitySchemes: {
-        basicAuth: {
-          scheme: 'basic',
-          type: 'http',
-        },
-      },
     },
     info: {
       description: 'Generated with `routing-controllers-openapi`',
