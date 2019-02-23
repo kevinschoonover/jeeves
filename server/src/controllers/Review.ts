@@ -18,21 +18,38 @@ import { Review } from '../entity/Review';
 @JsonController()
 export class ReviewController {
   @Get('/reviews/')
+  @OpenAPI({
+    summary: 'Returns all reviews created in the database',
+  })
   public async getAll() {
     return Review.find();
   }
 
   @Post('/reviews/')
+  @OpenAPI({
+    summary: 'Create a review',
+  })
+  @ResponseSchema(Review, {
+    contentType: 'application/json',
+    description: 'A list of created reviews',
+    statusCode: '201',
+  })
   public save(@EntityFromBody() review: Review) {
     return review.save();
   }
 
   @Get('/reviews/:id/')
+  @OpenAPI({
+    summary: 'Return the review associated with id',
+  })
   public async get(@Param('id') id: number) {
     return Review.findOne({ id });
   }
 
   @Patch('/reviews/:id/')
+  @OpenAPI({
+    summary: 'Update the fields of a review associated with id',
+  })
   public async patch(@Param('id') id: number, @Body() review: object) {
     await Review.update(id, review);
     return Review.findOne({ id });
@@ -40,6 +57,9 @@ export class ReviewController {
 
   @Delete('/reviews/:id/')
   @OnUndefined(204)
+  @OpenAPI({
+    summary: 'Delete a review associated with given id',
+  })
   public async remove(@Param('id') id: number) {
     return Review.delete({ id });
   }

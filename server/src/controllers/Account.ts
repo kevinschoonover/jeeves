@@ -1,9 +1,7 @@
-import { routingControllersToSpec } from 'routing-controllers-openapi';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 
 import {
   Body,
-  CurrentUser,
   Delete,
   Get,
   JsonController,
@@ -11,12 +9,10 @@ import {
   Param,
   Patch,
   Post,
-  getMetadataArgsStorage,
 } from 'routing-controllers';
 import { EntityFromBody } from 'typeorm-routing-controllers-extensions';
 
 import { Account } from '../entity/Account';
-import * as Auth from '../lib/auth';
 
 @JsonController()
 export class AccountController {

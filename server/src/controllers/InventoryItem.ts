@@ -7,7 +7,6 @@ import {
   Param,
   Patch,
   Post,
-  UnauthorizedError,
 } from 'routing-controllers';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 
@@ -60,6 +59,9 @@ export class InventoryItemController {
 
   @Delete('/inventoryitems/:name/')
   @OnUndefined(204)
+  @OpenAPI({
+    summary: 'Delete an inventory item associated with given name',
+  })
   public async remove(@Param('name') name: string) {
     return InventoryItem.delete({ name });
   }
