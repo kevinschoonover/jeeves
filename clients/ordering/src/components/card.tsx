@@ -76,10 +76,6 @@ const MenuCard: React.FC<MenuProps> = ({
 }) => {
   const [expanded, setExpanded] = useState<boolean>(false);
 
-  const handleExpandClick = () => () => {
-    setExpanded(!expanded);
-  };
-
   return (
     <Grid item={true}>
       <Card className={classes.card}>
@@ -119,7 +115,7 @@ const MenuCard: React.FC<MenuProps> = ({
           <IconButton
             className={classes.expand}
             aria-label="Show more"
-            onClick={handleExpandClick}
+            onClick={() => setExpanded(!expanded)}
           >
             <ExpandMoreIcon />
           </IconButton>
