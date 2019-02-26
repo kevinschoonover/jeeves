@@ -11,51 +11,27 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
 
 interface Props {
   open: boolean;
-  onClose(): void;
 }
 
-export default class FormDialog extends React.Component<Props> {
+export default class FormDialog extends React.Component {
   render() {
     return (
       <div>
-        <Dialog
-          open={this.props.open}
-          aria-labelledby="form-dialog-title"
-          onClose={this.props.onClose}
-        >
-          <DialogTitle id="form-dialog-title">Reserve Table</DialogTitle>
-          <DialogContent>
-            <List>
-              {[3, 4, 5, 6].map((value) => (
-                <ListItem
-                  key={value}
-                  role={undefined}
-                  dense={true}
-                  button={true}
-                >
-                  <Checkbox
-                    tabIndex={-1}
-                    disableRipple={true}
-                  />
-                  <ListItemText primary={`2/14/2019 ${value + 1}:30 PM`} />
-                  <ListItemSecondaryAction />
-                </ListItem>
-              ))}
-            </List>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.props.onClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.props.onClose} color="primary">
-              Reserve
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <List>
+          <p style={{ display: 'flex', justifyContent: 'left' }}>
+            {`Tables Open:`}
+          </p>
+          {[1, 2, 3, 4].map((value) => (
+            <ListItem key={value} role={undefined} dense={true} button={true}>
+              <Checkbox tabIndex={-1} disableRipple={true} />
+              <ListItemText primary={`Table: ${value} is ready.`} />
+              <ListItemSecondaryAction />
+            </ListItem>
+          ))}
+        </List>
       </div>
     );
   }

@@ -10,6 +10,15 @@ import {
 import Layout from './components/Layout';
 import Navbar from './components/Navbar';
 import { Section, fetchSeatingLayout } from './mocks';
+import Checkbox from '@material-ui/core/Checkbox';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import Reserve from './Dialogs/Reserve';
+import ListCreate from './components/List';
+import Button from '@material-ui/core/Button';
 
 const styles = () =>
   createStyles({
@@ -21,6 +30,8 @@ const styles = () =>
       flexGrow: 1,
     },
   });
+
+let clicked = false;
 
 type AppProps = WithStyles<typeof styles>;
 
@@ -34,6 +45,14 @@ const App: React.FC<AppProps> = ({ classes }) => {
 
   const handleTableClick = (tableId: number) => () => {
     setSelectedTable(tableId);
+  };
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClickClose = () => {
+    setOpen(false);
   };
 
   React.useLayoutEffect(() => {
@@ -65,9 +84,50 @@ const App: React.FC<AppProps> = ({ classes }) => {
           </Grid>
           <Hidden smDown={true}>
             <Grid item={true} xs={3}>
-              <p style={{ display: 'flex', justifyContent: 'center' }}>
-                {`Selected table: ${selectedTable || ''}`}
-              </p>
+              <div
+                style={{
+                  padding: 15,
+                }}
+              >
+                <p style={{ display: 'flex', justifyContent: 'center' }}>
+                  {`Selected table: ${selectedTable || ''}`}
+                </p>
+                <Divider />
+                {selectedTable ? null : <ListCreate />}
+                <Divider />
+                {selectedTable ? (
+                  <List>
+                    <p style={{ display: 'flex', justifyContent: 'left' }}>
+                      {`Reservation Time: February 21st 2019`}
+                    </p>
+                    {[4, 5, 6, 7].map((value) => (
+                      <ListItem
+                        key={value}
+                        role={undefined}
+                        dense={true}
+                        button={true}
+                      >
+                        <Checkbox tabIndex={-1} disableRipple={true} />
+                        <ListItemText primary={`Thursday: ${value}:30 PM`} />
+                        <ListItemSecondaryAction />
+                      </ListItem>
+                    ))}
+                  </List>
+                ) : null}
+                <Button
+                  variant="contained"
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
+                  onClick={() => {
+                    clicked = true;
+                  }}
+                >
+                  Reserve
+                </Button>
+                {clicked ? 'clicked' : 'not clicked'}
+              </div>
             </Grid>
           </Hidden>
         </Grid>

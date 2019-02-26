@@ -7,63 +7,23 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 
-const styles = (theme: any) => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-});
-
-class CheckboxList extends React.Component<Props> {
-  state = {
-    checked: [0],
-  };
-
-  handleToggle = (value: any) => () => {
-    const { checked } = this.state;
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    this.setState({
-      checked: newChecked,
-    });
-  };
-
+export default class FormDialog extends React.Component {
   render() {
-    const { classes } = this.props;
-
     return (
-      <List className={classes.root}>
-        {[0, 1, 2, 3].map((value) => (
-          <ListItem
-            key={value}
-            role={undefined}
-            dense={true}
-            button={true}
-            onClick={this.handleToggle(value)}
-          >
-            <Checkbox
-              checked={this.state.checked.indexOf(value) !== -1}
-              tabIndex={-1}
-              disableRipple={true}
-            />
-            <ListItemText primary={`Line item ${value + 1}`} />
-          </ListItem>
-        ))}
-      </List>
+      <div>
+        <List>
+          <p style={{ display: 'flex', justifyContent: 'left' }}>
+            {`Tables Open:`}
+          </p>
+          {[1, 2, 3, 4].map((value) => (
+            <ListItem key={value} role={undefined} dense={true} button={true}>
+              <Checkbox tabIndex={-1} disableRipple={true} />
+              <ListItemText primary={`Table: ${value} is ready.`} />
+              <ListItemSecondaryAction />
+            </ListItem>
+          ))}
+        </List>
+      </div>
     );
   }
 }
-
-CheckboxList.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(CheckboxList);
