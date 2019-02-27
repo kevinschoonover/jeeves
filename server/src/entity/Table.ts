@@ -12,6 +12,7 @@ import {
 
 import { Section } from './Section';
 import { Service } from './Service';
+import { IsNumber, IsEnum, IsArray, IsBoolean } from 'class-validator';
 
 export enum tableStatus {
   OPEN = 'open',
@@ -23,9 +24,11 @@ export enum tableStatus {
 @Entity()
 export class Table extends BaseEntity {
   @PrimaryGeneratedColumn()
+  @IsNumber()
   public id: number;
 
   @Column()
+  @IsNumber()
   public seatingCapacity: number;
 
   @Column({
@@ -33,14 +36,17 @@ export class Table extends BaseEntity {
     enum: tableStatus,
     type: 'enum',
   })
+  @IsEnum(tableStatus)
   public status: tableStatus;
 
   @ManyToOne((type) => Service, (service) => service.table)
+  @IsArray()
   public services: Service[];
 
   @Column({
     default: false,
   })
+  @IsBoolean()
   public kidFriendly: boolean;
 
   @ManyToOne((type) => Section, (section) => section.tables)

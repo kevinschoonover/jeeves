@@ -21,6 +21,7 @@ export class ReviewController {
   @OpenAPI({
     summary: 'Returns all reviews created in the database',
   })
+  @ResponseSchema(Review)
   public async getAll() {
     return Review.find();
   }
@@ -42,7 +43,8 @@ export class ReviewController {
   @OpenAPI({
     summary: 'Return the review associated with id',
   })
-  public async get(@Param('id') id: number) {
+  @ResponseSchema(Review)
+  public async get(@Param('id') id: string) {
     return Review.findOne({ id });
   }
 
@@ -50,7 +52,8 @@ export class ReviewController {
   @OpenAPI({
     summary: 'Update the fields of a review associated with id',
   })
-  public async patch(@Param('id') id: number, @Body() review: object) {
+  @ResponseSchema(Review)
+  public async patch(@Param('id') id: string, @Body() review: object) {
     await Review.update(id, review);
     return Review.findOne({ id });
   }
@@ -60,7 +63,7 @@ export class ReviewController {
   @OpenAPI({
     summary: 'Delete a review associated with given id',
   })
-  public async remove(@Param('id') id: number) {
+  public async remove(@Param('id') id: string) {
     return Review.delete({ id });
   }
 }

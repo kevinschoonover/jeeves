@@ -19,6 +19,7 @@ export class ServiceController {
   @OpenAPI({
     summary: 'Returns all services created in the database',
   })
+  @ResponseSchema(Service)
   public async getAll() {
     return Service.find();
   }
@@ -40,6 +41,7 @@ export class ServiceController {
   @OpenAPI({
     summary: 'Return the service associated with id',
   })
+  @ResponseSchema(Service)
   public async get(@Param('id') id: number) {
     return Service.findOne({ id });
   }
@@ -48,6 +50,7 @@ export class ServiceController {
   @OpenAPI({
     summary: 'Update the fields of a service associated with id',
   })
+  @ResponseSchema(Service)
   public async patch(@Param('id') id: number, @Body() service: object) {
     await Service.update(id, service);
     return Service.findOne({ id });

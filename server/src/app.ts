@@ -63,12 +63,14 @@ if (!module.parent) {
 }
 
 // Parse class-validator classes into JSON Schema:
+
 const metadatas = (getFromContainer(MetadataStorage) as any)
   .validationMetadatas;
 const schemas = validationMetadatasToSchemas(metadatas, {
   refPointerPrefix: '#/components/schemas/',
 });
-console.log(schemas);
+
+console.log('Here is the schema: ', schemas);
 const routingControllersOptions = {
   controllers: Object.keys(controllers).map((key) => controllers[key]),
   routePrefix: '/api/v1',

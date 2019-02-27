@@ -42,6 +42,7 @@ export class AccountController {
   @OpenAPI({
     summary: 'Return the Account associated with id',
   })
+  @ResponseSchema(Account)
   public async get(@Param('id') id: string) {
     return Account.findOne({ id });
   }
@@ -50,6 +51,7 @@ export class AccountController {
   @OpenAPI({
     summary: 'Update the fields of an Account associated with id',
   })
+  @ResponseSchema(Account)
   public async patch(@Param('id') id: string, @Body() account: object) {
     await Account.update(id, account);
     return Account.findOne({ id });

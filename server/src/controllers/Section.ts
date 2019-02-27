@@ -19,6 +19,7 @@ export class SectionController {
   @OpenAPI({
     summary: 'Returns all sections created in the database',
   })
+  @ResponseSchema(Section)
   public async getAll() {
     return Section.find();
   }
@@ -40,6 +41,7 @@ export class SectionController {
   @OpenAPI({
     summary: 'Return the section associated with id',
   })
+  @ResponseSchema(Section)
   public async get(@Param('id') id: number) {
     return Section.findOne({ id });
   }
@@ -48,6 +50,7 @@ export class SectionController {
   @OpenAPI({
     summary: 'Update the fields of a section associated with id',
   })
+  @ResponseSchema(Section)
   public async patch(@Param('id') id: number, @Body() section: object) {
     await Section.update(id, section);
     return Section.findOne({ id });

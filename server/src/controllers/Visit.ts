@@ -19,6 +19,7 @@ export class VisitController {
   @OpenAPI({
     summary: 'Returns all visits created in the database',
   })
+  @ResponseSchema(Visit)
   public async getAll() {
     return Visit.find();
   }
@@ -40,6 +41,7 @@ export class VisitController {
   @OpenAPI({
     summary: 'Return the visit associated with id',
   })
+  @ResponseSchema(Visit)
   public async get(@Param('id') id: number) {
     return Visit.findOne({ id });
   }
@@ -48,6 +50,7 @@ export class VisitController {
   @OpenAPI({
     summary: 'Update the fields of a visit associated with id',
   })
+  @ResponseSchema(Visit)
   public async patch(@Param('id') id: number, @Body() visit: object) {
     await Visit.update(id, visit);
     return Visit.findOne({ id });

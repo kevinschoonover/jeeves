@@ -21,6 +21,7 @@ export class RestaurantController {
   @OpenAPI({
     summary: 'Returns all restaurants created in the database',
   })
+  @ResponseSchema(Restaurant)
   public async getAll() {
     return Restaurant.find();
   }
@@ -42,6 +43,7 @@ export class RestaurantController {
   @OpenAPI({
     summary: 'Return the restaurant associated with id',
   })
+  @ResponseSchema(Restaurant)
   public async get(@Param('id') id: string) {
     return Restaurant.findOne({ id });
   }
@@ -50,6 +52,7 @@ export class RestaurantController {
   @OpenAPI({
     summary: 'Update the fields of a restaurant associated with id',
   })
+  @ResponseSchema(Restaurant)
   public async patch(@Param('id') id: string, @Body() restaurant: object) {
     await Restaurant.update(id, restaurant);
     return Restaurant.findOne({ id });

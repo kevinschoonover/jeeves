@@ -13,16 +13,20 @@ import {
 import { Account } from './Account';
 import { Section } from './Section';
 import { Visit } from './Visit';
+import { IsNumber, IsDate, IsArray } from 'class-validator';
 
 @Entity()
 export class Shift extends BaseEntity {
   @PrimaryGeneratedColumn()
+  @IsNumber()
   public id: number;
 
   @Column()
+  @IsDate()
   public startTime: Date;
 
   @Column()
+  @IsDate()
   public endTime: Date;
 
   @ManyToOne((type) => Account, (account) => account.shifts)
@@ -32,5 +36,6 @@ export class Shift extends BaseEntity {
   public section: Section;
 
   @ManyToOne((type) => Visit, (visit) => visit.assignee)
+  @IsArray()
   public visits: Visit[];
 }

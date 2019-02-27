@@ -19,6 +19,7 @@ export class MenuItemController {
   @OpenAPI({
     summary: 'Returns all menu items created in the database',
   })
+  @ResponseSchema(MenuItem)
   public async getAll() {
     return MenuItem.find();
   }
@@ -40,6 +41,7 @@ export class MenuItemController {
   @OpenAPI({
     summary: 'Return the menu item associated with id',
   })
+  @ResponseSchema(MenuItem)
   public async get(@Param('id') id: string) {
     return MenuItem.findOne({ id });
   }
@@ -48,6 +50,7 @@ export class MenuItemController {
   @OpenAPI({
     summary: 'Update the fields of a menu item associated with id',
   })
+  @ResponseSchema(MenuItem)
   public async patch(@Param('id') id: string, @Body() menuitem: object) {
     await MenuItem.update(id, menuitem);
     return MenuItem.findOne({ id });

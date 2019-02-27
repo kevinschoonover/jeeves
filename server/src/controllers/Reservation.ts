@@ -19,6 +19,7 @@ export class ReservationController {
   @OpenAPI({
     summary: 'Returns all reservations created in the database',
   })
+  @ResponseSchema(Reservation)
   public async getAll() {
     return Reservation.find();
   }
@@ -40,6 +41,7 @@ export class ReservationController {
   @OpenAPI({
     summary: 'Return the reservation associated with id',
   })
+  @ResponseSchema(Reservation)
   public async get(@Param('id') id: string) {
     return Reservation.findOne({ id });
   }
@@ -48,6 +50,7 @@ export class ReservationController {
   @OpenAPI({
     summary: 'Update the fields of a reservation associated with id',
   })
+  @ResponseSchema(Reservation)
   public async patch(@Param('id') id: string, @Body() reservations: object) {
     await Reservation.update(id, reservations);
     return Reservation.findOne({ id });

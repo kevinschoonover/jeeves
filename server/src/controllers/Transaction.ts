@@ -19,6 +19,7 @@ export class TransactionController {
   @OpenAPI({
     summary: 'Returns all transactions created in the database',
   })
+  @ResponseSchema(Transaction)
   public async getAll() {
     return Transaction.find();
   }
@@ -40,6 +41,7 @@ export class TransactionController {
   @OpenAPI({
     summary: 'Return the transaction associated with id',
   })
+  @ResponseSchema(Transaction)
   public async get(@Param('id') id: number) {
     return Transaction.findOne({ id });
   }
@@ -48,6 +50,7 @@ export class TransactionController {
   @OpenAPI({
     summary: 'Update the fields of a transaction associated with id',
   })
+  @ResponseSchema(Transaction)
   public async patch(@Param('id') id: number, @Body() transaction: object) {
     await Transaction.update(id, transaction);
     return Transaction.findOne({ id });

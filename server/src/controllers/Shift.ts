@@ -19,6 +19,7 @@ export class ShiftController {
   @OpenAPI({
     summary: 'Returns all shifts created in the database',
   })
+  @ResponseSchema(Shift)
   public async getAll() {
     return Shift.find();
   }
@@ -40,6 +41,7 @@ export class ShiftController {
   @OpenAPI({
     summary: 'Return the shift associated with id',
   })
+  @ResponseSchema(Shift)
   public async get(@Param('id') id: number) {
     return Shift.findOne({ id });
   }
@@ -48,6 +50,7 @@ export class ShiftController {
   @OpenAPI({
     summary: 'Update the fields of a shift associated with id',
   })
+  @ResponseSchema(Shift)
   public async patch(@Param('id') id: number, @Body() shift: object) {
     await Shift.update(id, shift);
     return Shift.findOne({ id });

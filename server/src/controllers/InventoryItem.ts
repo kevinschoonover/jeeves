@@ -20,6 +20,7 @@ export class InventoryItemController {
   @OpenAPI({
     summary: 'Returns all Inventory Items created in the database',
   })
+  @ResponseSchema(InventoryItem)
   public async getAll() {
     return InventoryItem.find();
   }
@@ -41,6 +42,7 @@ export class InventoryItemController {
   @OpenAPI({
     summary: 'Return the inventory item associated with name',
   })
+  @ResponseSchema(InventoryItem)
   public async get(@Param('name') name: string) {
     return InventoryItem.findOne({ name });
   }
@@ -49,6 +51,7 @@ export class InventoryItemController {
   @OpenAPI({
     summary: 'Update the fields of an inventory item associated with name',
   })
+  @ResponseSchema(InventoryItem)
   public async patch(
     @Param('name') name: string,
     @Body() inventoryitems: object

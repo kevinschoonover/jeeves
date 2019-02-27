@@ -19,6 +19,7 @@ export class TableController {
   @OpenAPI({
     summary: 'Returns all tables created in the database',
   })
+  @ResponseSchema(Table)
   public async getAll() {
     return Table.find();
   }
@@ -40,6 +41,7 @@ export class TableController {
   @OpenAPI({
     summary: 'Return the table associated with id',
   })
+  @ResponseSchema(Table)
   public async get(@Param('id') id: number) {
     return Table.findOne({ id });
   }
@@ -48,6 +50,7 @@ export class TableController {
   @OpenAPI({
     summary: 'Update the fields of a table associated with id',
   })
+  @ResponseSchema(Table)
   public async patch(@Param('id') id: number, @Body() table: object) {
     await Table.update(id, table);
     return Table.findOne({ id });

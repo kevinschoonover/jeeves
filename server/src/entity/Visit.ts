@@ -14,6 +14,7 @@ import {
 import { Account } from './Account';
 import { Shift } from './Shift';
 import { Transaction } from './Transaction';
+import { IsNumber, IsArray, IsDate } from 'class-validator';
 
 export enum paymentMethod {
   SPLIT = 'split',
@@ -23,9 +24,11 @@ export enum paymentMethod {
 @Entity()
 export class Visit extends BaseEntity {
   @PrimaryGeneratedColumn()
+  @IsNumber()
   public id: number;
 
   @ManyToMany((type) => Account, (account) => account.visits)
+  @IsArray()
   public users: Account[];
 
   // TODO: insert orders here
@@ -34,11 +37,14 @@ export class Visit extends BaseEntity {
   public assignee: Shift;
 
   @Column()
+  @IsDate()
   public arrival: Date;
 
   @Column()
+  @IsDate()
   public departure: Date;
 
   @ManyToOne((type) => Transaction, (transaction) => transaction.visit)
+  @IsArray()
   public transactions: Transaction[];
 }
