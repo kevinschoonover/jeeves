@@ -1,4 +1,15 @@
-import React from 'react';
+import CRAB from '../photos/crab.jpg';
+import SWEETSOUR from '../photos/sweetsour.jpg';
+import EGGROLL from '../photos/eggroll.jpg';
+import BLACKPEPPER from '../photos/blackpepper.jpg';
+import BROCCOLI from '../photos/broccoli.jpg';
+import EGGTART from '../photos/eggtart.jpg';
+import FORTUNE from '../photos/fortune.jpg';
+import KUNGPAO from '../photos/kungpao.jpg';
+import MONGOLIAN from '../photos/mongolian.jpg';
+import ORANGE from '../photos/orange.jpg';
+import SWEETSAUCE from '../photos/sweetsauce.jpg';
+import TSO from '../photos/tso.jpg';
 
 const menucards = [
   {
@@ -7,7 +18,7 @@ const menucards = [
     title: 'Crab Rangoon',
     category: 'starter',
     subheader: '$2.50(2)/$4.25(4)',
-    image: '/clients/ordering/photos/sweetsour.jpg',
+    image: CRAB,
     description:
       'Crab and cream cheese wontons pinched into little purses and deep fried.',
   },
@@ -17,7 +28,7 @@ const menucards = [
     title: 'Eggrolls',
     category: 'starter',
     subheader: '$2.50(2)/$4.25(4)',
-    image: '/clients/ordering/photos/sweetsour.jpg',
+    image: EGGROLL,
     description:
       'Savory roll with shredded cabbage, chopped pork, and other fillings inside a wheat flour skin and deep fried.',
   },
@@ -27,7 +38,7 @@ const menucards = [
     title: 'Sweet and Sour Chicken',
     category: 'entree',
     subheader: '$5.60/$8.36',
-    image: './paella.jpg',
+    image: SWEETSOUR,
     description:
       'Sweet & Sour sauce, chicken, pineapple, onion, bell peppers, ginge',
   },
@@ -37,7 +48,7 @@ const menucards = [
     title: 'Kung Pao Chicken',
     category: 'entree',
     subheader: '$5.60/$8.36',
-    image: '/clients/ordering/photos/sweetsour.jpg',
+    image: KUNGPAO,
     description:
       'Spicy Sichuan chili sauce, chicken, peanuts, green onion, red chili peppers.',
   },
@@ -47,7 +58,7 @@ const menucards = [
     title: 'Orange Chicken',
     category: 'entree',
     subheader: '$5.60/$8.36',
-    image: '/clients/ordering/photos/sweetsour.jpg',
+    image: ORANGE,
     description: 'Hunan chili sauce, chicken, fresh orange slices.',
   },
   {
@@ -56,7 +67,7 @@ const menucards = [
     title: 'Mongolian Beef',
     category: 'entree',
     subheader: '$5.95/$8.75',
-    image: '/clients/ordering/photos/sweetsour.jpg',
+    image: MONGOLIAN,
     description:
       'Sweet soy glaze, flank steak, garlic and snipped green onion.',
   },
@@ -66,7 +77,7 @@ const menucards = [
     title: 'Black Pepper Chicken',
     category: 'entree',
     subheader: '$5.95/$8.75',
-    image: '/clients/ordering/photos/sweetsour.jpg',
+    image: BLACKPEPPER,
     description:
       'Marinated chicken, celery and onions in a bold black pepper sauce.',
   },
@@ -76,7 +87,7 @@ const menucards = [
     title: 'Broccoli Beef',
     category: 'entree',
     subheader: '$5.95/$8.75',
-    image: '/clients/ordering/photos/sweetsour.jpg',
+    image: BROCCOLI,
     description:
       'A classic favorite. Tender beef and fresh broccoli in a ginger soy sauce.',
   },
@@ -86,7 +97,7 @@ const menucards = [
     title: 'General Tsos Chicken',
     category: 'entree',
     subheader: '$5.95/$8.75',
-    image: '/clients/ordering/photos/sweetsour.jpg',
+    image: TSO,
     description:
       'Fried chicken with a chile-spiked sweet and sour sause. A takeout classic.',
   },
@@ -96,7 +107,7 @@ const menucards = [
     title: 'Fortune Cookies',
     category: 'dessert',
     subheader: '$2.00(4)',
-    image: '/clients/ordering/photos/sweetsour.jpg',
+    image: FORTUNE,
     description:
       'A cookie made from flour, sugar, vanilla, and sesame seed oil with a fortune inside.',
   },
@@ -106,7 +117,7 @@ const menucards = [
     title: 'Egg Tarts',
     category: 'dessert',
     subheader: '$2.00(2)',
-    image: '/clients/ordering/photos/sweetsour.jpg',
+    image: EGGTART,
     description:
       'A little custard tart, served warm, with a hard and sweet crust.',
   },
@@ -116,7 +127,7 @@ const menucards = [
     title: 'Sweet and Sour Sauce',
     category: 'addon',
     subheader: '$0.25',
-    image: '/clients/ordering/photos/sweetsour.jpg',
+    image: SWEETSAUCE,
     description: 'A packet of sweet and sour sauce.',
   },
 ];
