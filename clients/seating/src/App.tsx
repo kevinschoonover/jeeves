@@ -44,14 +44,6 @@ const App: React.FC<AppProps> = ({ classes }) => {
   const handleTableClick = (tableId: number) => () => {
     setSelectedTable(tableId);
   };
-  const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClickClose = () => {
-    setOpen(false);
-  };
 
   React.useLayoutEffect(() => {
     if (navbarRef.current) {
