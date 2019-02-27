@@ -31,8 +31,6 @@ const styles = () =>
     },
   });
 
-let clicked = false;
-
 type AppProps = WithStyles<typeof styles>;
 
 const App: React.FC<AppProps> = ({ classes }) => {
@@ -96,37 +94,35 @@ const App: React.FC<AppProps> = ({ classes }) => {
                 {selectedTable ? null : <ListCreate />}
                 <Divider />
                 {selectedTable ? (
-                  <List>
-                    <p style={{ display: 'flex', justifyContent: 'left' }}>
-                      {`Reservation Time: February 21st 2019`}
-                    </p>
-                    {[4, 5, 6, 7].map((value) => (
-                      <ListItem
-                        key={value}
-                        role={undefined}
-                        dense={true}
-                        button={true}
-                      >
-                        <Checkbox tabIndex={-1} disableRipple={true} />
-                        <ListItemText primary={`Thursday: ${value}:30 PM`} />
-                        <ListItemSecondaryAction />
-                      </ListItem>
-                    ))}
-                  </List>
+                  <>
+                    <List>
+                      <p style={{ display: 'flex', justifyContent: 'left' }}>
+                        {`Reservation Time: February 21st 2019`}
+                      </p>
+                      {[4, 5, 6, 7].map((value) => (
+                        <ListItem
+                          key={value}
+                          role={undefined}
+                          dense={true}
+                          button={true}
+                        >
+                          <Checkbox tabIndex={-1} disableRipple={true} />
+                          <ListItemText primary={`Thursday: ${value}:30 PM`} />
+                          <ListItemSecondaryAction />
+                        </ListItem>
+                      ))}
+                    </List>
+                    <Button
+                      variant="contained"
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      Reserve
+                    </Button>
+                  </>
                 ) : null}
-                <Button
-                  variant="contained"
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                  }}
-                  onClick={() => {
-                    clicked = true;
-                  }}
-                >
-                  Reserve
-                </Button>
-                {clicked ? 'clicked' : 'not clicked'}
               </div>
             </Grid>
           </Hidden>
