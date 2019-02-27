@@ -22,9 +22,9 @@ export class Section extends BaseEntity {
   })
   public name: string;
 
-  @OneToMany((type) => Shift, (shift) => shift.section)
-  public shifts: Shift[];
-
   @OneToMany((type) => Table, (table) => table.section)
   public tables: Table[];
+
+  @ManyToMany((type) => Shift, (shift) => shift.sections)
+  public shifts: Shift[];
 }
