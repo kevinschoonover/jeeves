@@ -83,6 +83,16 @@ const menucards = [
   {
     id: 9,
     avatar: '9',
+    title: 'General Tsos Chicken',
+    category: 'entree',
+    subheader: '$5.95/$8.75',
+    image: '/clients/ordering/photos/sweetsour.jpg',
+    description:
+      'Fried chicken with a chile-spiked sweet and sour sause. A takeout classic.',
+  },
+  {
+    id: 10,
+    avatar: '10',
     title: 'Fortune Cookies',
     category: 'dessert',
     subheader: '$2.00(4)',
@@ -91,14 +101,23 @@ const menucards = [
       'A cookie made from flour, sugar, vanilla, and sesame seed oil with a fortune inside.',
   },
   {
-    id: 10,
-    avatar: '10',
+    id: 11,
+    avatar: '11',
     title: 'Egg Tarts',
     category: 'dessert',
     subheader: '$2.00(2)',
     image: '/clients/ordering/photos/sweetsour.jpg',
     description:
       'A little custard tart, served warm, with a hard and sweet crust.',
+  },
+  {
+    id: 99,
+    avatar: '99',
+    title: 'Sweet and Sour Sauce',
+    category: 'addon',
+    subheader: '$0.25',
+    image: '/clients/ordering/photos/sweetsour.jpg',
+    description: 'A packet of sweet and sour sauce.',
   },
 ];
 

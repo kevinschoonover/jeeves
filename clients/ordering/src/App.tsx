@@ -16,6 +16,7 @@ import Menu from './components/menu';
 import Starters from './components/starters';
 import Entrees from './components/entrees';
 import Desserts from './components/desserts';
+import AddOns from './components/addons';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -23,22 +24,9 @@ const styles = (theme: Theme) =>
       textAlign: 'center',
     },
     button_grid: {
-      marginTop: '25px',
+      marginTop: '85px',
     },
-    button_entrees: {
-      color: 'green',
-      margin: theme.spacing.unit,
-    },
-    button_starter: {
-      color: 'red',
-      margin: theme.spacing.unit,
-    },
-    button_dessert: {
-      color: 'purple',
-      margin: theme.spacing.unit,
-    },
-    button_drink: {
-      color: 'blue',
+    button_spacing: {
       margin: theme.spacing.unit,
     },
   });
@@ -52,32 +40,58 @@ const App: React.FC<Props> = ({ classes }) => {
     <div className={classes.root}>
       <Navbar innerRef={navbarRef} />
       <div className={classes.button_grid}>
-        <Link to="/menu" style={{ textDecoration: 'none' }}>
-          <Button variant={'outlined'} className={classes.button_dessert}>
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <Button
+            variant={'outlined'}
+            className={classes.button_spacing}
+            style={{ color: 'blue' }}
+          >
             All Items
           </Button>
         </Link>
         <Link to="/starters" style={{ textDecoration: 'none' }}>
-          <Button variant={'outlined'} className={classes.button_starter}>
+          <Button
+            variant={'outlined'}
+            className={classes.button_spacing}
+            style={{ color: 'red' }}
+          >
             Starters
           </Button>
         </Link>
         <Link to="/entrees" style={{ textDecoration: 'none' }}>
-          <Button variant={'outlined'} className={classes.button_entrees}>
+          <Button
+            variant={'outlined'}
+            className={classes.button_spacing}
+            style={{ color: 'green' }}
+          >
             Entrees
           </Button>
         </Link>
         <Link to="/desserts" style={{ textDecoration: 'none' }}>
-          <Button variant={'outlined'} className={classes.button_drink}>
+          <Button
+            variant={'outlined'}
+            className={classes.button_spacing}
+            style={{ color: 'fuchsia' }}
+          >
             Desserts
+          </Button>
+        </Link>
+        <Link to="/addons" style={{ textDecoration: 'none' }}>
+          <Button
+            variant={'outlined'}
+            className={classes.button_spacing}
+            style={{ color: 'maroon' }}
+          >
+            Add-ons
           </Button>
         </Link>
       </div>
 
-      <Route exact={true} path="/menu" component={Menu} />
+      <Route exact={true} path="/" component={Menu} />
       <Route path="/starters" component={Starters} />
       <Route path="/entrees" component={Entrees} />
       <Route path="/desserts" component={Desserts} />
+      <Route path="/addons" component={AddOns} />
     </div>
   );
 };
