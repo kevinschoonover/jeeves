@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {
   MuiThemeProvider as ThemeProvider,
+  CssBaseline,
 } from '@material-ui/core';
 import { theme } from '@jeeves/common';
 
@@ -11,6 +12,7 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
+    <CssBaseline />
     <App />
   </ThemeProvider>,
   document.getElementById('root')
