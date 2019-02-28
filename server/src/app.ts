@@ -1,16 +1,21 @@
-import * as cors from "@koa/cors";
-import * as Koa from "koa";
-import * as koaBody from "koa-bodyparser";
-import * as logger from "koa-logger";
-import * as session from "koa-session";
+import * as cors from '@koa/cors';
+import * as Koa from 'koa';
+import * as koaBody from 'koa-bodyparser';
+import * as logger from 'koa-logger';
+import * as session from 'koa-session';
 
-import { Action, useKoaServer } from "routing-controllers";
-import { createConnection } from "typeorm";
-import { AccountController } from "./controllers/Account";
-import { passport } from "./middleware/auth";
+import { Action, useKoaServer } from 'routing-controllers';
+import { createConnection } from 'typeorm';
+import { passport } from './middleware/auth';
 
-import { config } from "./config";
-import { router } from "./routes";
+import { config } from './config';
+import { router } from './routes';
+
+import * as controllers from './controllers';
+import { getFromContainer, MetadataStorage } from 'class-validator';
+import { routingControllersToSpec } from 'routing-controllers-openapi';
+import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
+import { getMetadataArgsStorage } from 'routing-controllers';
 
 export const app = new Koa();
 
@@ -27,27 +32,59 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 useKoaServer(app, {
-  controllers: [AccountController],
+  controllers: Object.keys(controllers).map((key) => controllers[key]),
   currentUserChecker: async (action: Action) => {
     const user = action.context.state.user;
     const auth_header = action.context.headers.authorization;
     if (user) {
       return user;
     }
-
-    await passport.authenticate('bearer', { session: false })(action.context, async () => {});
+    await passport.authenticate('bearer', { session: false })(
+      action.context,
+      async () => {}
+    );
     return action.context.state.user;
   },
-  routePrefix: "/api/v1",
+  routePrefix: '/api/v1',
 });
-
 /* istanbul ignore next */
 if (!module.parent) {
-  createConnection().then(async connection => {
-    app.listen(config.port, config.host, () => {
-      console.log(
-        `Server is listening on ${config.host}:${config.port} (${config.NODE_ENV})`
-      );
-    });
-  }).catch(error => console.log("TypeORM connection error: ", error));
+  createConnection()
+    .then(async (connection) => {
+      app.listen(config.port, config.host, () => {
+        console.log(
+          `Server is listening on ${config.host}:${config.port} (${
+            config.NODE_ENV
+          })`
+        );
+      });
+    })
+    .catch((error) => console.log('TypeORM connection error: ', error));
 }
+
+// Parse class-validator classes into JSON Schema:
+const metadatas = (getFromContainer(MetadataStorage) as any)
+  .validationMetadatas;
+const schemas = validationMetadatasToSchemas(metadatas, {
+  refPointerPrefix: '#/components/schemas/',
+});
+console.log(schemas);
+const routingControllersOptions = {
+  controllers: Object.keys(controllers).map((key) => controllers[key]),
+  routePrefix: '/api/v1',
+};
+const storage = getMetadataArgsStorage();
+export const spec = routingControllersToSpec(
+  storage,
+  routingControllersOptions,
+  {
+    components: {
+      schemas,
+    },
+    info: {
+      description: 'Generated with `routing-controllers-openapi`',
+      title: 'A sample API',
+      version: '1.0.0',
+    },
+  }
+);
