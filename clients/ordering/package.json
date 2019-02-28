@@ -11,7 +11,6 @@
     "@types/react-dom": "16.8.0",
     "@types/react-router": "^4.4.4",
     "@types/react-router-dom": "^4.3.1",
-    "ajv": "^6.8.1",
     "react": "16.8.1",
     "react-dom": "16.8.1",
     "react-router-dom": "^4.3.1",
