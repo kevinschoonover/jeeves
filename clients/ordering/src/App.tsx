@@ -5,13 +5,9 @@ import {
   Theme,
   createStyles,
   WithStyles,
-  Typography,
 } from '@material-ui/core';
-import { Link, Route, Router } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
-import MenuCard from './components/card';
+import { Link, Route } from 'react-router-dom';
 import Navbar from './components/navbar';
-import Tester from './components/test';
 import Menu from './components/menu';
 import Starters from './components/starters';
 import Entrees from './components/entrees';
@@ -23,10 +19,10 @@ const styles = (theme: Theme) =>
     root: {
       textAlign: 'center',
     },
-    button_grid: {
+    buttonGrid: {
       marginTop: '85px',
     },
-    button_spacing: {
+    buttonSpacing: {
       margin: theme.spacing.unit,
     },
   });
@@ -39,11 +35,11 @@ const App: React.FC<Props> = ({ classes }) => {
   return (
     <div className={classes.root}>
       <Navbar innerRef={navbarRef} />
-      <div className={classes.button_grid}>
+      <div className={classes.buttonGrid}>
         <Link to="/" style={{ textDecoration: 'none' }}>
           <Button
             variant={'outlined'}
-            className={classes.button_spacing}
+            className={classes.buttonSpacing}
             style={{ color: 'blue' }}
           >
             All Items
@@ -52,7 +48,7 @@ const App: React.FC<Props> = ({ classes }) => {
         <Link to="/starters" style={{ textDecoration: 'none' }}>
           <Button
             variant={'outlined'}
-            className={classes.button_spacing}
+            className={classes.buttonSpacing}
             style={{ color: 'red' }}
           >
             Starters
@@ -61,7 +57,7 @@ const App: React.FC<Props> = ({ classes }) => {
         <Link to="/entrees" style={{ textDecoration: 'none' }}>
           <Button
             variant={'outlined'}
-            className={classes.button_spacing}
+            className={classes.buttonSpacing}
             style={{ color: 'green' }}
           >
             Entrees
@@ -70,7 +66,7 @@ const App: React.FC<Props> = ({ classes }) => {
         <Link to="/desserts" style={{ textDecoration: 'none' }}>
           <Button
             variant={'outlined'}
-            className={classes.button_spacing}
+            className={classes.buttonSpacing}
             style={{ color: 'fuchsia' }}
           >
             Desserts
@@ -79,7 +75,7 @@ const App: React.FC<Props> = ({ classes }) => {
         <Link to="/addons" style={{ textDecoration: 'none' }}>
           <Button
             variant={'outlined'}
-            className={classes.button_spacing}
+            className={classes.buttonSpacing}
             style={{ color: 'maroon' }}
           >
             Add-ons

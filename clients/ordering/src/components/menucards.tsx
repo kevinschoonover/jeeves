@@ -21,6 +21,7 @@ const menucards = [
     image: CRAB,
     description:
       'Crab and cream cheese wontons pinched into little purses and deep fried.',
+    details: 'CAL: 150',
   },
   {
     id: 2,
@@ -31,6 +32,7 @@ const menucards = [
     image: EGGROLL,
     description:
       'Savory roll with shredded cabbage, chopped pork, and other fillings inside a wheat flour skin and deep fried.',
+    details: 'CAL: 150',
   },
   {
     id: 3,
@@ -41,6 +43,7 @@ const menucards = [
     image: SWEETSOUR,
     description:
       'Sweet & Sour sauce, chicken, pineapple, onion, bell peppers, ginge',
+    details: 'CAL: 150',
   },
   {
     id: 4,
@@ -51,6 +54,7 @@ const menucards = [
     image: KUNGPAO,
     description:
       'Spicy Sichuan chili sauce, chicken, peanuts, green onion, red chili peppers.',
+    details: 'CAL: 150',
   },
   {
     id: 5,
@@ -60,6 +64,7 @@ const menucards = [
     subheader: '$5.60/$8.36',
     image: ORANGE,
     description: 'Hunan chili sauce, chicken, fresh orange slices.',
+    details: 'CAL: 150',
   },
   {
     id: 6,
@@ -70,6 +75,7 @@ const menucards = [
     image: MONGOLIAN,
     description:
       'Sweet soy glaze, flank steak, garlic and snipped green onion.',
+    details: 'CAL: 150',
   },
   {
     id: 7,
@@ -80,6 +86,7 @@ const menucards = [
     image: BLACKPEPPER,
     description:
       'Marinated chicken, celery and onions in a bold black pepper sauce.',
+    details: 'CAL: 150',
   },
   {
     id: 8,
@@ -90,6 +97,7 @@ const menucards = [
     image: BROCCOLI,
     description:
       'A classic favorite. Tender beef and fresh broccoli in a ginger soy sauce.',
+    details: 'CAL: 150',
   },
   {
     id: 9,
@@ -100,6 +108,7 @@ const menucards = [
     image: TSO,
     description:
       'Fried chicken with a chile-spiked sweet and sour sause. A takeout classic.',
+    details: 'CAL: 150',
   },
   {
     id: 10,
@@ -110,6 +119,7 @@ const menucards = [
     image: FORTUNE,
     description:
       'A cookie made from flour, sugar, vanilla, and sesame seed oil with a fortune inside.',
+    details: 'CAL: 150',
   },
   {
     id: 11,
@@ -120,6 +130,7 @@ const menucards = [
     image: EGGTART,
     description:
       'A little custard tart, served warm, with a hard and sweet crust.',
+    details: 'CAL: 150',
   },
   {
     id: 99,
@@ -129,6 +140,7 @@ const menucards = [
     subheader: '$0.25',
     image: SWEETSAUCE,
     description: 'A packet of sweet and sour sauce.',
+    details: 'CAL: 150',
   },
 ];
 
