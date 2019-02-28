@@ -14,7 +14,5 @@
     "lerna": "^3.10.7",
     "lerna-update-wizard": "^0.11.1"
   },
-  "dependencies": {
-    "react-scripts": "^2.1.5"
-  }
+  "dependencies": {}
 }
