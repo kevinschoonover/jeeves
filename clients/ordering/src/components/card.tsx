@@ -60,7 +60,7 @@ type CardsProps = WithStyles<typeof styles>;
 export interface MenuProps extends WithStyles<typeof styles> {
   avatar: string;
   title: string;
-  subheader: string;
+  subheader: number;
   image: string;
   description: string;
   details: string;
@@ -92,7 +92,7 @@ const MenuCard: React.FC<MenuProps> = ({
             </IconButton>
           }
           title={title}
-          subheader={subheader}
+          subheader={'$' + subheader.toFixed(2)}
         />
         <CardMedia
           className={classes.media}
@@ -100,9 +100,6 @@ const MenuCard: React.FC<MenuProps> = ({
           title={title}
           style={{ height: 0, paddingTop: '56.25%' }}
         />
-        <CardContent className={classes.decription}>
-          <Typography component="p">{description}</Typography>
-        </CardContent>
         <CardActions className={classes.actions} disableActionSpacing={true}>
           <IconButton aria-label="Add to Cart">
             <AddBoxIcon />
@@ -124,6 +121,7 @@ const MenuCard: React.FC<MenuProps> = ({
         <Collapse in={expanded} timeout="auto" unmountOnExit={true}>
           <CardContent>
             <Typography paragraph={true}>Details:</Typography>
+            <Typography paragraph={true}>{description}</Typography>
             <Typography paragraph={true}>{details}</Typography>
           </CardContent>
         </Collapse>
