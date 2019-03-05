@@ -100,9 +100,6 @@ const MenuCard: React.FC<MenuProps> = ({
           title={title}
           style={{ height: 0, paddingTop: '56.25%' }}
         />
-        <CardContent className={classes.decription}>
-          <Typography component="p">{description}</Typography>
-        </CardContent>
         <CardActions className={classes.actions} disableActionSpacing={true}>
           <IconButton aria-label="Add to Cart">
             <AddBoxIcon />
