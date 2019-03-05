@@ -17,7 +17,7 @@ const menucards = [
     avatar: '1',
     title: 'Crab Rangoon',
     category: 'starter',
-    subheader: '$2.50(2)/$4.25(4)',
+    subheader: 2.00,
     image: CRAB,
     description:
       'Crab and cream cheese wontons pinched into little purses and deep fried.',
@@ -28,7 +28,7 @@ const menucards = [
     avatar: '2',
     title: 'Eggrolls',
     category: 'starter',
-    subheader: '$2.50(2)/$4.25(4)',
+    subheader: 2.55,
     image: EGGROLL,
     description:
       'Savory roll with shredded cabbage, chopped pork, and other fillings inside a wheat flour skin and deep fried.',
@@ -39,7 +39,7 @@ const menucards = [
     avatar: '3',
     title: 'Sweet and Sour Chicken',
     category: 'entree',
-    subheader: '$5.60/$8.36',
+    subheader: 5.60,
     image: SWEETSOUR,
     description:
       'Sweet & Sour sauce, chicken, pineapple, onion, bell peppers, ginge',
@@ -50,7 +50,7 @@ const menucards = [
     avatar: '4',
     title: 'Kung Pao Chicken',
     category: 'entree',
-    subheader: '$5.60/$8.36',
+    subheader: 5.60,
     image: KUNGPAO,
     description:
       'Spicy Sichuan chili sauce, chicken, peanuts, green onion, red chili peppers.',
@@ -61,7 +61,7 @@ const menucards = [
     avatar: '5',
     title: 'Orange Chicken',
     category: 'entree',
-    subheader: '$5.60/$8.36',
+    subheader: 5.60,
     image: ORANGE,
     description: 'Hunan chili sauce, chicken, fresh orange slices.',
     details: 'CAL: 150',
@@ -71,7 +71,7 @@ const menucards = [
     avatar: '6',
     title: 'Mongolian Beef',
     category: 'entree',
-    subheader: '$5.95/$8.75',
+    subheader: 5.95,
     image: MONGOLIAN,
     description:
       'Sweet soy glaze, flank steak, garlic and snipped green onion.',
@@ -82,7 +82,7 @@ const menucards = [
     avatar: '7',
     title: 'Black Pepper Chicken',
     category: 'entree',
-    subheader: '$5.95/$8.75',
+    subheader: 5.95,
     image: BLACKPEPPER,
     description:
       'Marinated chicken, celery and onions in a bold black pepper sauce.',
@@ -93,7 +93,7 @@ const menucards = [
     avatar: '8',
     title: 'Broccoli Beef',
     category: 'entree',
-    subheader: '$5.95/$8.75',
+    subheader: 5.95,
     image: BROCCOLI,
     description:
       'A classic favorite. Tender beef and fresh broccoli in a ginger soy sauce.',
@@ -104,7 +104,7 @@ const menucards = [
     avatar: '9',
     title: 'General Tsos Chicken',
     category: 'entree',
-    subheader: '$5.95/$8.75',
+    subheader: 5.95,
     image: TSO,
     description:
       'Fried chicken with a chile-spiked sweet and sour sause. A takeout classic.',
@@ -115,7 +115,7 @@ const menucards = [
     avatar: '10',
     title: 'Fortune Cookies',
     category: 'dessert',
-    subheader: '$2.00(4)',
+    subheader: 2.00,
     image: FORTUNE,
     description:
       'A cookie made from flour, sugar, vanilla, and sesame seed oil with a fortune inside.',
@@ -126,7 +126,7 @@ const menucards = [
     avatar: '11',
     title: 'Egg Tarts',
     category: 'dessert',
-    subheader: '$2.00(2)',
+    subheader: 2.00,
     image: EGGTART,
     description:
       'A little custard tart, served warm, with a hard and sweet crust.',
@@ -137,7 +137,7 @@ const menucards = [
     avatar: '99',
     title: 'Sweet and Sour Sauce',
     category: 'addon',
-    subheader: '$0.25',
+    subheader: 0.25,
     image: SWEETSAUCE,
     description: 'A packet of sweet and sour sauce.',
     details: 'CAL: 150',

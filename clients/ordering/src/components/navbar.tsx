@@ -12,6 +12,7 @@ import { IconButton } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { yellow, purple, teal } from '@material-ui/core/colors';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
@@ -40,6 +41,10 @@ const styles = (theme: Theme) =>
     menuButton: {
       marginLeft: -12,
       marginRight: 20,
+    },
+    shoppingCartButton: {
+      left:800,
+      marginleft: 0,
     },
     search: {
       position: 'relative',
@@ -111,6 +116,9 @@ const Navbar: React.FC<NavbarProps> = React.forwardRef<Ref, NavbarProps>(
                 classes={{ root: classes.inputRoot, input: classes.inputInput }}
               />
             </div>
+            <IconButton className={classes.shoppingCartButton} color="inherit">
+              <ShoppingCartIcon />
+            </IconButton>
           </Toolbar>
         </AppBar>
       </div>
