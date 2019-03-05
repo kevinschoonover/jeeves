@@ -8,7 +8,7 @@ import {
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { IconButton } from '@material-ui/core';
+import { IconButton, FormHelperText } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -43,8 +43,7 @@ const styles = (theme: Theme) =>
       marginRight: 20,
     },
     shoppingCartButton: {
-      left: 1200,
-      marginleft: 0,
+      flexGrow: 1,
     },
     search: {
       position: 'relative',
@@ -116,7 +115,8 @@ const Navbar: React.FC<NavbarProps> = React.forwardRef<Ref, NavbarProps>(
                 classes={{ root: classes.inputRoot, input: classes.inputInput }}
               />
             </div>
-            <IconButton className={classes.shoppingCartButton} color="inherit">
+            <div className={classes.shoppingCartButton} />
+            <IconButton color="inherit">
               <ShoppingCartIcon />
             </IconButton>
           </Toolbar>
