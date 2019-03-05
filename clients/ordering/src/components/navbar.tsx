@@ -43,7 +43,7 @@ const styles = (theme: Theme) =>
       marginRight: 20,
     },
     shoppingCartButton: {
-      left: 1000,
+      left: 1200,
       marginleft: 0,
     },
     search: {
