@@ -44,6 +44,7 @@ const styles = (theme: Theme) =>
     },
     shoppingCartButton: {
       left:800,
+      marginleft: 0,
     },
     search: {
       position: 'relative',
