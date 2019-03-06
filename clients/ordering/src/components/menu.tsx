@@ -1,13 +1,11 @@
 import React from 'react';
 import {
-  Button,
   withStyles,
   Theme,
   createStyles,
   WithStyles,
   Typography,
 } from '@material-ui/core';
-import { Link, Route, Router } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import MenuCard from './card';
 import menucards from './menucards';
