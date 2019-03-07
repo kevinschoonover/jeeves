@@ -11,11 +11,7 @@
     "bootstrap": "lerna bootstrap"
   },
   "devDependencies": {
-    "@types/node": "^10.12.24",
     "lerna": "^3.10.7",
     "lerna-update-wizard": "^0.11.1"
-  },
-  "dependencies": {
-    "react-scripts": "^2.1.5"
   }
 }
