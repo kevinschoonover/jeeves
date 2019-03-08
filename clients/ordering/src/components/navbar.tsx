@@ -88,7 +88,7 @@ const styles = (theme: Theme) =>
       },
     },
     list: {
-      width: 250,
+      width: 500,
     },
     listHeader: {
       marginleft: '50',

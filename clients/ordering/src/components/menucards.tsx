@@ -17,7 +17,7 @@ const menucards = [
     avatar: '1',
     title: 'Crab Rangoon',
     category: 'starter',
-    subheader: 2.00,
+    subheader: 2.0,
     image: CRAB,
     description:
       'Crab and cream cheese wontons pinched into little purses and deep fried.',
@@ -39,18 +39,18 @@ const menucards = [
     avatar: '3',
     title: 'Sweet and Sour Chicken',
     category: 'entree',
-    subheader: 5.60,
+    subheader: 5.6,
     image: SWEETSOUR,
     description:
       'Sweet & Sour sauce, chicken, pineapple, onion, bell peppers, ginge',
-    details: 'CAL: 150',
+    details: 'CAL: 300',
   },
   {
     id: 4,
     avatar: '4',
     title: 'Kung Pao Chicken',
     category: 'entree',
-    subheader: 5.60,
+    subheader: 5.6,
     image: KUNGPAO,
     description:
       'Spicy Sichuan chili sauce, chicken, peanuts, green onion, red chili peppers.',
@@ -61,7 +61,7 @@ const menucards = [
     avatar: '5',
     title: 'Orange Chicken',
     category: 'entree',
-    subheader: 5.60,
+    subheader: 5.6,
     image: ORANGE,
     description: 'Hunan chili sauce, chicken, fresh orange slices.',
     details: 'CAL: 150',
@@ -115,7 +115,7 @@ const menucards = [
     avatar: '10',
     title: 'Fortune Cookies',
     category: 'dessert',
-    subheader: 2.00,
+    subheader: 2.0,
     image: FORTUNE,
     description:
       'A cookie made from flour, sugar, vanilla, and sesame seed oil with a fortune inside.',
@@ -126,7 +126,7 @@ const menucards = [
     avatar: '11',
     title: 'Egg Tarts',
     category: 'dessert',
-    subheader: 2.00,
+    subheader: 2.0,
     image: EGGTART,
     description:
       'A little custard tart, served warm, with a hard and sweet crust.',
