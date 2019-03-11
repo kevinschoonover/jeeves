@@ -14,7 +14,7 @@ import {
 import { Account } from './Account';
 import { Shift } from './Shift';
 import { Transaction } from './Transaction';
-import { IsNumber, IsArray, IsDate } from 'class-validator';
+import { IsNumber, IsArray, IsDate, ValidateNested } from 'class-validator';
 
 export enum paymentMethod {
   SPLIT = 'split',
@@ -34,6 +34,7 @@ export class Visit extends BaseEntity {
   // TODO: insert orders here
 
   @OneToMany((type) => Shift, (shift) => shift.visits)
+  @ValidateNested()
   public assignee: Shift;
 
   @Column()

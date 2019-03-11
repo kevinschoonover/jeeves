@@ -13,7 +13,7 @@ import {
 } from 'typeorm';
 import { Account } from './Account';
 import { Table, tableStatus } from './Table';
-import { IsNumber, IsEnum } from 'class-validator';
+import { IsNumber, IsEnum, ValidateNested } from 'class-validator';
 
 export enum serviceType {
   REFILL_DRINK = 'refill_drink',
@@ -39,8 +39,10 @@ export class Service extends BaseEntity {
   public type: serviceType;
 
   @OneToMany((type) => Account, (account) => account.services)
+  @ValidateNested()
   public user: Account;
 
   @OneToMany((type) => Table, (table) => table.services)
+  @ValidateNested()
   public table: Table;
 }

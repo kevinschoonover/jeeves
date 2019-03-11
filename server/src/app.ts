@@ -70,7 +70,6 @@ const schemas = validationMetadatasToSchemas(metadatas, {
   refPointerPrefix: '#/components/schemas/',
 });
 
-console.log('Here is the schema: ', schemas);
 const routingControllersOptions = {
   controllers: Object.keys(controllers).map((key) => controllers[key]),
   routePrefix: '/api/v1',

@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { Account } from './Account';
 import { Visit } from './Visit';
-import { IsNumber, IsDate } from 'class-validator';
+import { IsNumber, IsDate, ValidateNested } from 'class-validator';
 
 @Entity()
 export class Transaction extends BaseEntity {
@@ -17,9 +17,11 @@ export class Transaction extends BaseEntity {
   public id: number;
 
   @OneToMany((type) => Visit, (visit) => visit.transactions)
+  @ValidateNested()
   public visit: Visit;
 
   @OneToMany((type) => Account, (account) => account.transactions)
+  @ValidateNested()
   public user: Account;
 
   @CreateDateColumn()

@@ -12,7 +12,13 @@ import {
 
 import { Section } from './Section';
 import { Service } from './Service';
-import { IsNumber, IsEnum, IsArray, IsBoolean } from 'class-validator';
+import {
+  IsNumber,
+  IsEnum,
+  IsArray,
+  IsBoolean,
+  ValidateNested,
+} from 'class-validator';
 
 export enum tableStatus {
   OPEN = 'open',
@@ -50,5 +56,6 @@ export class Table extends BaseEntity {
   public kidFriendly: boolean;
 
   @ManyToOne((type) => Section, (section) => section.tables)
+  @ValidateNested()
   public section: Section;
 }

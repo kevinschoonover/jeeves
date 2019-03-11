@@ -21,6 +21,7 @@ import {
   IsBoolean,
   IsArray,
   IsOptional,
+  ValidateNested,
 } from 'class-validator';
 import { isString } from 'util';
 
@@ -149,6 +150,7 @@ export class MenuItem extends BaseEntity {
   public reviews: Review[];
 
   @ManyToOne((type) => Menu, (menu) => menu.menuItems)
+  @ValidateNested()
   public menu: Menu;
 
   @ManyToMany(

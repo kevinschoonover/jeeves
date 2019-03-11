@@ -9,7 +9,13 @@ import {
 } from 'typeorm';
 import { MenuItem } from './MenuItem';
 import { Restaurant } from './Restaurant';
-import { IsString, IsDate, IsBoolean, IsArray } from 'class-validator';
+import {
+  IsString,
+  IsDate,
+  IsBoolean,
+  IsArray,
+  ValidateNested,
+} from 'class-validator';
 
 @Entity()
 export class Menu extends BaseEntity {
@@ -32,5 +38,6 @@ export class Menu extends BaseEntity {
   public menuItems: MenuItem[];
 
   @ManyToOne((type) => Restaurant, (restaurant) => restaurant.menus)
+  @ValidateNested()
   public restaurant: Restaurant;
 }

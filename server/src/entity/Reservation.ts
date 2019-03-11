@@ -9,7 +9,13 @@ import {
 } from 'typeorm';
 import { Restaurant } from './Restaurant';
 import { Account } from './Account';
-import { IsUUID, IsDate, IsNumber, IsArray } from 'class-validator';
+import {
+  IsUUID,
+  IsDate,
+  IsNumber,
+  IsArray,
+  ValidateNested,
+} from 'class-validator';
 
 @Entity()
 export class Reservation extends BaseEntity {
@@ -18,6 +24,7 @@ export class Reservation extends BaseEntity {
   public id: string;
 
   @CreateDateColumn()
+  @IsDate()
   public dateCreated: Date;
 
   @Column()
@@ -33,5 +40,6 @@ export class Reservation extends BaseEntity {
   public guests: Account[];
 
   @ManyToOne((type) => Restaurant, (restaurant) => restaurant.reservations)
+  @ValidateNested()
   public restaurant: Restaurant;
 }
