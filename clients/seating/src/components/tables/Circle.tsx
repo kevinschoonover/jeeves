@@ -10,7 +10,7 @@ const styles = (theme: Theme) =>
   createStyles({
     circle: {
       strokeWidth: 2,
-      stroke: '#fff',
+      stroke: theme.palette.grey[900],
     },
     selected: {
       stroke: theme.palette.grey[50],
@@ -89,8 +89,8 @@ const Circle: React.FC<CircleProps & React.HTMLAttributes<SVGGElement>> = ({
   const circle = classNames(
     classes.circle,
     size ? classes[size] : classes.small,
-    color ? classes[color] : classes.grey
-    // isSelected && classes.selected
+    color ? classes[color] : classes.grey,
+    isSelected && classes.selected
   );
 
   let textColor = classNames(classes.greyContrastText);
@@ -109,8 +109,6 @@ const Circle: React.FC<CircleProps & React.HTMLAttributes<SVGGElement>> = ({
       break;
   }
 
-  const stroke = isSelected ? 'white' : 'black';
-
   return (
     <g
       onMouseOver={() => setHovering(true)}
@@ -119,13 +117,7 @@ const Circle: React.FC<CircleProps & React.HTMLAttributes<SVGGElement>> = ({
       transform={`translate(${x},${y})`}
       style={{ cursor: isHovering ? 'pointer' : '' }}
     >
-      <circle
-        className={circle}
-        cx={radius}
-        cy={radius}
-        r={radius}
-        style={{ stroke }}
-      />
+      <circle className={circle} cx={radius} cy={radius} r={radius} />
       <text
         className={textColor}
         textAnchor="middle"

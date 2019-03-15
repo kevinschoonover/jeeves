@@ -15,10 +15,10 @@ export const styles = (theme: Theme) =>
   createStyles({
     rectangle: {
       strokeWidth: 2,
-      // stroke: '#fff'
+      stroke: theme.palette.grey[900],
     },
     selected: {
-      // stroke: theme.palette.grey[50],
+      stroke: theme.palette.grey[50],
     },
     large: {
       height: HEIGHT.LARGE,
@@ -103,8 +103,8 @@ const Rectangle: React.FC<
   const rectangle = classNames(
     classes.rectangle,
     size ? classes[size] : classes.small,
-    color ? classes[color] : classes.grey
-    // isSelected && classes.selected
+    color ? classes[color] : classes.grey,
+    isSelected && classes.selected
   );
 
   let textColor = classNames(classes.greyContrastText);
@@ -142,8 +142,6 @@ const Rectangle: React.FC<
       break;
   }
 
-  const stroke = isSelected ? 'white' : 'black';
-
   return (
     <g
       transform={`translate(${x},${y}) rotate(${rotation})`}
@@ -152,7 +150,7 @@ const Rectangle: React.FC<
       style={{ cursor: isHovering ? 'pointer' : '' }}
       {...attributes}
     >
-      <rect className={rectangle} x="0" y="0" style={{ stroke }} />
+      <rect className={rectangle} x="0" y="0" />
       <text
         className={textColor}
         textAnchor="middle"
