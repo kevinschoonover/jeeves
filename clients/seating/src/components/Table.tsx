@@ -4,13 +4,15 @@ import Circle from './tables/Circle';
 import { TableStatus } from '../mocks';
 
 export interface TableProps {
-  // TODO: This shouldn't have to be a prop of the Table
   shape?: TableShape;
   orientation?: Orientation;
   details: {
     seatingCapacity: number;
     status: string;
+    x: number;
+    y: number;
   };
+  isSelected: boolean;
   onTableClick(): void;
 }
 
@@ -29,11 +31,15 @@ const Table: React.FC<TableProps> = ({
   onTableClick,
   children,
   orientation,
+  isSelected,
   shape = 'circle',
 }) => {
   if (shape === 'circle') {
     return (
       <Circle
+        x={details.x}
+        y={details.y}
+        isSelected={isSelected}
         onClick={onTableClick}
         color={(TABLE_STATUS_COLOR_MAP as any)[details.status]}
         size={details.seatingCapacity <= 2 ? 'small' : 'large'}
@@ -45,7 +51,10 @@ const Table: React.FC<TableProps> = ({
 
   return (
     <Rectangle
+      x={details.x}
+      y={details.y}
       onClick={onTableClick}
+      isSelected={isSelected}
       color={(TABLE_STATUS_COLOR_MAP as any)[details.status]}
       orientation={orientation}
       size={
