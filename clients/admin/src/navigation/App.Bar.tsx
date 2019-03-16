@@ -279,7 +279,8 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
       (props: any): any => {
         return (
           <RestaurantIndex
-            deleteRestaurant={this.props.deleteRestaurant}
+            createRestaurant={this.props.createRestaurant}
+            deleteRestaurant={this.props.deleteRestaurant} 
             restaurants={this.props.restaurants}
           />
         );
@@ -294,7 +295,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Route path="/" exact={true} component={RestaurantsBoard} />
-          <Route path="/dashboard" component={RestaurantsBoard} />
+          <Route path="/restaurants" component={RestaurantsBoard} />
           <Route path="/account" render={this.renderAccount} />
           {this.renderAlert()}
           {this.renderSpinner()}

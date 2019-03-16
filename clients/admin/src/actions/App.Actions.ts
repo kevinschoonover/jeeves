@@ -31,6 +31,7 @@ export interface IApplicationProps {
   fetchRestaurants: (context?: any) => any;
   updateRestaurant: (context: any) => any;
   deleteRestaurant: (context: any) => any;
+  createRestaurant: (context: any) => any;
   match: match<any>;
   location: any;
   history: any;

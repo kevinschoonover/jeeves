@@ -1,11 +1,15 @@
 import * as React from 'react';
 import RestaurantList from '../../components/RestaurantList';
+import { withRouter } from "react-router";
 import { Typography, Theme, withStyles } from '@material-ui/core';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 interface IRestaurantProps {
   items: any[];
   classes: any;
-  deleteRestaurant: (context: any) => any;
+  history: any;
+  deleteItem: (context: any) => any;
 }
 
 class RestaurantPage extends React.Component<IRestaurantProps, {}> {
@@ -19,6 +23,9 @@ class RestaurantPage extends React.Component<IRestaurantProps, {}> {
           </Typography>
         </div>
         <RestaurantList {...this.props} />
+        <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.props.history.push("/restaurants/create")}>
+          <AddIcon />
+        </Fab>
       </div>
     );
   }
@@ -45,6 +52,11 @@ const styles = (theme: Theme) => ({
       display: 'none',
     },
   },
+  fab: {
+    position: 'absolute',
+    bottom: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 2,
+  },
 });
 
-export default withStyles(styles as any)(RestaurantPage as any) as any;
+export default withRouter(withStyles(styles as any)(RestaurantPage as any) as any) as any;

@@ -40,7 +40,7 @@ const styles = (theme: Theme) => ({
 interface IRestaurantListProps {
   items: any[];
   classes: any;
-  deleteRestaurant: (context: any) => any;
+  deleteItem: (context: any) => any;
 }
 
 class RestaurantList extends React.Component<IRestaurantListProps, {}> {
@@ -58,7 +58,7 @@ class RestaurantList extends React.Component<IRestaurantListProps, {}> {
                     component="img"
                     className={classes.media}
                     image={item.imgPath}
-                    title="Contemplative Reptile"
+                    title="Item Picture"
                   />
                   <CardContent>
                     <Typography gutterBottom={true} component="h2">
@@ -75,7 +75,7 @@ class RestaurantList extends React.Component<IRestaurantListProps, {}> {
                   <Button
                     size="small"
                     color="primary"
-                    onClick={() => this.props.deleteRestaurant(item.id)}
+                    onClick={() => this.props.deleteItem(item.id)}
                   >
                     Delete
                   </Button>

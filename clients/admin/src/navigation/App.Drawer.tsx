@@ -34,7 +34,7 @@ interface IAppDrawer {
 
 class AppDrawer extends React.Component<IAppDrawer, {}> {
   public routes = [
-    { path: '/', title: 'Restaurants', icon: () => <RestaurantIcon /> },
+    { path: '/restaurants', title: 'Restaurants', icon: () => <RestaurantIcon /> },
   ];
 
   public render(): JSX.Element {
