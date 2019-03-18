@@ -37,14 +37,12 @@ const styles = (theme: Theme) =>
     },
     primary: {
       fill: theme.palette.primary.main,
-      color: theme.palette.primary.contrastText,
     },
     primaryContrastText: {
       fill: theme.palette.primary.contrastText,
     },
     secondary: {
       fill: theme.palette.secondary.main,
-      color: theme.palette.secondary.contrastText,
     },
     secondaryContrastText: {
       fill: theme.palette.secondary.contrastText,
