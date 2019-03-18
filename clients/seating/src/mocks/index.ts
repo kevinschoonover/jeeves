@@ -1,4 +1,3 @@
-import { Orientation } from '../components/tables/Rectangle';
 import { TableShape } from '../components/Table';
 
 export enum TableStatus {
@@ -19,7 +18,7 @@ export interface Table {
   status: TableStatus;
   x: number;
   y: number;
-  orientation?: Orientation;
+  rotation?: number;
   shape?: TableShape;
 }
 
@@ -71,7 +70,7 @@ const fakeSeatingLayout: Section[] = [
         x: 350,
         y: 50,
         shape: 'square',
-        orientation: 'horizontal',
+        rotation: 90,
       },
       {
         id: 6,
@@ -80,7 +79,7 @@ const fakeSeatingLayout: Section[] = [
         x: 600,
         y: 50,
         shape: 'square',
-        orientation: 'horizontal',
+        rotation: 90,
       },
       {
         id: 7,
@@ -89,7 +88,7 @@ const fakeSeatingLayout: Section[] = [
         x: 800,
         y: 50,
         shape: 'rectangle',
-        orientation: 'horizontal',
+        rotation: 90,
       },
       {
         id: 8,
@@ -98,7 +97,7 @@ const fakeSeatingLayout: Section[] = [
         x: 1000,
         y: 50,
         shape: 'rectangle',
-        orientation: 'horizontal',
+        rotation: 90,
       },
     ],
   },
@@ -138,7 +137,7 @@ const fakeSeatingLayout: Section[] = [
         x: 500,
         y: 600,
         shape: 'square',
-        orientation: 'horizontal',
+        rotation: 90,
       },
       {
         id: 14,
@@ -147,7 +146,7 @@ const fakeSeatingLayout: Section[] = [
         x: 750,
         y: 600,
         shape: 'rectangle',
-        orientation: 'horizontal',
+        rotation: 90,
       },
       {
         id: 15,
@@ -156,7 +155,7 @@ const fakeSeatingLayout: Section[] = [
         x: 1000,
         y: 600,
         shape: 'rectangle',
-        orientation: 'horizontal',
+        rotation: 90,
       },
     ],
   },

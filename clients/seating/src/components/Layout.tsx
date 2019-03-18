@@ -59,7 +59,7 @@ const Layout: React.FC<LayoutProps> = ({
               key={table.id}
               isSelected={selectedTable === table.id}
               onTableClick={setSelectedTable(table.id)}
-              orientation={table.orientation}
+              rotation={table.rotation}
               shape={table.shape}
               details={{
                 seatingCapacity: table.seatingCapacity,

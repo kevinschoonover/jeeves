@@ -1,11 +1,11 @@
 import React from 'react';
-import Rectangle, { RectangleColor, Orientation } from './tables/Rectangle';
+import Rectangle, { RectangleColor } from './tables/Rectangle';
 import Circle from './tables/Circle';
 import { TableStatus } from '../mocks';
 
 export interface TableProps {
   shape?: TableShape;
-  orientation?: Orientation;
+  rotation?: number;
   details: {
     seatingCapacity: number;
     status: string;
@@ -25,13 +25,12 @@ const TABLE_STATUS_COLOR_MAP: { [key in TableStatus]: RectangleColor } = {
   open: 'grey',
 };
 
-// TODO: Not sure how we'll handle orientation in context of table data
 const Table: React.FC<TableProps> = ({
   details,
   onTableClick,
   children,
-  orientation,
   isSelected,
+  rotation,
   shape = 'circle',
 }) => {
   if (shape === 'circle') {
@@ -56,7 +55,7 @@ const Table: React.FC<TableProps> = ({
       onClick={onTableClick}
       isSelected={isSelected}
       color={(TABLE_STATUS_COLOR_MAP as any)[details.status]}
-      orientation={orientation}
+      rotation={rotation}
       size={
         details.seatingCapacity <= 2
           ? 'small'

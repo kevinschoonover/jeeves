@@ -65,7 +65,6 @@ export const styles = (theme: Theme) =>
   });
 
 export type Size = 'large' | 'small' | 'square';
-export type Orientation = 'vertical' | 'horizontal';
 export type RectangleColor =
   | 'primary'
   | 'secondary'
@@ -75,7 +74,7 @@ export type RectangleColor =
 
 export interface RectangleProps extends WithStyles<typeof styles> {
   size?: Size;
-  orientation?: Orientation;
+  rotation?: number;
   color?: RectangleColor;
   isSelected?: boolean;
   x: number;
@@ -88,7 +87,7 @@ const Rectangle: React.FC<
   classes,
   children,
   size,
-  orientation,
+  rotation = 0,
   color,
   isSelected,
   x,
@@ -97,8 +96,7 @@ const Rectangle: React.FC<
 }) => {
   const [isHovering, setHovering] = React.useState(false);
 
-  const rotation = orientation === 'horizontal' ? 90 : 0;
-  const textRotation = orientation === 'horizontal' ? -90 : 0;
+  const textRotation = rotation > 0 ? -rotation : 0;
 
   const rectangle = classNames(
     classes.rectangle,
