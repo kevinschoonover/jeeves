@@ -32,4 +32,7 @@ export class Section extends BaseEntity {
   @OneToMany((type) => Table, (table) => table.section)
   @IsArray()
   public tables: Table[];
+
+  @ManyToMany((type) => Shift, (shift) => shift.sections)
+  public shifts: Shift[];
 }

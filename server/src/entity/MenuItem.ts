@@ -9,8 +9,10 @@ import {
   PrimaryGeneratedColumn,
   IsNull,
 } from 'typeorm';
+
 import { InventoryItem } from './InventoryItem';
 import { Menu } from './Menu';
+import { Order } from './Order';
 import { Review } from './Review';
 import {
   IsString,
@@ -159,4 +161,10 @@ export class MenuItem extends BaseEntity {
   )
   @IsArray()
   public ingredients: InventoryItem[];
+
+  @ManyToMany((type) => Order, (order) => order.menuItems)
+  public orders: Order[];
+
+  @OneToMany((type) => Review, (review) => review.menuItem)
+  public reviews: Review[];
 }

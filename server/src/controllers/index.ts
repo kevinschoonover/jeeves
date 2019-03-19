@@ -11,3 +11,4 @@ export * from './Visit';
 export * from './InventoryItem';
 export * from './Reservation';
 export * from './Review';
+export * from './Order';

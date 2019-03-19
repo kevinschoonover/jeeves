@@ -7,11 +7,12 @@ import {
   ManyToMany,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
   OneToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { Account } from './Account';
+import { Order } from './Order';
 import { Shift } from './Shift';
 import { Transaction } from './Transaction';
 import { IsNumber, IsArray, IsDate, ValidateNested } from 'class-validator';
@@ -31,8 +32,6 @@ export class Visit extends BaseEntity {
   @IsArray()
   public users: Account[];
 
-  // TODO: insert orders here
-
   @OneToMany((type) => Shift, (shift) => shift.visits)
   @ValidateNested()
   public assignee: Shift;
@@ -45,7 +44,20 @@ export class Visit extends BaseEntity {
   @IsDate()
   public departure: Date;
 
+
   @ManyToOne((type) => Transaction, (transaction) => transaction.visit)
   @IsArray()
+
+  @OneToMany((type) => Order, (order) => order.shift)
+  public orders: Order[];
+
+  @OneToMany((type) => Transaction, (transaction) => transaction.visit)
+
   public transactions: Transaction[];
+
+  @ManyToOne((type) => Shift, (shift) => shift.visits)
+  public assignee: Shift;
+
+  @ManyToMany((type) => Account, (account) => account.visits)
+  public users: Account[];
 }
