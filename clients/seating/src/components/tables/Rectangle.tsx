@@ -1,68 +1,70 @@
 import React from 'react';
-import { withStyles, createStyles, WithStyles, Theme } from '@material-ui/core';
-import deepPurple from '@material-ui/core/colors/deepPurple';
+import { withStyles, WithStyles, Theme, createStyles } from '@material-ui/core';
 import classNames from 'classnames';
-import { green } from '@material-ui/core/colors';
+import { deepPurple, green } from '@material-ui/core/colors';
 
-const styles = (theme: Theme) =>
+export const HEIGHT = {
+  LARGE: 175,
+  SMALL: 125,
+  SQUARE: 100,
+};
+
+export const WIDTH = 100;
+
+export const styles = (theme: Theme) =>
   createStyles({
-    root: {
-      '&:hover': {
-        cursor: 'pointer',
-      },
-      '&:focus': {
-        outlineColor: theme.palette.grey[50],
-      },
-      textAlign: 'center',
-      border: '1px solid black',
-      display: 'flex',
+    rectangle: {
+      strokeWidth: 2,
+      stroke: theme.palette.grey[900],
     },
-    inner: {
-      margin: 'auto',
-    },
-    innerHorizontal: {
-      transform: 'rotate(-90deg)',
+    selected: {
+      stroke: theme.palette.grey[50],
     },
     large: {
-      height: 175,
-      width: 100,
+      height: HEIGHT.LARGE,
+      width: WIDTH,
     },
     small: {
-      height: 125,
-      width: 100,
+      height: HEIGHT.SMALL,
+      width: WIDTH,
     },
     square: {
-      height: 100,
-      width: 100,
-    },
-    vertical: {},
-    horizontal: {
-      transform: 'rotate(90deg)',
+      height: HEIGHT.SQUARE,
+      width: WIDTH,
     },
     purple: {
-      backgroundColor: deepPurple[300],
-      color: 'white',
+      fill: deepPurple[300],
+    },
+    purpleContrastText: {
+      fill: 'white',
     },
     grey: {
-      backgroundColor: theme.palette.grey[500],
-      color: theme.palette.getContrastText(theme.palette.grey[50]),
+      fill: theme.palette.grey[500],
+    },
+    greyContrastText: {
+      fill: theme.palette.getContrastText(theme.palette.grey[500]),
     },
     primary: {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.primary.contrastText,
+      fill: theme.palette.primary.main,
+    },
+    primaryContrastText: {
+      fill: theme.palette.primary.contrastText,
     },
     secondary: {
-      backgroundColor: theme.palette.secondary.main,
-      color: theme.palette.secondary.contrastText,
+      fill: theme.palette.secondary.main,
+    },
+    secondaryContrastText: {
+      fill: theme.palette.secondary.contrastText,
     },
     success: {
-      backgroundColor: green[600],
-      color: theme.palette.getContrastText(green[600]),
+      fill: green[600],
+    },
+    successContrastText: {
+      fill: theme.palette.getContrastText(green[600]),
     },
   });
 
 export type Size = 'large' | 'small' | 'square';
-export type Orientation = 'vertical' | 'horizontal';
 export type RectangleColor =
   | 'primary'
   | 'secondary'
@@ -72,29 +74,92 @@ export type RectangleColor =
 
 export interface RectangleProps extends WithStyles<typeof styles> {
   size?: Size;
-  orientation?: Orientation;
+  rotation?: number;
   color?: RectangleColor;
+  isSelected?: boolean;
+  x: number;
+  y: number;
 }
 
 const Rectangle: React.FC<
-  RectangleProps & React.HTMLAttributes<HTMLDivElement>
-> = ({ classes, children, size, orientation, color, ...attributes }) => {
+  RectangleProps & React.HTMLAttributes<SVGGElement>
+> = ({
+  classes,
+  children,
+  size,
+  rotation = 0,
+  color,
+  isSelected,
+  x,
+  y,
+  ...attributes
+}) => {
+  const [isHovering, setHovering] = React.useState(false);
+
+  const textRotation = rotation > 0 ? -rotation : 0;
+
   const rectangle = classNames(
-    classes.root,
+    classes.rectangle,
     size ? classes[size] : classes.small,
-    orientation && classes[orientation],
-    color && classes[color]
+    color ? classes[color] : classes.grey,
+    isSelected && classes.selected
   );
 
-  const inner = classNames(
-    classes.inner,
-    orientation === 'horizontal' && classes.innerHorizontal
-  );
+  let textColor = classNames(classes.greyContrastText);
+  switch (color) {
+    case 'primary':
+      textColor = classNames(classes.primaryContrastText);
+      break;
+    case 'purple':
+      textColor = classNames(classes.purpleContrastText);
+      break;
+    case 'secondary':
+      textColor = classNames(classes.secondaryContrastText);
+      break;
+    case 'success':
+      textColor = classNames(classes.successContrastText);
+      break;
+  }
+
+  let textLocation = {
+    x: WIDTH / 2,
+    y: HEIGHT.SMALL / 2,
+  };
+  switch (size) {
+    case 'large':
+      textLocation = {
+        x: WIDTH / 2,
+        y: HEIGHT.LARGE / 2,
+      };
+      break;
+    case 'square':
+      textLocation = {
+        x: WIDTH / 2,
+        y: HEIGHT.SQUARE / 2,
+      };
+      break;
+  }
 
   return (
-    <div className={rectangle} tabIndex={1} {...attributes}>
-      <span className={inner}>{children}</span>
-    </div>
+    <g
+      transform={`translate(${x},${y}) rotate(${rotation})`}
+      onMouseOver={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      style={{ cursor: isHovering ? 'pointer' : '' }}
+      {...attributes}
+    >
+      <rect className={rectangle} x="0" y="0" />
+      <text
+        className={textColor}
+        textAnchor="middle"
+        alignmentBaseline="central"
+        transform={`translate(${textLocation.x},${
+          textLocation.y
+        }) rotate(${textRotation})`}
+      >
+        {children}
+      </text>
+    </g>
   );
 };
 

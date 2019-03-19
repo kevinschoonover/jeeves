@@ -70,6 +70,7 @@ const App: React.FC<AppProps> = ({ classes }) => {
               sections={sections}
               isLoading={isLoading}
               setSelectedTable={handleTableClick}
+              selectedTable={selectedTable}
             />
           </Grid>
           <Hidden smDown={true}>
