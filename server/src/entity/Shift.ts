@@ -14,16 +14,20 @@ import { Account } from './Account';
 import { Order } from './Order';
 import { Section } from './Section';
 import { Visit } from './Visit';
+import { IsNumber, IsDate, IsArray, ValidateNested } from 'class-validator';
 
 @Entity()
 export class Shift extends BaseEntity {
   @PrimaryGeneratedColumn()
+  @IsNumber()
   public id: number;
 
   @Column()
+  @IsDate()
   public startTime: Date;
 
   @Column()
+  @IsDate()
   public endTime: Date;
 
   @OneToMany((type) => Order, (order) => order.shift)
@@ -33,8 +37,19 @@ export class Shift extends BaseEntity {
   public visits: Visit[];
 
   @ManyToOne((type) => Account, (account) => account.shifts)
+  @ValidateNested()
   public server: Account;
 
-  @ManyToMany((type) => Section, (section) => section.shifts)
+
+  @ManyToOne((type) => Section, (section) => section.tables)
+  @ValidateNested()
+  public section: Section;
+
+  @ManyToOne((type) => Visit, (visit) => visit.assignee)
+  @IsArray()
+  public visits: Visit[];
+
+@ManyToMany((type) => Section, (section) => section.shifts)
   public sections: Section[];
+
 }

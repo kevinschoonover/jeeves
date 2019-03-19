@@ -1,9 +1,7 @@
-import { routingControllersToSpec } from 'routing-controllers-openapi';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 
 import {
   Body,
-  CurrentUser,
   Delete,
   Get,
   JsonController,
@@ -11,12 +9,10 @@ import {
   Param,
   Patch,
   Post,
-  getMetadataArgsStorage,
 } from 'routing-controllers';
 import { EntityFromBody } from 'typeorm-routing-controllers-extensions';
 
 import { Account } from '../entity/Account';
-import * as Auth from '../lib/auth';
 
 @JsonController()
 export class AccountController {
@@ -46,6 +42,7 @@ export class AccountController {
   @OpenAPI({
     summary: 'Return the Account associated with id',
   })
+  @ResponseSchema(Account)
   public async get(@Param('id') id: string) {
     return Account.findOne({ id });
   }
@@ -54,6 +51,7 @@ export class AccountController {
   @OpenAPI({
     summary: 'Update the fields of an Account associated with id',
   })
+  @ResponseSchema(Account)
   public async patch(@Param('id') id: string, @Body() account: object) {
     await Account.update(id, account);
     return Account.findOne({ id });
