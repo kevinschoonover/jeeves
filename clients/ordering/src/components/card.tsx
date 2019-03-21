@@ -21,6 +21,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Grid from '@material-ui/core/Grid';
+import { addToCart } from './actions/cartActions';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -58,6 +59,7 @@ const styles = (theme: Theme) =>
 type CardsProps = WithStyles<typeof styles>;
 
 export interface MenuProps extends WithStyles<typeof styles> {
+  id: number;
   avatar: string;
   title: string;
   subheader: number;
@@ -76,6 +78,10 @@ const MenuCard: React.FC<MenuProps> = ({
   classes,
 }) => {
   const [expanded, setExpanded] = useState<boolean>(false);
+
+  const handleClick = (id2: string) => {
+    addToCart(id2);
+  };
 
   return (
     <Grid item={true}>
@@ -102,7 +108,7 @@ const MenuCard: React.FC<MenuProps> = ({
         />
         <CardActions className={classes.actions} disableActionSpacing={true}>
           <IconButton aria-label="Add to Cart">
-            <AddBoxIcon />
+            <AddBoxIcon onClick={() => handleClick(title)} />
           </IconButton>
           <IconButton aria-label="Add to Favorites">
             <FavoriteIcon />

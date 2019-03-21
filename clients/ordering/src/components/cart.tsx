@@ -13,6 +13,7 @@ import {
 import List from '@material-ui/core/List';
 import DeleteIcon from '@material-ui/icons/Delete';
 import shoppingCart from './shoppingCart';
+import { connect } from 'react-redux';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -51,9 +52,7 @@ const Cart: React.FC<Props> = ({ classes }) => {
           </ListItem>
         ))}
       </List>
-      <List subheader={<ListSubheader>Total</ListSubheader>}>
-        <ListItemText primary={'test'} />
-      </List>
+      <List subheader={<ListSubheader>Total</ListSubheader>}>{}</List>
     </div>
   );
 };

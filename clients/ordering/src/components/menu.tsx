@@ -9,6 +9,8 @@ import {
 import Grid from '@material-ui/core/Grid';
 import MenuCard from './card';
 import menucards from './menucards';
+import { addToCart } from './actions/cartActions';
+import { connect } from 'react-redux';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -28,6 +30,7 @@ const Menu: React.FC<Props> = ({ classes }) => {
         spacing={32}
         alignItems={'center'}
         justify={'space-evenly'}
+        style={{ backgroundColor: 'tan' }}
       >
         {menucards.map((menucard) => (
           <MenuCard key={menucard.id} {...menucard} />
@@ -37,4 +40,20 @@ const Menu: React.FC<Props> = ({ classes }) => {
   );
 };
 
-export default Menu;
+const mapStateToProps = (state: { items: any }) => {
+  return {
+    items: state.items,
+  };
+};
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    addToCart: (id: string) => {
+      dispatch(addToCart(id));
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Menu);

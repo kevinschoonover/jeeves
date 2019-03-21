@@ -22,6 +22,7 @@ const menucards = [
     description:
       'Crab and cream cheese wontons pinched into little purses and deep fried.',
     details: 'CAL: 150',
+    quantity: 0,
   },
   {
     id: 2,
@@ -33,6 +34,7 @@ const menucards = [
     description:
       'Savory roll with shredded cabbage, chopped pork, and other fillings inside a wheat flour skin and deep fried.',
     details: 'CAL: 150',
+    quantity: 0,
   },
   {
     id: 3,
@@ -44,6 +46,7 @@ const menucards = [
     description:
       'Sweet & Sour sauce, chicken, pineapple, onion, bell peppers, ginge',
     details: 'CAL: 300',
+    quantity: 0,
   },
   {
     id: 4,
@@ -55,6 +58,7 @@ const menucards = [
     description:
       'Spicy Sichuan chili sauce, chicken, peanuts, green onion, red chili peppers.',
     details: 'CAL: 150',
+    quantity: 0,
   },
   {
     id: 5,
@@ -65,6 +69,7 @@ const menucards = [
     image: ORANGE,
     description: 'Hunan chili sauce, chicken, fresh orange slices.',
     details: 'CAL: 150',
+    quantity: 0,
   },
   {
     id: 6,
@@ -76,6 +81,7 @@ const menucards = [
     description:
       'Sweet soy glaze, flank steak, garlic and snipped green onion.',
     details: 'CAL: 150',
+    quantity: 0,
   },
   {
     id: 7,
@@ -87,6 +93,7 @@ const menucards = [
     description:
       'Marinated chicken, celery and onions in a bold black pepper sauce.',
     details: 'CAL: 150',
+    quantity: 0,
   },
   {
     id: 8,
@@ -98,6 +105,7 @@ const menucards = [
     description:
       'A classic favorite. Tender beef and fresh broccoli in a ginger soy sauce.',
     details: 'CAL: 150',
+    quantity: 0,
   },
   {
     id: 9,
@@ -109,6 +117,7 @@ const menucards = [
     description:
       'Fried chicken with a chile-spiked sweet and sour sause. A takeout classic.',
     details: 'CAL: 150',
+    quantity: 0,
   },
   {
     id: 10,
@@ -120,6 +129,7 @@ const menucards = [
     description:
       'A cookie made from flour, sugar, vanilla, and sesame seed oil with a fortune inside.',
     details: 'CAL: 150',
+    quantity: 0,
   },
   {
     id: 11,
@@ -131,6 +141,7 @@ const menucards = [
     description:
       'A little custard tart, served warm, with a hard and sweet crust.',
     details: 'CAL: 150',
+    quantity: 0,
   },
   {
     id: 99,
@@ -141,6 +152,7 @@ const menucards = [
     image: SWEETSAUCE,
     description: 'A packet of sweet and sour sauce.',
     details: 'CAL: 150',
+    quantity: 0,
   },
 ];
 
