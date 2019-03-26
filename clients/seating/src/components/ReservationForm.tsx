@@ -1,17 +1,16 @@
 import React from 'react';
 import {
-  FormControl,
-  InputLabel,
-  MenuItem,
   Theme,
-  TextField,
-  InputAdornment,
   Button,
   withStyles,
   createStyles,
   WithStyles,
 } from '@material-ui/core';
-import { CalendarToday } from '@material-ui/icons';
+import { Schedule, Person, CalendarToday } from '@material-ui/icons';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+
+import 'react-day-picker/lib/style.css';
+import FormInput from './FormInput';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -19,26 +18,6 @@ const styles = (theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-    },
-    sidebar: {
-      background: 'linear-gradient(180deg, #FFD600 18.23%, #006452 99.99%)',
-    },
-    input: {
-      borderRadius: 10,
-      position: 'relative',
-      backgroundColor: theme.palette.background.paper,
-      border: '1px solid #ced4da',
-      fontSize: 16,
-      width: 261,
-      height: 40,
-      flex: 1,
-      padding: '10px 26px 10px 12px',
-      transition: theme.transitions.create(['border-color', 'box-shadow']),
-      '&:focus': {
-        borderRadius: 4,
-        borderColor: '#80bdff',
-        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-      },
     },
     button: {
       background: '#995C00',
@@ -56,40 +35,60 @@ interface ReservationFormProps extends WithStyles<typeof styles> {
   onSubmit(): void;
 }
 
+const formatPartySizeDisplay = (value: number) =>
+  value > 1 ? `${value} People` : '1 Person';
+
+const FormInputWithCalendar = (props: any) => (
+  <FormInput adornment={<CalendarToday />} {...props} />
+);
+
 const ReservationForm: React.FC<ReservationFormProps> = ({
   classes,
   onSubmit,
 }) => {
+  const [date, setDate] = React.useState(new Date());
+  const [time, setTime] = React.useState('');
+  const [partySize, setPartySize] = React.useState(1);
+
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit();
   };
 
+  const handleDateChange = (day: Date) => setDate(day);
+
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setTime(e.target.value);
+
+  const handlePartySizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // 1 Person, 2 People, 3 People, etc.
+    const newPartySize = e.target.value.split(' ')[0];
+    setPartySize(parseInt(newPartySize, 10));
+  };
+
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
-      <FormControl>
-        <InputLabel htmlFor="reservation-date">Date</InputLabel>
-        <TextField
-          select={true}
-          className={classes.input}
-          label="Date"
-          value=""
-          onChange={() => {
-            return;
-          }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <CalendarToday />
-              </InputAdornment>
-            ),
-          }}
-        >
-          <MenuItem value={new Date().toDateString()}>
-            <span>Today, {new Date().toDateString()}</span>
-          </MenuItem>
-        </TextField>
-      </FormControl>
+      <DayPickerInput
+        format="LL"
+        value={date}
+        onDayChange={handleDateChange}
+        placeholder="Date"
+        component={FormInputWithCalendar}
+      />
+      <FormInput
+        placeholder="Time"
+        type="select"
+        value={time}
+        onChange={handleTimeChange}
+        adornment={<Schedule />}
+      />
+      <FormInput
+        placeholder="Party Size"
+        type="select"
+        value={formatPartySizeDisplay(partySize)}
+        onChange={handlePartySizeChange}
+        adornment={<Person />}
+      />
       <Button type="submit" variant="contained" className={classes.button}>
         Reserve
       </Button>

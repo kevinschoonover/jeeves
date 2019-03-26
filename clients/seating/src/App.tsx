@@ -82,6 +82,7 @@ const App: React.FC<AppProps> = ({ classes }) => {
                 }}
               >
                 <h1>Book Table</h1>
+                {selectedTable && <h3>{selectedTable}</h3>}
                 <ReservationForm onSubmit={reserveTable} />
               </Grid>
             </Grid>
