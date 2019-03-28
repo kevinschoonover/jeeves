@@ -81,8 +81,7 @@ const App: React.FC<AppProps> = ({ classes }) => {
                   paddingTop: 110 - seatingLayoutYOffset,
                 }}
               >
-                <h1>Book Table</h1>
-                {selectedTable && <h3>{selectedTable}</h3>}
+                <h1>Book Table {selectedTable || ''}</h1>
                 <ReservationForm onSubmit={reserveTable} />
               </Grid>
             </Grid>

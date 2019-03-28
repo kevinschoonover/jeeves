@@ -5,6 +5,8 @@ import {
   withStyles,
   createStyles,
   WithStyles,
+  MenuItem,
+  Select,
 } from '@material-ui/core';
 import { Schedule, Person, CalendarToday } from '@material-ui/icons';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
@@ -35,19 +37,22 @@ interface ReservationFormProps extends WithStyles<typeof styles> {
   onSubmit(): void;
 }
 
-const formatPartySizeDisplay = (value: number) =>
-  value > 1 ? `${value} People` : '1 Person';
+const formatPartySizeDisplay = (value: any) => (
+  <span>{(value as number) > 1 ? `${value} People` : '1 Person'}</span>
+);
 
 const FormInputWithCalendar = (props: any) => (
   <FormInput adornment={<CalendarToday />} {...props} />
 );
+
+const partySizeList = Array.from({ length: 10 }, (_, i) => i + 1);
 
 const ReservationForm: React.FC<ReservationFormProps> = ({
   classes,
   onSubmit,
 }) => {
   const [date, setDate] = React.useState(new Date());
-  const [time, setTime] = React.useState('');
+  const [time, setTime] = React.useState('6:30 PM');
   const [partySize, setPartySize] = React.useState(1);
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
@@ -57,13 +62,11 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
 
   const handleDateChange = (day: Date) => setDate(day);
 
-  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const handleTimeChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setTime(e.target.value);
 
-  const handlePartySizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // 1 Person, 2 People, 3 People, etc.
-    const newPartySize = e.target.value.split(' ')[0];
-    setPartySize(parseInt(newPartySize, 10));
+  const handlePartySizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPartySize(parseInt(e.target.value, 10));
   };
 
   return (
@@ -75,20 +78,32 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
         placeholder="Date"
         component={FormInputWithCalendar}
       />
-      <FormInput
-        placeholder="Time"
-        type="select"
-        value={time}
+      <Select
         onChange={handleTimeChange}
-        adornment={<Schedule />}
-      />
-      <FormInput
-        placeholder="Party Size"
-        type="select"
-        value={formatPartySizeDisplay(partySize)}
+        renderValue={(value) => value}
+        value={time}
+        input={<FormInput adornment={<Schedule />} />}
+      >
+        {Array.from({ length: 5 }, (_, i) => `6:3${i} PM`).map(
+          (reservationTime, i) => (
+            <MenuItem key={i} value={reservationTime}>
+              <span>{reservationTime}</span>
+            </MenuItem>
+          )
+        )}
+      </Select>
+      <Select
         onChange={handlePartySizeChange}
-        adornment={<Person />}
-      />
+        renderValue={formatPartySizeDisplay}
+        value={partySize}
+        input={<FormInput adornment={<Person />} />}
+      >
+        {partySizeList.map((size) => (
+          <MenuItem key={size} value={size}>
+            <span>{formatPartySizeDisplay(size)}</span>
+          </MenuItem>
+        ))}
+      </Select>
       <Button type="submit" variant="contained" className={classes.button}>
         Reserve
       </Button>
