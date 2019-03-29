@@ -1,21 +1,32 @@
 import { IAppAction, ActionType } from './../actions/Helpers';
-import { Utility } from '../state/Utility';
 
-export const UtilityReducer = (state: Utility = new Utility(), action: IAppAction): Utility => {
-    switch (action.type) {
-        case ActionType.OPEN_DRAWER:
-            return state.set(Utility.DRAWER_OPEN, true) as Utility;
-        case ActionType.CLOSE_DRAWER:
-            return state.set(Utility.DRAWER_OPEN, false) as Utility;
-        case ActionType.OPEN_ALERT:
-            return state.set(Utility.ALERT, action.payload) as Utility;
-        case ActionType.CLOSE_ALERT:
-            return state.set(Utility.ALERT, null) as Utility;
-        case ActionType.OPEN_SPINNER:
-            return state.set(Utility.SPINNER, action.payload) as Utility;
-        case ActionType.CLOSE_SPINNER:
-            return state.set(Utility.SPINNER, null) as Utility;
-        default:
-            return state;
-    }
+export const UtilityReducer = (state: any = {drawOpen: false, alert: null, spinner: null}, action: IAppAction): any => {
+  switch (action.type) {
+    case ActionType.OPEN_DRAWER:
+      return Object.assign({}, state, {
+        drawerOpen: true
+      });
+    case ActionType.CLOSE_DRAWER:
+      return Object.assign({}, state, {
+        drawerOpen: false
+      });
+    case ActionType.OPEN_ALERT:
+      return Object.assign({}, state, {
+        alert: action.payload
+      });
+    case ActionType.CLOSE_ALERT:
+      return Object.assign({}, state, {
+        alert: null
+      });
+    case ActionType.OPEN_SPINNER:
+      return Object.assign({}, state, {
+        spinner: action.payload
+      });
+    case ActionType.CLOSE_SPINNER:
+      return Object.assign({}, state, {
+        spinner: null
+      });
+    default:
+      return state;
+  }
 };

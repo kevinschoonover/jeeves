@@ -1,10 +1,9 @@
 import { IAppAction, ActionType } from './../actions/Helpers';
-import { User } from '../state/User';
 
-export const AuthenticationReducer = (state: User = null, action: IAppAction): User => {
+export const AuthenticationReducer = (state: any = null, action: IAppAction): any => {
     switch (action.type) {
         case ActionType.LOGIN_REQUEST:
-            return new User({email: action.payload.email, name: 'Goeme Nthomiwa', roles: ['Admin']});
+            return {email: action.payload.email, name: 'Goeme Nthomiwa', roles: ['Admin']};
         case ActionType.LOGOUT_REQUEST:
             return null;
         default:

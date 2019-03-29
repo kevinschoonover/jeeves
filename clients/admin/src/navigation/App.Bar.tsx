@@ -7,13 +7,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { ListItemText, Menu, MenuItem, Badge, Avatar } from '@material-ui/core';
+import { Menu, MenuItem, Badge } from '@material-ui/core';
 import { Route, withRouter } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import { styles } from './styles';
 import { IApplicationProps } from '../actions/App.Actions';
 import * as AppActionCreators from '../actions/App.Actions';
-import { AppState, isAuthenticated } from '../state/AppState';
+import { IAppState, isAuthenticated } from '../state/AppState';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
 import { bindActionCreators, Dispatch } from 'redux';
@@ -29,8 +29,6 @@ import { actions as MaterialActionCreators } from '../data/material';
 import { actions as RestaurantActionCreators } from '../data/restaurant';
 
 import {
-  getMaterialChartItems,
-  getMailitems,
   getRestaurantItems,
 } from '../selectors';
 import AppDrawer from './App.Drawer';
@@ -55,8 +53,6 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
 
   public componentWillMount() {
     this.props.fetchUsers();
-    this.props.fetchMaterials();
-    this.props.fetchMails();
     this.props.fetchRestaurants();
   }
 
@@ -64,9 +60,9 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
     this.setState({ notificationEl: event.currentTarget });
   };
 
-  private handleNotificationMenuClose = () => {
-    this.setState({ notificationEl: null });
-  };
+  // private handleNotificationMenuClose = () => {
+  //   this.setState({ notificationEl: null });
+  // };
 
   private handleMenu = (event: any) => {
     this.setState({ anchorEl: event.currentTarget });
@@ -130,39 +126,39 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
     return null;
   }
 
-  private renderNotifications(notifications: any[]) {
-    const { classes } = this.props;
-    return (
-      <Menu
-        id="notifications"
-        anchorEl={this.state.notificationEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        className={classes.notifications}
-        open={Boolean(this.state.notificationEl)}
-        onClose={this.handleNotificationMenuClose}
-      >
-        {notifications.map((n: any) => (
-          <MenuItem
-            key={n.id}
-            onClick={this.handleNotificationMenuClose}
-            dense={true}
-            button={true}
-            className={classes.notificationListItem}
-          >
-            <Avatar src={n.avatar} />
-            <ListItemText primary={n.subject} />
-          </MenuItem>
-        ))}
-      </Menu>
-    );
-  }
+  // private renderNotifications(notifications: any[]) {
+  //   const { classes } = this.props;
+  //   return (
+  //     <Menu
+  //       id="notifications"
+  //       anchorEl={this.state.notificationEl}
+  //       anchorOrigin={{
+  //         vertical: 'top',
+  //         horizontal: 'right',
+  //       }}
+  //       transformOrigin={{
+  //         vertical: 'top',
+  //         horizontal: 'right',
+  //       }}
+  //       className={classes.notifications}
+  //       open={Boolean(this.state.notificationEl)}
+  //       onClose={this.handleNotificationMenuClose}
+  //     >
+  //       {notifications.map((n: any) => (
+  //         <MenuItem
+  //           key={n.id}
+  //           onClick={this.handleNotificationMenuClose}
+  //           dense={true}
+  //           button={true}
+  //           className={classes.notificationListItem}
+  //         >
+  //           <Avatar src={n.avatar} />
+  //           <ListItemText primary={n.subject} />
+  //         </MenuItem>
+  //       ))}
+  //     </Menu>
+  //   );
+  // }
 
   private renderAppBar() {
     if (this.props.authentication) {
@@ -170,7 +166,6 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
       const { anchorEl, notificationEl } = this.state;
       const open = Boolean(anchorEl);
       const notificationsOpen = Boolean(notificationEl);
-      const unreadMessages = this.props.mail.filter((x) => x.seen === false);
 
       return (
         <AppBar
@@ -207,11 +202,10 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                 color="inherit"
                 onClick={this.handleNotificationMenu}
               >
-                <Badge badgeContent={unreadMessages.length} color="secondary">
+                <Badge color="secondary">
                   <NotificationIcon />
                 </Badge>
               </IconButton>
-              {this.renderNotifications(unreadMessages)}
               <IconButton
                 aria-owns={open ? 'menu-appbar' : null}
                 aria-haspopup="true"
@@ -305,14 +299,14 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
   }
 }
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: IAppState) => ({
   utility: state.utility,
   authentication: state.authentication,
   users: state.users,
   materials: state.materials,
   restaurants: getRestaurantItems(state),
-  materialCharts: getMaterialChartItems(state),
-  mail: getMailitems(state),
+  materialCharts: state,
+  mail: state.mail,
 });
 
 const mapDispatchtoProps = (dispatch: Dispatch) =>
