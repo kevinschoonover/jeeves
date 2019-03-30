@@ -3,29 +3,29 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  IsNull,
   ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-  IsNull,
 } from 'typeorm';
 
+import {
+  IsArray,
+  IsBoolean,
+  IsDate,
+  IsEnum,
+  IsJSON,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import { isString } from 'util';
 import { InventoryItem } from './InventoryItem';
 import { Menu } from './Menu';
 import { Order } from './Order';
 import { Review } from './Review';
-import {
-  IsString,
-  IsNumber,
-  IsJSON,
-  IsEnum,
-  IsDate,
-  IsBoolean,
-  IsArray,
-  IsOptional,
-  ValidateNested,
-} from 'class-validator';
-import { isString } from 'util';
 
 export enum itemCategorys {
   STARTER = 'starter',
@@ -163,8 +163,6 @@ export class MenuItem extends BaseEntity {
   public ingredients: InventoryItem[];
 
   @ManyToMany((type) => Order, (order) => order.menuItems)
+  @IsArray()
   public orders: Order[];
-
-  @OneToMany((type) => Review, (review) => review.menuItem)
-  public reviews: Review[];
 }

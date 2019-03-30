@@ -3,25 +3,27 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
-  OneToMany,
   ManyToMany,
   ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Menu } from './Menu';
 import { Account } from './Account';
-import { Reservation } from './Reservation';
-import { Review } from './Review';
+import { Menu } from './Menu';
+import { Section } from './Section';
+
 import {
-  IsString,
+  IsArray,
+  IsBoolean,
+  IsDate,
+  IsEnum,
   IsJSON,
   IsMobilePhone,
   IsNumber,
-  IsEnum,
-  IsDate,
-  IsBoolean,
-  IsArray,
+  IsString,
 } from 'class-validator';
+import { Reservation } from './Reservation';
+import { Review } from './Review';
 
 export enum cuisineTypes {
   AMERICAN = 'American',
@@ -151,6 +153,10 @@ export class Restaurant extends BaseEntity {
   @OneToMany((type) => Review, (review) => review.restaurant)
   @IsArray()
   public reviews: Review[];
+
+  @ManyToOne((type) => Section, (section) => section.restaurant)
+  @IsArray()
+  public sections: Section[];
 
   @ManyToMany((type) => Account, (account) => account.restaurants)
   @IsArray()
