@@ -34,8 +34,8 @@ export class Index extends React.Component<IIndexProps, {}> {
 
     return (
       <Switch>
-        <Route path="/restaurants" exact={true} component={Catalog} />
-        <Route path="/restaurants/create" component={CreationForm} />
+        <Route path="/accounts" exact={true} component={Catalog} />
+        <Route path="/accounts/create" component={CreationForm} />
       </Switch>
     );
   }

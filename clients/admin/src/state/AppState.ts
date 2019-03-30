@@ -3,7 +3,7 @@ import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
 export interface IAppState {
   utility?: any;
   authentication?: any;
-  users?: any;
+  accounts?: any;
   materials?: any;
   mail?: any;
   restaurants?: any;
@@ -12,7 +12,7 @@ export interface IAppState {
 export const AppStateModel : IAppState = {
   utility: {drawOpen: false, alert: null, spinner: null},
   authentication: null,
-  users: null,
+  accounts: null,
   materials: null,
   mail: null,
   restaurants: null,

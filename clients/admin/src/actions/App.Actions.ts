@@ -3,7 +3,7 @@ import { match } from 'react-router';
 import { Utility } from '../state/Utility';
 import { Alert } from '../state/Alert';
 import { Spinner } from '../state/Spinner';
-import { User } from '../state/User';
+import { Account } from '../state/Account';
 
 export interface IApplicationProps {
   openDrawer: () => IAppAction;
@@ -14,11 +14,11 @@ export interface IApplicationProps {
   hideSpinner: () => IAppAction;
   login: (data: any) => IAppAction;
   logout: () => IAppAction;
-  createUser: (content: any) => any;
-  getUser: (id: any) => any;
-  fetchUsers: (context?: any) => any;
-  updateUser: (context: any) => any;
-  deleteUser: (context: any) => any;
+  createAccount: (content: any) => any;
+  getAccount: (id: any) => any;
+  fetchAccounts: (context?: any) => any;
+  updateAccount: (context: any) => any;
+  deleteAccount: (context: any) => any;
   createMaterial: (content: any) => any;
   getMaterial: (id: any) => any;
   fetchMaterials: (context?: any) => any;
@@ -36,8 +36,8 @@ export interface IApplicationProps {
   location: any;
   history: any;
   utility: Utility;
-  authentication: User;
-  users: any;
+  authentication: Account;
+  accounts: any;
   materials: any;
   mail: any[];
   restaurants: any[];

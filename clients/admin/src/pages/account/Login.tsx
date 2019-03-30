@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Theme, withStyles, FormControl, InputLabel, Input, InputAdornment, Button, Icon } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import * as querystring from 'querystring';
-import { User } from '../../state/User';
+import { Account } from '../../state/Account';
 import { Redirect } from 'react-router';
 
 interface ILoginProps {
@@ -10,7 +10,7 @@ interface ILoginProps {
     match?: any;
     location?: any;
     classes?: any;
-    user: User;
+    account: Account;
 }
 
 interface ILoginState {
@@ -39,7 +39,7 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
     public render(): JSX.Element {
         const classes = this.props.classes;
 
-        if (this.props.user) {
+        if (this.props.account) {
             const path: string = querystring.
                 parse((this.props.location.search as string).substr(1)).redirect as any || '/inbox';
             return <Redirect to={path} />

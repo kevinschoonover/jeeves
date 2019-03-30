@@ -5,6 +5,7 @@ import * as React from 'react';
 // import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 // import DashboardIcon from '@material-ui/icons/Dashboard';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import {
   Drawer,
@@ -18,14 +19,14 @@ import {
 } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { User } from '../state/User';
+import { Account } from '../state/Account';
 import { Utility } from '../state/Utility';
 import { NavLink } from 'react-router-dom';
 import { styles } from './styles';
 const classNames = require('classnames');
 
 interface IAppDrawer {
-  authentication?: User;
+  authentication?: Account;
   utility: Utility;
   classes?: any;
   theme?: Theme;
@@ -35,6 +36,8 @@ interface IAppDrawer {
 class AppDrawer extends React.Component<IAppDrawer, {}> {
   public routes = [
     { path: '/restaurants', title: 'Restaurants', icon: () => <RestaurantIcon /> },
+    { path: '/accounts', title: 'Accounts', icon: () => <AccountCircleIcon /> },
+
   ];
 
   public render(): JSX.Element {

@@ -5,14 +5,14 @@ import { Typography, Theme, withStyles } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
-interface IRestaurantProps {
+interface IPageProps {
   items: any[];
   classes: any;
   history: any;
   deleteItem: (context: any) => any;
 }
 
-class RestaurantPage extends React.Component<IRestaurantProps, {}> {
+class Page extends React.Component<IPageProps, {}> {
   public render(): JSX.Element {
     const { classes } = this.props;
     return (
@@ -59,4 +59,4 @@ const styles = (theme: Theme) => ({
   },
 });
 
-export default withRouter(withStyles(styles as any)(RestaurantPage as any) as any) as any;
+export default withRouter(withStyles(styles as any)(Page as any) as any) as any;

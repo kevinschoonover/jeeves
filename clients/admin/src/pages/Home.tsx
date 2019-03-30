@@ -11,8 +11,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import BusinessIcon from '@material-ui/icons/BusinessCenter';
 
 interface IDashboardProps {
-    fetchUsers: (context?: any) => void;
-    users: any;
+    fetchAccounts: (context?: any) => void;
+    accounts: any;
     materialChartData: any[];
     classes?: any;
     theme?: any;
@@ -20,34 +20,34 @@ interface IDashboardProps {
 }
 
 interface IPageState {
-    usersTablePage?: number;
-    usersTableRowsPerPage: number;
+    accountsTablePage?: number;
+    accountsTableRowsPerPage: number;
 }
 
 class HomePage extends React.Component<IDashboardProps, IPageState> {
 
     public state: IPageState = {
-        usersTablePage: 0,
-        usersTableRowsPerPage: 5
+        accountsTablePage: 0,
+        accountsTableRowsPerPage: 5
     };
 
-    private handleChangeUsersPage = (event: any, page: number) => {
+    private handleChangeAccountsPage = (event: any, page: number) => {
         console.log(event);
-        this.setState({ usersTablePage: page });
+        this.setState({ accountsTablePage: page });
     };
 
     private handleChangeTableRowsPerPage = (event: any) => {
-        this.setState({ usersTableRowsPerPage: event.target.value });
+        this.setState({ accountsTableRowsPerPage: event.target.value });
     };
 
-    private renderUsers(): JSX.Element {
-        const { users, classes } = this.props;
-        if (!users) {
+    private renderAccounts(): JSX.Element {
+        const { accounts, classes } = this.props;
+        if (!accounts) {
             return null;
         }
 
         return (
-            <Paper className={classNames(classes.paper, classes.users)}>
+            <Paper className={classNames(classes.paper, classes.accounts)}>
                 <h3 className={classes.sectionTitle}>Customers</h3>
                 <Table className={classes.table}>
                     <TableHead>
@@ -58,8 +58,8 @@ class HomePage extends React.Component<IDashboardProps, IPageState> {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {users.items.slice(this.state.usersTablePage * this.state.usersTableRowsPerPage,
-                            this.state.usersTablePage * this.state.usersTableRowsPerPage + this.state.usersTableRowsPerPage).map((n: any) => {
+                        {accounts.items.slice(this.state.accountsTablePage * this.state.accountsTableRowsPerPage,
+                            this.state.accountsTablePage * this.state.accountsTableRowsPerPage + this.state.accountsTableRowsPerPage).map((n: any) => {
                                 return (
                                     <TableRow key={n.id}>
                                         <TableCell component="th" scope="row">
@@ -74,16 +74,16 @@ class HomePage extends React.Component<IDashboardProps, IPageState> {
                 </Table>
                 <TablePagination
                     component="div"
-                    count={users.items.length}
-                    rowsPerPage={this.state.usersTableRowsPerPage}
-                    page={this.state.usersTablePage}
+                    count={accounts.items.length}
+                    rowsPerPage={this.state.accountsTableRowsPerPage}
+                    page={this.state.accountsTablePage}
                     backIconButtonProps={{
                         'aria-label': 'Previous Page',
                     }}
                     nextIconButtonProps={{
                         'aria-label': 'Next Page',
                     }}
-                    onChangePage={this.handleChangeUsersPage}
+                    onChangePage={this.handleChangeAccountsPage}
                     onChangeRowsPerPage={this.handleChangeTableRowsPerPage}
                 />
             </Paper>
@@ -137,7 +137,7 @@ class HomePage extends React.Component<IDashboardProps, IPageState> {
                     <Grid item={true} lg={3} xs={12} sm={6}>
                         <Paper className={classNames(classes.paper, classes.headerTiles)}>
                             <GroupIcon className={classes.headerTileIcon} />
-                            <Typography className={classes.tileText}> {this.props.users.items.length} Customers</Typography>
+                            <Typography className={classes.tileText}> {this.props.accounts.items.length} Customers</Typography>
                         </Paper>
                     </Grid>
                     <Grid item={true} lg={3} xs={12} sm={6}>
@@ -165,7 +165,7 @@ class HomePage extends React.Component<IDashboardProps, IPageState> {
                         {this.renderRadialBarChart()}
                     </Grid>
                     <Grid item={true} xs={12}>
-                        {this.renderUsers()}
+                        {this.renderAccounts()}
                     </Grid>
                 </Grid>
             </div>
@@ -202,7 +202,7 @@ const styles = (theme: Theme) => ({
     sectionTitle: {
         paddingLeft: theme.spacing.unit * 2,
     },
-    users: {
+    accounts: {
         marginBottom: 24,
         overflowX: 'scroll'
     },

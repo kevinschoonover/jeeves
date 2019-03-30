@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { User } from '../../state/User';
+import { Account } from '../../state/Account';
 import LoginPage from './Login';
 import { Route, Switch } from 'react-router';
 import { ProfilePage } from './Profile';
@@ -10,14 +10,14 @@ interface IAccountProps {
     match?: any;
     location?: any;
     classes?: any;
-    user: User;
+    account: Account;
 }
 
 export class AccountPage extends React.Component<IAccountProps, {}> {
     private renderLogin = () => {
         return (
             <LoginPage
-                user={this.props.user}
+                account={this.props.account}
                 login={this.props.login}
                 match={this.props.match}
                 location={this.props.location} />

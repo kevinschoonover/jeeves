@@ -21,12 +21,15 @@ import { Alert } from '../state/Alert';
 import { AlertDialog } from '../alert/Alert';
 import SpinnerDialog from '../spinner/Spinner';
 import { AccountPage } from '../pages/account/Account';
-import { RestaurantIndex } from '../pages/restaurant/Index';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { actions as UserActionCreators } from '../data/users';
+import { actions as AccountActionCreators } from '../data/account';
 import { actions as MailActionCreators } from '../data/mail';
 import { actions as MaterialActionCreators } from '../data/material';
 import { actions as RestaurantActionCreators } from '../data/restaurant';
+
+import { Index as RestaurantIndex } from '../pages/restaurant/Index';
+import { Index as AccountIndex } from '../pages/account/Index';
+
 
 import {
   getRestaurantItems,
@@ -52,7 +55,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
   };
 
   public componentWillMount() {
-    this.props.fetchUsers();
+    this.props.fetchAccounts();
     this.props.fetchRestaurants();
   }
 
@@ -245,7 +248,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
   private renderAccount = () => {
     return (
       <AccountPage
-        user={this.props.authentication}
+        account={this.props.authentication}
         login={this.props.login}
         match={this.props.match}
         location={this.props.location}
@@ -273,13 +276,26 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
       (props: any): any => {
         return (
           <RestaurantIndex
-            createRestaurant={this.props.createRestaurant}
-            deleteRestaurant={this.props.deleteRestaurant} 
-            restaurants={this.props.restaurants}
+            createItem={this.props.createRestaurant}
+            deleteItem={this.props.deleteRestaurant} 
+            items={this.props.restaurants}
           />
         );
       }
     );
+
+  const AccountsBoard = isAuthenticated(
+      (props: any): any => {
+        return (
+          <AccountIndex
+            createItem={this.props.createAccount}
+            deleteItem={this.props.deleteAccount} 
+            items={this.props.accounts}
+          />
+        );
+      }
+    );
+
 
     return (
       <div className={classes.root}>
@@ -290,6 +306,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
           <div className={classes.toolbar} />
           <Route path="/" exact={true} component={RestaurantsBoard} />
           <Route path="/restaurants" component={RestaurantsBoard} />
+          <Route path="/accounts" component={AccountsBoard} />
           <Route path="/account" render={this.renderAccount} />
           {this.renderAlert()}
           {this.renderSpinner()}
@@ -302,7 +319,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
 const mapStateToProps = (state: IAppState) => ({
   utility: state.utility,
   authentication: state.authentication,
-  users: state.users,
+  accounts: state.accounts.items,
   materials: state.materials,
   restaurants: getRestaurantItems(state),
   materialCharts: state,
@@ -315,7 +332,7 @@ const mapDispatchtoProps = (dispatch: Dispatch) =>
       {},
       AppActionCreators,
       MailActionCreators,
-      UserActionCreators,
+      AccountActionCreators,
       MaterialActionCreators,
       RestaurantActionCreators
     ),

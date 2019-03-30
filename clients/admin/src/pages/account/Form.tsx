@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 import Send from "@material-ui/icons/Send";
 
@@ -16,27 +18,34 @@ interface IFormProps {
 }
 
 interface IForm {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  address: string;
+  isSuperAdmin: boolean;
   imgPath: string;
-  phoneNum: string;
 }
 
 class Form extends React.Component<IFormProps, IForm> {
   public state : IForm = {
-    name: "Test",
-    email: "test@test.com",
-    address: "123 Test Drive",
+    firstName: "Kevin",
+    lastName: "Schoonover",
+    email: "test@mst.edu",
+    isSuperAdmin: false,
     imgPath: "http://lorempixel.com/640/480/people",
-    phoneNum: "123-456-7890"
   };
 
   public handleChange = (name : keyof IForm) => (event : any) => {
     this.setState({
-      name: event.target.value,
+      [name]: event.target.value,
     } as Pick<IForm, keyof IForm>);
   };
+
+  public handleChecked = (name : keyof IForm) => (event : any) => {
+    this.setState({
+      [name]: event.target.checked,
+    } as Pick<IForm, keyof IForm>);
+  };
+
 
   public render() : JSX.Element {
     const { classes } = this.props;
@@ -51,11 +60,19 @@ class Form extends React.Component<IFormProps, IForm> {
           <Grid container={true} spacing={16} direction="column">
             <Grid item={true}>
               <TextField
-                id="name"
-                label="Name"
+                id="firstName"
+                label="First Name"
                 className={classes.textField}
-                value={this.state.name}
-                onChange={this.handleChange('name')}
+                value={this.state.firstName}
+                onChange={this.handleChange('firstName')}
+                margin="normal"
+              />
+              <TextField
+                id="lastName"
+                label="Last Name"
+                className={classes.textField}
+                value={this.state.lastName}
+                onChange={this.handleChange('lastName')}
                 margin="normal"
               />
               <TextField
@@ -66,23 +83,18 @@ class Form extends React.Component<IFormProps, IForm> {
                 onChange={this.handleChange('email')}
                 margin="normal"
               />
-              <TextField
-                id="address"
-                label="Address"
-                className={classes.textField}
-                value={this.state.address}
-                onChange={this.handleChange('address')}
-                margin="normal"
-              />
             </Grid>
             <Grid item={true}>
-              <TextField
-                id="phoneNum"
-                label="Phone Number"
-                className={classes.textField}
-                value={this.state.phoneNum}
-                onChange={this.handleChange('phoneNum')}
-                margin="normal"
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.state.isSuperAdmin}
+                    onChange={this.handleChecked('isSuperAdmin')}
+                    value="isSuperAdmin"
+                    color="primary"
+                  />
+                }
+                label="Is Super Admin?"
               />
             </Grid>
             <Grid item={true}>

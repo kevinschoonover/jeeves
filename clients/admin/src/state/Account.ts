@@ -1,19 +1,19 @@
 import { Model } from "./Helpers";
 import * as _ from 'lodash';
 
-export interface IUser {
+export interface IAccount {
     email?: string;
     name?: string;
     roles?: string[];
 }
 
-const UserModel = Model<IUser>({
+const AccountModel = Model<IAccount>({
     email: null,
     name: null,
     roles: null
 });
 
-export class User extends UserModel {
+export class Account extends AccountModel {
     public static EMAIL = 'email';
     public static NAME = 'name';
     public static ROLES = 'roles';
