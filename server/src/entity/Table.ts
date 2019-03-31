@@ -10,15 +10,17 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Section } from './Section';
-import { Service } from './Service';
 import {
-  IsNumber,
-  IsEnum,
   IsArray,
   IsBoolean,
+  IsEnum,
+  IsNumber,
   ValidateNested,
 } from 'class-validator';
+
+import { Reservation } from './Reservation';
+import { Section } from './Section';
+import { Service } from './Service';
 
 export enum tableStatus {
   OPEN = 'open',
@@ -45,15 +47,19 @@ export class Table extends BaseEntity {
   @IsEnum(tableStatus)
   public status: tableStatus;
 
-  @ManyToOne((type) => Service, (service) => service.table)
-  @IsArray()
-  public services: Service[];
-
   @Column({
     default: false,
   })
   @IsBoolean()
   public kidFriendly: boolean;
+
+  @ManyToOne((type) => Service, (service) => service.table)
+  @IsArray()
+  public services: Service[];
+
+  @ManyToOne((type) => Reservation, (service) => reservation.table)
+  @IsArray()
+  public reservations: Reservation[];
 
   @ManyToOne((type) => Section, (section) => section.tables)
   @ValidateNested()
