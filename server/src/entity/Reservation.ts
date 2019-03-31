@@ -1,21 +1,24 @@
 import {
+  IsArray,
+  IsDate,
+  IsNumber,
+  IsUUID,
+  ValidateNested,
+} from 'class-validator';
+import {
   BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
   ManyToMany,
   ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Restaurant } from './Restaurant';
+
 import { Account } from './Account';
-import {
-  IsUUID,
-  IsDate,
-  IsNumber,
-  IsArray,
-  ValidateNested,
-} from 'class-validator';
+import { Restaurant } from './Restaurant';
+import { Table } from './Table';
 
 @Entity()
 export class Reservation extends BaseEntity {
@@ -34,6 +37,10 @@ export class Reservation extends BaseEntity {
   @Column({ default: 1 })
   @IsNumber()
   public numGuests: number;
+
+  @OneToMany((type) => Table, (table) => table.reservations)
+  @ValidateNested()
+  public table: Table;
 
   @ManyToMany((type) => Account, (account) => account.reservations)
   @IsArray()
