@@ -5,6 +5,7 @@ import {
   WithStyles,
   Grid,
   Hidden,
+  Typography,
 } from '@material-ui/core';
 
 import Layout from './components/Layout';
@@ -12,6 +13,7 @@ import Navbar from './components/Navbar';
 import ReservationForm from './components/ReservationForm';
 import { Section, fetchSeatingLayout } from './mocks';
 import useOnClickInside from './hooks/useOnClickInside';
+import TableDetails from './components/TableDetails';
 
 const styles = () =>
   createStyles({
@@ -36,16 +38,37 @@ const App: React.FC<AppProps> = ({ classes }) => {
   const [selectedTable, setSelectedTable] = React.useState<number | null>(null);
   const [layout, setLayout] = React.useState<SVGElement | null>(null);
 
+  const [showTableDetails, setShowTableDetails] = React.useState(false);
+  const [showReserveForm, setShowReserveForm] = React.useState(false);
+
   const navbarRef = React.useRef<HTMLDivElement | null>(null);
+
+  const getTable = (tableId: number | null) => {
+    if (tableId === null) {
+      return null;
+    }
+
+    for (const section of sections) {
+      for (const table of section.tables) {
+        if (table.id === tableId) {
+          return table;
+        }
+      }
+    }
+    return null;
+  };
 
   const handleClickAway = React.useCallback(() => {
     setSelectedTable(null);
+    setShowTableDetails(false);
   }, []);
 
   useOnClickInside(layout, handleClickAway);
 
   const handleTableClick = (tableId: number | null) => () => {
     setSelectedTable(tableId);
+    setShowTableDetails(true);
+    setShowReserveForm(false);
   };
 
   const reserveTable = () => {
@@ -94,11 +117,27 @@ const App: React.FC<AppProps> = ({ classes }) => {
                   paddingTop: 110 - seatingLayoutYOffset,
                 }}
               >
-                <h1>Book Table {selectedTable || ''}</h1>
-                <ReservationForm
-                  onSubmit={reserveTable}
-                  table={selectedTable}
-                />
+                {showTableDetails ? (
+                  <TableDetails
+                    table={getTable(selectedTable)}
+                    onReserveClick={() => {
+                      setShowReserveForm(true);
+                      setShowTableDetails(false);
+                    }}
+                  />
+                ) : showReserveForm ? (
+                  <>
+                    <h1>Book Table {selectedTable || ''}</h1>
+                    <ReservationForm
+                      onSubmit={reserveTable}
+                      table={selectedTable}
+                    />
+                  </>
+                ) : (
+                  <Typography style={{ paddingTop: 100 }}>
+                    Please select a table to proceed
+                  </Typography>
+                )}
               </Grid>
             </Grid>
           </Hidden>
