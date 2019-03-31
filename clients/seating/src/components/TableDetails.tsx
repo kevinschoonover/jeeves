@@ -46,7 +46,7 @@ function TableDetails({ classes, table, onReserveClick }: TableDetailsProps) {
         <Grid container={true} wrap="nowrap" spacing={16}>
           <Grid item={true}>Status</Grid>
           <Grid item={true} xs={true} zeroMinWidth={true}>
-            <StatusBadge>{table.status}</StatusBadge>
+            <StatusBadge status={table.status}>{table.status}</StatusBadge>
           </Grid>
         </Grid>
         <Button
