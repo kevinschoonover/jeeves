@@ -11,6 +11,7 @@ import Layout from './components/Layout';
 import Navbar from './components/Navbar';
 import ReservationForm from './components/ReservationForm';
 import { Section, fetchSeatingLayout } from './mocks';
+import useOnClickInside from './hooks/useOnClickInside';
 
 const styles = () =>
   createStyles({
@@ -33,16 +34,28 @@ const App: React.FC<AppProps> = ({ classes }) => {
   const [sections, setSections] = React.useState<Section[]>([]);
   const [isLoading, setLoading] = React.useState(true);
   const [selectedTable, setSelectedTable] = React.useState<number | null>(null);
+  const [layout, setLayout] = React.useState<SVGElement | null>(null);
 
   const navbarRef = React.useRef<HTMLDivElement | null>(null);
 
-  const handleTableClick = (tableId: number) => () => {
+  const handleClickAway = React.useCallback(() => {
+    setSelectedTable(null);
+  }, []);
+
+  useOnClickInside(layout, handleClickAway);
+
+  const handleTableClick = (tableId: number | null) => () => {
     setSelectedTable(tableId);
   };
 
   const reserveTable = () => {
     console.log('reserve table');
   };
+
+  React.useLayoutEffect(() => {
+    const node = (document.getElementById('layout') as unknown) as SVGElement;
+    setLayout(node);
+  });
 
   React.useLayoutEffect(() => {
     if (navbarRef.current) {
@@ -82,7 +95,10 @@ const App: React.FC<AppProps> = ({ classes }) => {
                 }}
               >
                 <h1>Book Table {selectedTable || ''}</h1>
-                <ReservationForm onSubmit={reserveTable} />
+                <ReservationForm
+                  onSubmit={reserveTable}
+                  table={selectedTable}
+                />
               </Grid>
             </Grid>
           </Hidden>

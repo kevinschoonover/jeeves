@@ -34,6 +34,7 @@ const styles = (theme: Theme) =>
   });
 
 interface ReservationFormProps extends WithStyles<typeof styles> {
+  table: number | null;
   onSubmit(): void;
 }
 
@@ -50,10 +51,13 @@ const partySizeList = Array.from({ length: 10 }, (_, i) => i + 1);
 const ReservationForm: React.FC<ReservationFormProps> = ({
   classes,
   onSubmit,
+  table,
 }) => {
   const [date, setDate] = React.useState(new Date());
   const [time, setTime] = React.useState('6:30 PM');
   const [partySize, setPartySize] = React.useState(1);
+
+  const disabled = table === null;
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -83,6 +87,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
         renderValue={(value) => value}
         value={time}
         input={<FormInput adornment={<Schedule />} />}
+        disabled={disabled}
       >
         {Array.from({ length: 5 }, (_, i) => `6:3${i} PM`).map(
           (reservationTime, i) => (
@@ -97,6 +102,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
         renderValue={formatPartySizeDisplay}
         value={partySize}
         input={<FormInput adornment={<Person />} />}
+        disabled={disabled}
       >
         {partySizeList.map((size) => (
           <MenuItem key={size} value={size}>
@@ -104,7 +110,13 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
           </MenuItem>
         ))}
       </Select>
-      <Button type="submit" variant="contained" className={classes.button}>
+      {disabled && <div>Please select an open table to proceed</div>}
+      <Button
+        type="submit"
+        variant="contained"
+        className={classes.button}
+        disabled={disabled}
+      >
         Reserve
       </Button>
     </form>
