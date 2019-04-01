@@ -5,13 +5,15 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+import { IsArray, IsNumber, IsString, ValidateNested } from 'class-validator';
+import { Restaurant } from './Restaurant';
 import { Shift } from './Shift';
 import { Table } from './Table';
-import { IsNumber, IsString, IsArray } from 'class-validator';
 
 @Entity()
 export class Section extends BaseEntity {
@@ -25,14 +27,15 @@ export class Section extends BaseEntity {
   @IsString()
   public name: string;
 
-  @OneToMany((type) => Shift, (shift) => shift.section)
-  @IsArray()
-  public shifts: Shift[];
+  @ManyToOne((type) => Restaurant, (restaurant) => restaurant.sections)
+  @ValidateNested()
+  public restaurant: Restaurant;
 
   @OneToMany((type) => Table, (table) => table.section)
   @IsArray()
   public tables: Table[];
 
   @ManyToMany((type) => Shift, (shift) => shift.sections)
+  @IsArray()
   public shifts: Shift[];
 }
