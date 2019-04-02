@@ -67,8 +67,10 @@ const App: React.FC<AppProps> = ({ classes }) => {
 
   const handleTableClick = (tableId: number | null) => () => {
     setSelectedTable(tableId);
-    setShowTableDetails(true);
-    setShowReserveForm(false);
+    if (tableId !== selectedTable) {
+      setShowReserveForm(false);
+      setShowTableDetails(true);
+    }
   };
 
   const reserveTable = async ({

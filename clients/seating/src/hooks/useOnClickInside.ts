@@ -6,7 +6,8 @@ export default function useOnClickInside(
 ) {
   useEffect(() => {
     const listener = (event: Event) => {
-      if (ref && ref.contains(event.target)) {
+      // Trigger the handler when the target was the node itself and not a child, ancestor, or sibling
+      if (ref && ref.contains(event.target) && ref === event.target) {
         handler(event);
       }
     };
