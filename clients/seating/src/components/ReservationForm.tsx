@@ -98,6 +98,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
         onDayChange={handleDateChange}
         placeholder="Date"
         component={FormInputWithCalendar}
+        inputProps={{ disabled }}
         dayPickerProps={{
           disabledDays: {
             before: new Date(),
