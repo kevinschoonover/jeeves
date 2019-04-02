@@ -10,6 +10,9 @@ import {
 } from '@material-ui/core';
 import { Schedule, Person, CalendarToday } from '@material-ui/icons';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
+// @ts-ignore
+import { formatDate, parseDate } from 'react-day-picker/moment';
+import moment from 'moment';
 
 import 'react-day-picker/lib/style.css';
 import FormInput from './FormInput';
@@ -35,7 +38,13 @@ const styles = (theme: Theme) =>
 
 interface ReservationFormProps extends WithStyles<typeof styles> {
   table: number | null;
-  onSubmit(): void;
+  onSubmit({
+    startTime,
+    numGuests,
+  }: {
+    startTime: Date;
+    numGuests: number;
+  }): Promise<void>;
 }
 
 const formatPartySizeDisplay = (value: any) => (
@@ -61,7 +70,13 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit();
+
+    const d = moment(date).format('LL');
+
+    onSubmit({
+      startTime: moment(`${d} ${time}`, ['LL h:m a']).toDate(),
+      numGuests: partySize,
+    });
   };
 
   const handleDateChange = (day: Date) => setDate(day);
@@ -76,11 +91,18 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
       <DayPickerInput
-        format="LL"
+        format="dddd, LL"
         value={date}
+        formatDate={formatDate}
+        parseDate={parseDate}
         onDayChange={handleDateChange}
         placeholder="Date"
         component={FormInputWithCalendar}
+        dayPickerProps={{
+          disabledDays: {
+            before: new Date(),
+          },
+        }}
       />
       <Select
         onChange={handleTimeChange}

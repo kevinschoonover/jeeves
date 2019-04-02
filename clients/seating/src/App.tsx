@@ -71,8 +71,14 @@ const App: React.FC<AppProps> = ({ classes }) => {
     setShowReserveForm(false);
   };
 
-  const reserveTable = () => {
-    console.log('reserve table');
+  const reserveTable = async ({
+    startTime,
+    numGuests,
+  }: {
+    startTime: Date;
+    numGuests: number;
+  }) => {
+    console.log('reserve table', numGuests, startTime);
   };
 
   React.useLayoutEffect(() => {
