@@ -5,7 +5,9 @@ import * as React from 'react';
 // import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 // import DashboardIcon from '@material-ui/icons/Dashboard';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
+import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import EventIcon from '@material-ui/icons/Event';
 
 import {
   Drawer,
@@ -37,7 +39,9 @@ class AppDrawer extends React.Component<IAppDrawer, {}> {
   public routes = [
     { path: '/restaurants', title: 'Restaurants', icon: () => <RestaurantIcon /> },
     { path: '/accounts', title: 'Accounts', icon: () => <AccountCircleIcon /> },
-
+    { path: '/menus', title: 'Menus', icon: () => <RestaurantMenuIcon /> },
+    { path: '/reservations', title: 'Reservations', icon: () => <EventIcon /> },
+    // HERE: add
   ];
 
   public render(): JSX.Element {

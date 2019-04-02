@@ -165,4 +165,7 @@ export class Restaurant extends BaseEntity {
   @ManyToOne((type) => Reservation, (reservation) => reservation.restaurant)
   @IsArray()
   public reservations: Reservation[];
+
+  @OneToMany((type) => Visit, (visit) => visit.restaurant)
+  public visits: Visit[];
 }

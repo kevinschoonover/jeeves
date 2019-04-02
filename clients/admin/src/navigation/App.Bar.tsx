@@ -23,13 +23,18 @@ import SpinnerDialog from '../spinner/Spinner';
 import { AccountPage } from '../pages/account/Account';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { actions as AccountActionCreators } from '../data/account';
+import { actions as MenuActionCreators } from '../data/menu';
 import { actions as MailActionCreators } from '../data/mail';
 import { actions as MaterialActionCreators } from '../data/material';
 import { actions as RestaurantActionCreators } from '../data/restaurant';
+import { actions as ReservationActionCreators } from '../data/reservation';
+// HERE: add
 
 import { Index as RestaurantIndex } from '../pages/restaurant/Index';
 import { Index as AccountIndex } from '../pages/account/Index';
-
+import { Index as MenuIndex } from '../pages/menu/Index';
+import { Index as ReservationIndex } from '../pages/reservation/Index';
+// HERE: add
 
 import {
   getRestaurantItems,
@@ -57,6 +62,9 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
   public componentWillMount() {
     this.props.fetchAccounts();
     this.props.fetchRestaurants();
+    this.props.fetchMenus();
+    this.props.fetchReservations();
+    // HERE: add
   }
 
   private handleNotificationMenu = (event: any) => {
@@ -296,6 +304,31 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
       }
     );
 
+  const MenusBoard = isAuthenticated(
+      (props: any): any => {
+        return (
+          <MenuIndex
+            createItem={this.props.createMenu}
+            deleteItem={this.props.deleteMenu} 
+            items={this.props.menus}
+          />
+        );
+      }
+    );
+
+  const ReservationsBoard = isAuthenticated(
+      (props: any): any => {
+        return (
+          <ReservationIndex
+            createItem={this.props.createReservation}
+            deleteItem={this.props.deleteReservation} 
+            items={this.props.reservations}
+          />
+        );
+      }
+    );
+
+    // HERE: add
 
     return (
       <div className={classes.root}>
@@ -307,6 +340,8 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
           <Route path="/" exact={true} component={RestaurantsBoard} />
           <Route path="/restaurants" component={RestaurantsBoard} />
           <Route path="/accounts" component={AccountsBoard} />
+          <Route path="/menus" component={MenusBoard} />
+          <Route path="/reservations" component={ReservationsBoard} />
           <Route path="/account" render={this.renderAccount} />
           {this.renderAlert()}
           {this.renderSpinner()}
@@ -324,6 +359,9 @@ const mapStateToProps = (state: IAppState) => ({
   restaurants: getRestaurantItems(state),
   materialCharts: state,
   mail: state.mail,
+  menus: state.menus.items,
+  reservations: state.reservations.items,
+  // HERE: add
 });
 
 const mapDispatchtoProps = (dispatch: Dispatch) =>
@@ -333,8 +371,11 @@ const mapDispatchtoProps = (dispatch: Dispatch) =>
       AppActionCreators,
       MailActionCreators,
       AccountActionCreators,
+      MenuActionCreators,
       MaterialActionCreators,
-      RestaurantActionCreators
+      RestaurantActionCreators,
+      ReservationActionCreators,
+      // HERE: add
     ),
     dispatch
   );

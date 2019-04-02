@@ -3,8 +3,9 @@ import { withRouter } from 'react-router';
 import { Theme, withStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 import Send from "@material-ui/icons/Send";
 
@@ -16,27 +17,26 @@ interface IFormProps {
 }
 
 interface IForm {
-  name: string;
-  email: string;
-  address: string;
-  imgPath: string;
-  phoneNum: string;
+  isActive: boolean;
 }
 
 class Form extends React.Component<IFormProps, IForm> {
   public state : IForm = {
-    name: "Test",
-    email: "test@test.com",
-    address: "123 Test Drive",
-    imgPath: "http://lorempixel.com/640/480/people",
-    phoneNum: "123-456-7890"
+    isActive: false,
   };
 
   public handleChange = (name : keyof IForm) => (event : any) => {
     this.setState({
-      name: event.target.value,
+      [name]: event.target.value,
     } as Pick<IForm, keyof IForm>);
   };
+
+  public handleChecked = (name : keyof IForm) => (event : any) => {
+    this.setState({
+      [name]: event.target.checked,
+    } as Pick<IForm, keyof IForm>);
+  };
+
 
   public render() : JSX.Element {
     const { classes } = this.props;
@@ -45,45 +45,21 @@ class Form extends React.Component<IFormProps, IForm> {
       <div>
         <div className={classes.appBarSpacer} />
         <Typography gutterBottom={true} component="h2">
-          Add Restaurant
-          // HERE: Change
+          Add Menu
         </Typography>
         <form className={classes.container} noValidate={true} autoComplete="off">
           <Grid container={true} spacing={16} direction="column">
             <Grid item={true}>
-              <TextField
-                id="name"
-                label="Name"
-                className={classes.textField}
-                value={this.state.name}
-                onChange={this.handleChange('name')}
-                margin="normal"
-              />
-              <TextField
-                id="email"
-                label="Email"
-                className={classes.textField}
-                value={this.state.email}
-                onChange={this.handleChange('email')}
-                margin="normal"
-              />
-              <TextField
-                id="address"
-                label="Address"
-                className={classes.textField}
-                value={this.state.address}
-                onChange={this.handleChange('address')}
-                margin="normal"
-              />
-            </Grid>
-            <Grid item={true}>
-              <TextField
-                id="phoneNum"
-                label="Phone Number"
-                className={classes.textField}
-                value={this.state.phoneNum}
-                onChange={this.handleChange('phoneNum')}
-                margin="normal"
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.state.isActive}
+                    onChange={this.handleChecked('isActive')}
+                    value="isActive"
+                    color="primary"
+                  />
+                }
+                label="Is Active?"
               />
             </Grid>
             <Grid item={true}>

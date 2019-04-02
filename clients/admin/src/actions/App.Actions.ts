@@ -32,6 +32,17 @@ export interface IApplicationProps {
   updateRestaurant: (context: any) => any;
   deleteRestaurant: (context: any) => any;
   createRestaurant: (context: any) => any;
+  fetchMenus: (context?: any) => any;
+  updateMenu: (context: any) => any;
+  deleteMenu: (context: any) => any;
+  createMenu: (context: any) => any;
+  // reservations
+  fetchReservations: (context?: any) => any;
+  updateReservation: (context: any) => any;
+  deleteReservation: (context: any) => any;
+  createReservation: (context: any) => any;
+  reservations: any[];
+  // HERE: add
   match: match<any>;
   location: any;
   history: any;
@@ -41,6 +52,7 @@ export interface IApplicationProps {
   materials: any;
   mail: any[];
   restaurants: any[];
+  menus: any[];
   materialCharts: Array<{ name: string; value: number; fill: string }>;
 }
 

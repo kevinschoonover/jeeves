@@ -7,6 +7,9 @@ export interface IAppState {
   materials?: any;
   mail?: any;
   restaurants?: any;
+  menus?: any;
+  reservations?: any;
+  // HERE: add
 }
 
 export const AppStateModel : IAppState = {
@@ -16,6 +19,9 @@ export const AppStateModel : IAppState = {
   materials: null,
   mail: null,
   restaurants: null,
+  menus: null,
+  reservations: null,
+  // HERE: add
 };
 
 export const isAuthenticated = connectedRouterRedirect({
