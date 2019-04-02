@@ -57,7 +57,7 @@ export class Table extends BaseEntity {
   @IsArray()
   public services: Service[];
 
-  @ManyToOne((type) => Reservation, (service) => reservation.table)
+  @ManyToOne((type) => Reservation, (reservation) => reservation.table)
   @IsArray()
   public reservations: Reservation[];
 
