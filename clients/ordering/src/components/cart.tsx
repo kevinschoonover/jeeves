@@ -5,9 +5,13 @@ import {
   ListItemSecondaryAction,
   IconButton,
   ListSubheader,
+  Button,
 } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/Add';
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import { connect } from 'react-redux';
 
 class Cart extends Component<State> {
@@ -22,6 +26,12 @@ class Cart extends Component<State> {
             return (
               <ListItem key={item.id}>
                 <ListItemText primary={item.quantity} />
+                <IconButton>
+                  <KeyboardArrowUp />
+                </IconButton>
+                <IconButton>
+                  <KeyboardArrowDown />
+                </IconButton>
                 <ListItemText
                   primary={item.title}
                   secondary={'Calorie Count: ' + 150 * item.quantity}
@@ -38,6 +48,27 @@ class Cart extends Component<State> {
             );
           })}
         </List>
+        <List>
+          <ListItem>
+            <ListItemText
+              primary={'Subtotal: $' + this.props.total.toFixed(2)}
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary={'Tax: $' + (this.props.total * 0.09).toFixed(2)}
+              secondary={'~9%'}
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary={
+                'Total: $' +
+                (this.props.total + this.props.total * 0.09).toFixed(2)
+              }
+            />
+          </ListItem>
+        </List>
       </div>
     );
   }
@@ -45,11 +76,13 @@ class Cart extends Component<State> {
 
 interface State {
   addedItems: any[];
+  total: number;
 }
 
 const mapStateToProps = (state: State) => {
   return {
     addedItems: state.addedItems,
+    total: state.total,
   };
 };
 

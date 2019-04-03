@@ -16,27 +16,37 @@ const initState = {
       quantity: 3,
     },
   ],
-  total: 0,
+  total: 6,
 };
 
 const cartReducer = (state: any = initState, action: any) => {
   if (action.type === ADD_TO_CART) {
-    const addedItem = state.items.find(
+    const addedItem = state.addedItems.find(
+      (item: { id: string }) => item.id === action.id
+    );
+    const existedItem = state.items.find(
       (item: { id: string }) => item.id === action.id
     );
     if (addedItem) {
-      addedItem.quantity = addedItem.quantity + 1;
+      addedItem.quantity += 1;
       const newTotal = state.total + addedItem.subheader;
       return {
         ...state,
-        addedItems: [...state.addedItems, addedItem],
+        total: newTotal,
+      };
+    } else {
+      let newItem = existedItem;
+      newItem.quantity = 1;
+      const newTotal = state.total + existedItem.subheader;
+      return {
+        ...state,
+        addedItems: [...state.addedItems, newItem],
         total: newTotal,
       };
     }
   } else {
     return {
       ...state,
-      total: state.total,
     };
   }
 };
