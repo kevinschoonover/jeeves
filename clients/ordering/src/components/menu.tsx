@@ -22,7 +22,7 @@ const styles = (theme: Theme) =>
 
 type Props = WithStyles<typeof styles>;
 
-class Menu extends Component<State> {
+class Menu extends Component {
   render() {
     return (
       <div>
@@ -43,24 +43,4 @@ class Menu extends Component<State> {
   }
 }
 
-interface State {
-  items: any[];
-}
-
-const mapStateToProps = (state: State) => {
-  return {
-    items: state.items,
-  };
-};
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    addToCart: (id: string) => {
-      dispatch(addToCart(id));
-    },
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Menu);
+export default withStyles(styles)(Menu);
