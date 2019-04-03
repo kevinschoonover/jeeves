@@ -25,7 +25,7 @@ const styles = (theme: Theme) =>
 
 type Props = WithStyles<typeof styles>;
 
-class Cart extends Component {
+class Cart extends Component<State> {
   render() {
     return (
       <div>
@@ -58,6 +58,7 @@ class Cart extends Component {
           <li key={item.id}>
             <div>
               <span>{item.title}</span>
+              <span>{item.quantity}</span>
             </div>
           </li>
         ))}

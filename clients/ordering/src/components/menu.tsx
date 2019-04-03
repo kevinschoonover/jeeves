@@ -22,7 +22,7 @@ const styles = (theme: Theme) =>
 
 type Props = WithStyles<typeof styles>;
 
-class Menu extends Component {
+class Menu extends Component<State> {
   render() {
     return (
       <div>
@@ -43,7 +43,11 @@ class Menu extends Component {
   }
 }
 
-const mapStateToProps = (state: { items: any }) => {
+interface State {
+  items: any[];
+}
+
+const mapStateToProps = (state: State) => {
   return {
     items: state.items,
   };
