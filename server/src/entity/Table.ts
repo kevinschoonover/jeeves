@@ -10,6 +10,15 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+import {
+  IsArray,
+  IsBoolean,
+  IsEnum,
+  IsNumber,
+  ValidateNested,
+} from 'class-validator';
+
+import { Reservation } from './Reservation';
 import { Section } from './Section';
 import { Service } from './Service';
 
@@ -23,9 +32,11 @@ export enum tableStatus {
 @Entity()
 export class Table extends BaseEntity {
   @PrimaryGeneratedColumn()
+  @IsNumber()
   public id: number;
 
   @Column()
+  @IsNumber()
   public seatingCapacity: number;
 
   @Column({
@@ -33,16 +44,24 @@ export class Table extends BaseEntity {
     enum: tableStatus,
     type: 'enum',
   })
+  @IsEnum(tableStatus)
   public status: tableStatus;
-
-  @ManyToOne((type) => Service, (service) => service.table)
-  public services: Service[];
 
   @Column({
     default: false,
   })
+  @IsBoolean()
   public kidFriendly: boolean;
 
+  @ManyToOne((type) => Service, (service) => service.table)
+  @IsArray()
+  public services: Service[];
+
+  @ManyToOne((type) => Reservation, (reservation) => reservation.table)
+  @IsArray()
+  public reservations: Reservation[];
+
   @ManyToOne((type) => Section, (section) => section.tables)
+  @ValidateNested()
   public section: Section;
 }

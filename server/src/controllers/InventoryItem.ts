@@ -7,7 +7,6 @@ import {
   Param,
   Patch,
   Post,
-  UnauthorizedError,
 } from 'routing-controllers';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 
@@ -21,6 +20,7 @@ export class InventoryItemController {
   @OpenAPI({
     summary: 'Returns all Inventory Items created in the database',
   })
+  @ResponseSchema(InventoryItem)
   public async getAll() {
     return InventoryItem.find();
   }
@@ -42,6 +42,7 @@ export class InventoryItemController {
   @OpenAPI({
     summary: 'Return the inventory item associated with name',
   })
+  @ResponseSchema(InventoryItem)
   public async get(@Param('name') name: string) {
     return InventoryItem.findOne({ name });
   }
@@ -50,6 +51,7 @@ export class InventoryItemController {
   @OpenAPI({
     summary: 'Update the fields of an inventory item associated with name',
   })
+  @ResponseSchema(InventoryItem)
   public async patch(
     @Param('name') name: string,
     @Body() inventoryitems: object
@@ -60,6 +62,9 @@ export class InventoryItemController {
 
   @Delete('/inventoryitems/:name/')
   @OnUndefined(204)
+  @OpenAPI({
+    summary: 'Delete an inventory item associated with given name',
+  })
   public async remove(@Param('name') name: string) {
     return InventoryItem.delete({ name });
   }

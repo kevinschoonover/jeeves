@@ -3,13 +3,25 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
-  OneToMany,
   ManyToMany,
   ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Menu } from './Menu';
 import { Account } from './Account';
+import { Menu } from './Menu';
+import { Section } from './Section';
+
+import {
+  IsArray,
+  IsBoolean,
+  IsDate,
+  IsEnum,
+  IsJSON,
+  IsMobilePhone,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 import { Reservation } from './Reservation';
 import { Review } from './Review';
 
@@ -34,22 +46,26 @@ export enum cuisineTypes {
 @Entity()
 export class Restaurant extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
+  @IsString()
   public id: string;
 
   @Column({
     length: 50,
   })
+  @IsString()
   public name: string;
 
   @Column({
     unique: true,
     nullable: true,
   })
+  @IsString()
   public email: string;
 
   @Column({
     unique: true,
   })
+  @IsString()
   public address: string;
 
   @Column({
@@ -57,22 +73,26 @@ export class Restaurant extends BaseEntity {
     default: { lat: 37.95807, lon: -91.77349 },
     unique: true,
   })
+  @IsJSON()
   public location: {};
 
   @Column({
     default: 'default_img.jpg',
   })
+  @IsString()
   public imgPath: string;
 
   @Column({
     default: null,
   })
+  @IsMobilePhone('en-US')
   public phoneNum: string;
 
   @Column({
     type: 'float',
     default: 0,
   })
+  @IsNumber()
   public review: number;
 
   @Column({
@@ -80,6 +100,7 @@ export class Restaurant extends BaseEntity {
     enum: cuisineTypes,
     default: cuisineTypes.AMERICAN,
   })
+  @IsEnum(cuisineTypes)
   public cuisineType: cuisineTypes;
 
   @Column({
@@ -94,40 +115,54 @@ export class Restaurant extends BaseEntity {
       Sunday: { startTime: '07:00', endTime: '21:00' },
     },
   })
+  @IsJSON()
   public hours: {};
 
   @CreateDateColumn()
+  @IsDate()
   public dateCreated: Date;
 
   @Column({
     default: true,
   })
+  @IsBoolean()
   public isActive: boolean;
 
   @Column({
     default: false,
   })
+  @IsBoolean()
   public hasWifi: boolean;
 
   @Column({
     default: false,
   })
+  @IsBoolean()
   public hasTV: boolean;
 
   @Column({
     default: false,
   })
+  @IsBoolean()
   public hasParking: boolean;
 
   @OneToMany((type) => Menu, (menu) => menu.restaurant)
+  @IsArray()
   public menus: Menu[];
 
   @OneToMany((type) => Review, (review) => review.restaurant)
+  @IsArray()
   public reviews: Review[];
 
+  @ManyToOne((type) => Section, (section) => section.restaurant)
+  @IsArray()
+  public sections: Section[];
+
   @ManyToMany((type) => Account, (account) => account.restaurants)
+  @IsArray()
   public managers: Account[];
 
   @ManyToOne((type) => Reservation, (reservation) => reservation.restaurant)
+  @IsArray()
   public reservations: Reservation[];
 }

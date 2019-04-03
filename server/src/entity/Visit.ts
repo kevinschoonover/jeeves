@@ -11,6 +11,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+import { IsArray, IsDate, IsNumber, ValidateNested } from 'class-validator';
 import { Account } from './Account';
 import { Order } from './Order';
 import { Shift } from './Shift';
@@ -24,23 +25,30 @@ export enum paymentMethod {
 @Entity()
 export class Visit extends BaseEntity {
   @PrimaryGeneratedColumn()
+  @IsNumber()
   public id: number;
 
   @Column()
+  @IsDate()
   public arrival: Date;
 
   @Column()
+  @IsDate()
   public departure: Date;
 
-  @OneToMany((type) => Order, (order) => order.shift)
-  public orders: Order[];
-
-  @OneToMany((type) => Transaction, (transaction) => transaction.visit)
-  public transactions: Transaction[];
-
-  @ManyToOne((type) => Shift, (shift) => shift.visits)
+  @OneToMany((type) => Shift, (shift) => shift.visits)
+  @ValidateNested()
   public assignee: Shift;
 
+  @OneToMany((type) => Order, (order) => order.shift)
+  @IsArray()
+  public orders: Order[];
+
+  @ManyToOne((type) => Transaction, (transaction) => transaction.visit)
+  @IsArray()
+  public transactions: Transaction[];
+
   @ManyToMany((type) => Account, (account) => account.visits)
+  @IsArray()
   public users: Account[];
 }
