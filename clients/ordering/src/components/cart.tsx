@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Theme,
   createStyles,
@@ -25,36 +25,55 @@ const styles = (theme: Theme) =>
 
 type Props = WithStyles<typeof styles>;
 
-const Cart: React.FC<Props> = ({ classes }) => {
-  return (
-    <div>
-      <h1 className={classes.listHeader}>Shopping Cart</h1>
-      <List subheader={<ListSubheader>Quantity</ListSubheader>}>
-        {shoppingCart.map((shoppingcart) => (
-          <ListItem key={shoppingcart.id}>
-            <ListItemText primary={shoppingcart.quantity} />
-            <ListItemText
-              primary={shoppingcart.title}
-              secondary={
-                'Calorie Count: ' + shoppingcart.calorie * shoppingcart.quantity
-              }
-            />
-            <ListItemText
-              primary={
-                '$' + (shoppingcart.price * shoppingcart.quantity).toFixed(2)
-              }
-            />
-            <ListItemSecondaryAction>
-              <IconButton>
-                <DeleteIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
+class Cart extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Shopping Cart</h1>
+        <List subheader={<ListSubheader>Quantity</ListSubheader>}>
+          {shoppingCart.map((shoppingcart) => (
+            <ListItem key={shoppingcart.id}>
+              <ListItemText primary={shoppingcart.quantity} />
+              <ListItemText
+                primary={shoppingcart.title}
+                secondary={
+                  'Calorie Count: ' +
+                  shoppingcart.calorie * shoppingcart.quantity
+                }
+              />
+              <ListItemText
+                primary={
+                  '$' + (shoppingcart.price * shoppingcart.quantity).toFixed(2)
+                }
+              />
+              <ListItemSecondaryAction>
+                <IconButton>
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </List>
+        {this.props.items.map((item) => (
+          <li key={item.id}>
+            <div>
+              <span>{item.title}</span>
+            </div>
+          </li>
         ))}
-      </List>
-      <List subheader={<ListSubheader>Total</ListSubheader>}>{}</List>
-    </div>
-  );
+      </div>
+    );
+  }
+}
+
+interface State {
+  items: any[];
+}
+
+const mapStateToProps = (state: State) => {
+  return {
+    items: state.items,
+  };
 };
 
-export default withStyles(styles)(Cart);
+export default connect(mapStateToProps)(Cart);

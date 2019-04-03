@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   withStyles,
   Theme,
@@ -11,6 +11,7 @@ import MenuCard from './card';
 import menucards from './menucards';
 import { addToCart } from './actions/cartActions';
 import { connect } from 'react-redux';
+import { render } from 'react-dom';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -21,24 +22,26 @@ const styles = (theme: Theme) =>
 
 type Props = WithStyles<typeof styles>;
 
-const Menu: React.FC<Props> = ({ classes }) => {
-  return (
-    <div>
-      <h1>All Items</h1>
-      <Grid
-        container={true}
-        spacing={32}
-        alignItems={'center'}
-        justify={'space-evenly'}
-        style={{ backgroundColor: 'tan' }}
-      >
-        {menucards.map((menucard) => (
-          <MenuCard key={menucard.id} {...menucard} />
-        ))}
-      </Grid>
-    </div>
-  );
-};
+class Menu extends Component {
+  render() {
+    return (
+      <div>
+        <h1>All Items</h1>
+        <Grid
+          container={true}
+          spacing={32}
+          alignItems={'center'}
+          justify={'space-evenly'}
+          style={{ backgroundColor: 'tan' }}
+        >
+          {menucards.map((menucard) => (
+            <MenuCard key={menucard.id} {...menucard} />
+          ))}
+        </Grid>
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = (state: { items: any }) => {
   return {
