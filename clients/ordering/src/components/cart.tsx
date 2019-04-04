@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Dispatch } from 'react';
 import {
   ListItem,
   ListItemText,
@@ -6,10 +6,10 @@ import {
   IconButton,
   ListSubheader,
   Button,
+  Input,
 } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/Add';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import { connect } from 'react-redux';
@@ -27,10 +27,24 @@ class Cart extends Component<State> {
               <ListItem key={item.id}>
                 <ListItemText primary={item.quantity} />
                 <IconButton>
-                  <KeyboardArrowUp />
+                  <KeyboardArrowUp
+                    onClick={() =>
+                      (this.props as any).dispatch({
+                        type: 'ADD_QUANTITY',
+                        id: item.id,
+                      })
+                    }
+                  />
                 </IconButton>
                 <IconButton>
-                  <KeyboardArrowDown />
+                  <KeyboardArrowDown
+                    onClick={() =>
+                      (this.props as any).dispatch({
+                        type: 'SUB_QUANTITY',
+                        id: item.id,
+                      })
+                    }
+                  />
                 </IconButton>
                 <ListItemText
                   primary={item.title}
@@ -41,7 +55,14 @@ class Cart extends Component<State> {
                 />
                 <ListItemSecondaryAction>
                   <IconButton>
-                    <DeleteIcon />
+                    <DeleteIcon
+                      onClick={() =>
+                        (this.props as any).dispatch({
+                          type: 'REMOVE_ITEM',
+                          id: item.id,
+                        })
+                      }
+                    />
                   </IconButton>
                 </ListItemSecondaryAction>
               </ListItem>
@@ -85,5 +106,11 @@ const mapStateToProps = (state: State) => {
     total: state.total,
   };
 };
+
+/*const mapDispatchToProps = (dispatch: any) => {
+  return {
+    addQuantity: () => dispatch(addQuantity()),
+  };
+};*/
 
 export default connect(mapStateToProps)(Cart);

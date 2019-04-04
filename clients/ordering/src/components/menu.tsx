@@ -4,14 +4,12 @@ import {
   Theme,
   createStyles,
   WithStyles,
-  Typography,
+  Button,
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import MenuCard from './card';
 import menucards from './menucards';
-import { addToCart } from './actions/cartActions';
 import { connect } from 'react-redux';
-import { render } from 'react-dom';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -42,5 +40,7 @@ class Menu extends Component {
     );
   }
 }
+
+connect()(Menu);
 
 export default withStyles(styles)(Menu);

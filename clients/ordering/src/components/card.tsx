@@ -21,7 +21,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Grid from '@material-ui/core/Grid';
-import { addToCart } from './actions/cartActions';
+import { connect } from 'react-redux';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -56,8 +56,6 @@ const styles = (theme: Theme) =>
     },
   });
 
-type CardsProps = WithStyles<typeof styles>;
-
 export interface MenuProps extends WithStyles<typeof styles> {
   id: number;
   avatar: string;
@@ -69,6 +67,7 @@ export interface MenuProps extends WithStyles<typeof styles> {
 }
 
 const MenuCard: React.FC<MenuProps> = ({
+  id,
   avatar,
   title,
   subheader,
@@ -76,12 +75,9 @@ const MenuCard: React.FC<MenuProps> = ({
   description,
   details,
   classes,
+  ...props
 }) => {
   const [expanded, setExpanded] = useState<boolean>(false);
-
-  const handleClick = (id2: string) => {
-    addToCart(id2);
-  };
 
   return (
     <Grid item={true}>
@@ -107,8 +103,17 @@ const MenuCard: React.FC<MenuProps> = ({
           style={{ height: 0, paddingTop: '56.25%' }}
         />
         <CardActions className={classes.actions} disableActionSpacing={true}>
-          <IconButton aria-label="Add to Cart">
-            <AddBoxIcon onClick={() => handleClick(title)} />
+          <IconButton
+            aria-label="Add to Cart"
+            onClick={() =>
+              (props as any).dispatch({
+                type: 'ADD_TO_CART',
+                // tslint:disable-next-line:object-literal-shorthand
+                id: id,
+              })
+            }
+          >
+            <AddBoxIcon />
           </IconButton>
           <IconButton aria-label="Add to Favorites">
             <FavoriteIcon />
@@ -136,4 +141,4 @@ const MenuCard: React.FC<MenuProps> = ({
   );
 };
 
-export default withStyles(styles)(MenuCard);
+export default withStyles(styles)(connect()(MenuCard));
