@@ -84,6 +84,13 @@ class Form extends React.Component<IFormProps, IForm> {
                 value={this.state.y}
                 onChange={this.handleChange('y')}
               />
+              <TextField
+                id="rotation"
+                label="Rotation"
+                className={classes.textField}
+                value={this.state.rotation}
+                onChange={this.handleChange('rotation')}
+              />
             </Grid>
             <Grid item={true}>
               <TextField
