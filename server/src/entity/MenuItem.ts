@@ -4,10 +4,11 @@ import {
   CreateDateColumn,
   Entity,
   IsNull,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn
 } from 'typeorm';
 
 import {
@@ -69,30 +70,18 @@ export class MenuItem extends BaseEntity {
     length: 50,
   })
   @IsString()
-  public itemName: string;
+  public name: string;
 
   @Column('float')
   @IsNumber()
   public price: number;
 
   @Column({
-    type: 'simple-json',
     nullable: true,
+    type: 'simple-json',
   })
   @IsJSON()
   public nutrition: {};
-
-  @Column({
-    default: 0,
-  })
-  @IsNumber()
-  public allTimeSold: number;
-
-  @Column({
-    default: 0,
-  })
-  @IsNumber()
-  public todaySold: number;
 
   @Column({
     default: 1,
@@ -126,7 +115,7 @@ export class MenuItem extends BaseEntity {
     default: itemCategorys.UNKNOWN,
   })
   @IsEnum(itemCategorys)
-  public itemCategory: itemCategorys;
+  public category: itemCategorys;
 
   @Column({
     type: 'enum',
@@ -163,6 +152,7 @@ export class MenuItem extends BaseEntity {
   public ingredients: InventoryItem[];
 
   @ManyToMany((type) => Order, (order) => order.menuItems)
+  @JoinTable()
   @IsArray()
   public orders: Order[];
 }

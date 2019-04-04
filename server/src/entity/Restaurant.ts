@@ -8,9 +8,6 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Account } from './Account';
-import { Menu } from './Menu';
-import { Section } from './Section';
 
 import {
   IsArray,
@@ -22,8 +19,13 @@ import {
   IsNumber,
   IsString,
 } from 'class-validator';
+
+import { Account } from './Account';
+import { Menu } from './Menu';
 import { Reservation } from './Reservation';
 import { Review } from './Review';
+import { Section } from './Section';
+import { Visit } from './Visit';
 
 export enum cuisineTypes {
   AMERICAN = 'American',

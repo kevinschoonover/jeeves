@@ -29,6 +29,12 @@ export enum tableStatus {
   CLEANING = 'cleaning',
 }
 
+export enum tableShapes {
+  SQUARE = 'square',
+  CIRCLE = 'circle',
+  RECTANGLE = 'rectangle',
+}
+
 @Entity()
 export class Table extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -38,6 +44,26 @@ export class Table extends BaseEntity {
   @Column()
   @IsNumber()
   public seatingCapacity: number;
+
+  @Column()
+  @IsNumber()
+  public x: number;
+
+  @Column()
+  @IsNumber()
+  public y: number;
+
+  @Column()
+  @IsNumber()
+  public rotation: number;
+
+  @Column({
+    default: tableShapes.SQUARE,
+    enum: tableShapes,
+    type: 'enum',
+  })
+  @IsEnum(tableShapes)
+  public shape: string;
 
   @Column({
     default: tableStatus.OPEN,
