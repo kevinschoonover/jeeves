@@ -6,11 +6,15 @@ import { theme } from '@jeeves/common';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+require('typeface-raleway')
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <App />
-  </ThemeProvider>,
+  <div>
+    {/* <link rel="stylesheet" href="https://use.typekit.net/wit3vci.css" /> */}
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  </div>,
   document.getElementById('root')
 );
 
