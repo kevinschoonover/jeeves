@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
-  Button,
   withStyles,
   Theme,
   createStyles,
   WithStyles,
-  Typography,
+  Button,
 } from '@material-ui/core';
-import { Link, Route, Router } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import MenuCard from './card';
 import menucards from './menucards';
+import { connect } from 'react-redux';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -21,22 +20,27 @@ const styles = (theme: Theme) =>
 
 type Props = WithStyles<typeof styles>;
 
-const Menu: React.FC<Props> = ({ classes }) => {
-  return (
-    <div>
-      <h1>All Items</h1>
-      <Grid
-        container={true}
-        spacing={32}
-        alignItems={'center'}
-        justify={'space-evenly'}
-      >
-        {menucards.map((menucard) => (
-          <MenuCard key={menucard.id} {...menucard} />
-        ))}
-      </Grid>
-    </div>
-  );
-};
+class Menu extends Component {
+  render() {
+    return (
+      <div>
+        <h1>All Items</h1>
+        <Grid
+          container={true}
+          spacing={32}
+          alignItems={'center'}
+          justify={'space-evenly'}
+          style={{ backgroundColor: 'tan' }}
+        >
+          {menucards.map((menucard) => (
+            <MenuCard key={menucard.id} {...menucard} />
+          ))}
+        </Grid>
+      </div>
+    );
+  }
+}
 
-export default Menu;
+connect()(Menu);
+
+export default withStyles(styles)(Menu);

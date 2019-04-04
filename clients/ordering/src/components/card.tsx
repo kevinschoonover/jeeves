@@ -21,6 +21,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Grid from '@material-ui/core/Grid';
+import { connect } from 'react-redux';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -55,18 +56,18 @@ const styles = (theme: Theme) =>
     },
   });
 
-type CardsProps = WithStyles<typeof styles>;
-
 export interface MenuProps extends WithStyles<typeof styles> {
+  id: number;
   avatar: string;
   title: string;
-  subheader: string;
+  subheader: number;
   image: string;
   description: string;
   details: string;
 }
 
 const MenuCard: React.FC<MenuProps> = ({
+  id,
   avatar,
   title,
   subheader,
@@ -74,6 +75,7 @@ const MenuCard: React.FC<MenuProps> = ({
   description,
   details,
   classes,
+  ...props
 }) => {
   const [expanded, setExpanded] = useState<boolean>(false);
 
@@ -92,7 +94,7 @@ const MenuCard: React.FC<MenuProps> = ({
             </IconButton>
           }
           title={title}
-          subheader={subheader}
+          subheader={'$' + subheader.toFixed(2)}
         />
         <CardMedia
           className={classes.media}
@@ -100,11 +102,17 @@ const MenuCard: React.FC<MenuProps> = ({
           title={title}
           style={{ height: 0, paddingTop: '56.25%' }}
         />
-        <CardContent className={classes.decription}>
-          <Typography component="p">{description}</Typography>
-        </CardContent>
         <CardActions className={classes.actions} disableActionSpacing={true}>
-          <IconButton aria-label="Add to Cart">
+          <IconButton
+            aria-label="Add to Cart"
+            onClick={() =>
+              (props as any).dispatch({
+                type: 'ADD_TO_CART',
+                // tslint:disable-next-line:object-literal-shorthand
+                id: id,
+              })
+            }
+          >
             <AddBoxIcon />
           </IconButton>
           <IconButton aria-label="Add to Favorites">
@@ -124,6 +132,7 @@ const MenuCard: React.FC<MenuProps> = ({
         <Collapse in={expanded} timeout="auto" unmountOnExit={true}>
           <CardContent>
             <Typography paragraph={true}>Details:</Typography>
+            <Typography paragraph={true}>{description}</Typography>
             <Typography paragraph={true}>{details}</Typography>
           </CardContent>
         </Collapse>
@@ -132,4 +141,4 @@ const MenuCard: React.FC<MenuProps> = ({
   );
 };
 
-export default withStyles(styles)(MenuCard);
+export default withStyles(styles)(connect()(MenuCard));

@@ -4,12 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import MenuCard from './card';
 import menucards from './menucards';
 
-const styles = (theme: Theme) =>
-  createStyles({
-    grid: {
-      marginTop: '25px',
-    },
-  });
+const styles = (theme: Theme) => createStyles({});
 
 type Props = WithStyles<typeof styles>;
 
@@ -24,6 +19,7 @@ const Desserts: React.FC<Props> = ({ classes }) => {
         spacing={32}
         alignItems={'center'}
         justify={'space-evenly'}
+        style={{ backgroundColor: 'tan' }}
       >
         {desserts.map((menucard) => (
           <MenuCard key={menucard.id} {...menucard} />

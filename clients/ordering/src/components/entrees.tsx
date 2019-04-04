@@ -24,6 +24,7 @@ const Entrees: React.FC<Props> = ({ classes }) => {
         spacing={32}
         alignItems={'center'}
         justify={'space-evenly'}
+        style={{ backgroundColor: 'tan' }}
       >
         {entrees.map((menucard) => (
           <MenuCard key={menucard.id} {...menucard} />
