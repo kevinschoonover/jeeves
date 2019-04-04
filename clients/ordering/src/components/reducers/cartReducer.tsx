@@ -69,6 +69,7 @@ const cartReducer = (state: any = initState, action: any) => {
       (item: { id: string }) => action.id !== item.id
     );
     const newTotal = state.total - itemRemove.subheader * itemRemove.quantity;
+    itemRemove.quantity = 0;
     return {
       ...state,
       addedItems: newItems,
