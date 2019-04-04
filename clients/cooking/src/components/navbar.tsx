@@ -9,7 +9,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { IconButton } from '@material-ui/core';
-// tslint:disable-next-line:no-implicit-dependencies
 import MenuIcon from '@material-ui/icons/Menu';
 import { yellow, purple } from '@material-ui/core/colors';
 
@@ -17,9 +16,7 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      fontFamily: [
-        'Raleway',
-      ].join(','),
+      fontFamily: ['Raleway'].join(','),
       marginBottom: theme.spacing.unit * 13,
     },
     appBar: {
@@ -38,16 +35,14 @@ const styles = (theme: Theme) =>
       backgroundColor: purple[800],
       color: yellow[700],
       boxShadow: theme.shadows[10],
-      fontFamily: [
-        'Raleway',
-      ].join(','),
+      fontFamily: ['Raleway'].join(','),
     },
 
     menuButton: {
       marginLeft: -12,
       marginRight: 20,
     },
-    
+
     searchIcon: {
       width: theme.spacing.unit * 9,
       height: '100%',
@@ -79,9 +74,9 @@ const Navbar: React.FC<NavbarProps> = React.forwardRef<Ref, NavbarProps>(
             >
               <MenuIcon />
             </IconButton>
-              <Typography className={classes.brand} variant="h6">
-                <span>Gosnell's Diner & Lounge</span>
-              </Typography>
+            <Typography className={classes.brand} variant="h6">
+              <span>Gosnell's Diner & Lounge</span>
+            </Typography>
           </Toolbar>
         </AppBar>
       </div>
