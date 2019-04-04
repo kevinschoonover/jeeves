@@ -36,7 +36,7 @@ const styles = (theme: Theme) => ({
     fontSize: theme.typography.pxToRem(15),
   },
   grid: {
-    flexGrow: 1,
+    marginBottom: 50,
   },
 });
 

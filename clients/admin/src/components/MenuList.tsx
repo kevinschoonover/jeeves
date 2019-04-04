@@ -8,6 +8,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 
 import red from '@material-ui/core/colors/red';
+import green from '@material-ui/core/colors/green';
 
 
 const styles = (theme: Theme) => ({
@@ -24,7 +25,10 @@ const styles = (theme: Theme) => ({
   grid: {
     marginBottom: 50
   },
-  avatar: {
+  active: {
+    backgroundColor: green[500],
+  },
+  inactive: {
     backgroundColor: red[500],
   },
   card: {
@@ -38,7 +42,7 @@ interface IListProps {
   deleteItem?: (context: any) => any;
 }
 
-class AccountList extends React.Component<IListProps, {}> {
+class MenuList extends React.Component<IListProps, {}> {
   public render(): JSX.Element {
     const { classes } = this.props;
     const subheaderProps = {noWrap: true}
@@ -51,8 +55,8 @@ class AccountList extends React.Component<IListProps, {}> {
               <Card className={classes.card}>
                 <CardHeader
                   avatar={
-                    <Avatar aria-label="Recipe" className={classes.avatar}>
-                      {item.firstName[0]}
+                    <Avatar aria-label="Recipe" className={item.isActive ? classes.active : classes.inactive}>
+                      {item.isActive ? "A" : "I"}
                     </Avatar>
                   }
                   action={
@@ -64,8 +68,7 @@ class AccountList extends React.Component<IListProps, {}> {
                       Delete
                     </Button>
                   }
-                  title={item.firstName + " " + item.lastName}
-                  subheader={item.email}
+                  title={item.name}
                   subheaderTypographyProps={subheaderProps}
                 />
               </Card>
@@ -77,4 +80,4 @@ class AccountList extends React.Component<IListProps, {}> {
   }
 }
 
-export default withStyles(styles)(AccountList);
+export default withStyles(styles)(MenuList);

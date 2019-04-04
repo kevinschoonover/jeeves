@@ -1,5 +1,5 @@
 import * as React from 'react';
-import RestaurantList from '../../components/RestaurantList';
+import MenuItemList from '../../components/MenuItemList';
 import { withRouter } from "react-router";
 import { Typography, Theme, withStyles } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
@@ -23,7 +23,7 @@ class Page extends React.Component<IPageProps, {}> {
             Menu Items
           </Typography>
         </div>
-        <RestaurantList {...this.props} />
+        <MenuItemList {...this.props} />
         <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.props.history.push("/menuItems/create")}>
           <AddIcon />
         </Fab>
