@@ -3,8 +3,10 @@ import { withRouter } from 'react-router';
 import { Theme, withStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 import Send from "@material-ui/icons/Send";
 
@@ -16,81 +18,98 @@ interface IFormProps {
 }
 
 interface IForm {
-  name: string;
-  email: string;
-  address: string;
-  imgPath: string;
-  phoneNum: string;
+  seatingCapacity: number;
+  x: number;
+  y: number;
+  rotation: number;
+  shape: string;
+  status: string;
+  kidFriendly: boolean;
 }
 
 class Form extends React.Component<IFormProps, IForm> {
   public state : IForm = {
-    name: "Test",
-    email: "test@test.com",
-    address: "123 Test Drive",
-    imgPath: "https://www.meatpoultry.com/ext/resources/MPImages/11-2018/11082018/wendys-exterior.jpg?1541774773",
-    phoneNum: "123-456-7890"
+    seatingCapacity: 1,
+    x: 0,
+    y: 0,
+    rotation: 0,
+    shape: "square",
+    status: "open",
+    kidFriendly: true,
   };
 
   public handleChange = (name : keyof IForm) => (event : any) => {
     this.setState({
-      name: event.target.value,
+      [name]: event.target.value,
+    } as Pick<IForm, keyof IForm>);
+  };
+
+  public handleChecked = (name : keyof IForm) => (event : any) => {
+    this.setState({
+      [name]: event.target.checked,
     } as Pick<IForm, keyof IForm>);
   };
 
   public render() : JSX.Element {
     const { classes } = this.props;
 
+    // HERE: Change
     return (
       <div>
         <div className={classes.appBarSpacer} />
         <Typography gutterBottom={true} component="h2">
-          Add Restaurant
+          Add Table
         </Typography>
         <form className={classes.container} noValidate={true} autoComplete="off">
           <Grid container={true} spacing={16} direction="column">
             <Grid item={true}>
               <TextField
-                id="name"
-                label="Name"
+                id="seatingCapacity"
+                label="Seating Capacity"
                 className={classes.textField}
-                value={this.state.name}
-                onChange={this.handleChange('name')}
-                margin="normal"
+                value={this.state.seatingCapacity}
+                onChange={this.handleChange('seatingCapacity')}
               />
               <TextField
-                id="email"
-                label="Email"
+                id="x"
+                label="X"
                 className={classes.textField}
-                value={this.state.email}
-                onChange={this.handleChange('email')}
-                margin="normal"
+                value={this.state.x}
+                onChange={this.handleChange('x')}
               />
               <TextField
-                id="address"
-                label="Address"
+                id="y"
+                label="Y"
                 className={classes.textField}
-                value={this.state.address}
-                onChange={this.handleChange('address')}
-                margin="normal"
+                value={this.state.y}
+                onChange={this.handleChange('y')}
               />
             </Grid>
             <Grid item={true}>
               <TextField
-                id="phoneNum"
-                label="Phone Number"
+                id="shape"
+                label="Shape"
                 className={classes.textField}
-                value={this.state.phoneNum}
-                onChange={this.handleChange('phoneNum')}
-                margin="normal"
+                value={this.state.shape}
+                onChange={this.handleChange('shape')}
               />
               <TextField
-                id="imgPath"
-                label="Image Path"
+                id="tableStatus"
+                label="Table Status"
                 className={classes.textField}
-                value={this.state.imgPath}
-                onChange={this.handleChange('imgPath')}
-                margin="normal"
+                value={this.state.status}
+                onChange={this.handleChange('status')}
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.state.kidFriendly}
+                    onChange={this.handleChecked('kidFriendly')}
+                    value="kidFriendly"
+                    color="primary"
+                  />
+                }
+                label="Is Kid Friendly?"
               />
             </Grid>
             <Grid item={true}>
@@ -145,7 +164,7 @@ const styles = (theme: Theme) => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: "150px",
+    width: "225px",
   },
   button: {
     margin: theme.spacing.unit,

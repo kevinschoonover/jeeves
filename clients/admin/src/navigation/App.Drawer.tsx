@@ -8,6 +8,10 @@ import RestaurantIcon from '@material-ui/icons/Restaurant';
 import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import EventIcon from '@material-ui/icons/Event';
+import FastFoodIcon from '@material-ui/icons/Fastfood';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import TableChartIcon from '@material-ui/icons/TableChart';
+import EventSeatIcon from '@material-ui/icons/EventSeat';
 
 import {
   Drawer,
@@ -40,7 +44,11 @@ class AppDrawer extends React.Component<IAppDrawer, {}> {
     { path: '/restaurants', title: 'Restaurants', icon: () => <RestaurantIcon /> },
     { path: '/accounts', title: 'Accounts', icon: () => <AccountCircleIcon /> },
     { path: '/menus', title: 'Menus', icon: () => <RestaurantMenuIcon /> },
+    { path: '/menuItems', title: 'Menu Items', icon: () => <ShoppingCartIcon /> },
     { path: '/reservations', title: 'Reservations', icon: () => <EventIcon /> },
+    { path: '/inventoryItems', title: 'Inventory Items', icon: () => <FastFoodIcon /> },
+    { path: '/sections', title: 'Sections', icon: () => <TableChartIcon /> },
+    { path: '/tables', title: 'Sections', icon: () => <EventSeatIcon /> },
     // HERE: add
   ];
 

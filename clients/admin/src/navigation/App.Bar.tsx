@@ -28,12 +28,20 @@ import { actions as MailActionCreators } from '../data/mail';
 import { actions as MaterialActionCreators } from '../data/material';
 import { actions as RestaurantActionCreators } from '../data/restaurant';
 import { actions as ReservationActionCreators } from '../data/reservation';
+import { actions as InventoryItemsActionCreators } from '../data/inventoryItem';
+import { actions as MenuItemsActionCreators } from '../data/menuItem';
+import { actions as SectionActionCreators } from '../data/section';
+import { actions as TableActionCreators } from '../data/table';
 // HERE: add
 
 import { Index as RestaurantIndex } from '../pages/restaurant/Index';
 import { Index as AccountIndex } from '../pages/account/Index';
 import { Index as MenuIndex } from '../pages/menu/Index';
 import { Index as ReservationIndex } from '../pages/reservation/Index';
+import { Index as InventoryItemIndex } from '../pages/inventoryItem/Index';
+import { Index as MenuItemIndex } from '../pages/menuItem/Index';
+import { Index as SectionIndex } from '../pages/section/Index';
+import { Index as TableIndex } from '../pages/table/Index';
 // HERE: add
 
 import {
@@ -64,6 +72,10 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
     this.props.fetchRestaurants();
     this.props.fetchMenus();
     this.props.fetchReservations();
+    this.props.fetchInventoryItems();
+    this.props.fetchMenuItems();
+    this.props.fetchSections();
+    this.props.fetchTables();
     // HERE: add
   }
 
@@ -328,8 +340,55 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
       }
     );
 
-    // HERE: add
+  const InventoryItemsBoard = isAuthenticated(
+      (props: any): any => {
+        return (
+          <InventoryItemIndex
+            createItem={this.props.createInventoryItem}
+            deleteItem={this.props.deleteInventoryItem} 
+            items={this.props.inventoryItems}
+          />
+        );
+      }
+    );
 
+  const MenuItemsBoard = isAuthenticated(
+      (props: any): any => {
+        return (
+          <MenuItemIndex
+            createItem={this.props.createMenuItem}
+            deleteItem={this.props.deleteMenuItem} 
+            items={this.props.menuItems}
+          />
+        );
+      }
+    );
+
+    const SectionBoard = isAuthenticated(
+      (props: any): any => {
+        return (
+          <SectionIndex
+            createItem={this.props.createSection}
+            deleteItem={this.props.deleteSection} 
+            items={this.props.sections}
+          />
+        );
+      }
+    );
+
+    const TableBoard = isAuthenticated(
+      (props: any): any => {
+        return (
+          <TableIndex
+            createItem={this.props.createTable}
+            deleteItem={this.props.deleteTable} 
+            items={this.props.tables}
+          />
+        );
+      }
+    );
+
+    // HERE: add
     return (
       <div className={classes.root}>
         {this.renderAppBar()}
@@ -341,7 +400,11 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
           <Route path="/restaurants" component={RestaurantsBoard} />
           <Route path="/accounts" component={AccountsBoard} />
           <Route path="/menus" component={MenusBoard} />
+          <Route path="/menuItems" component={MenuItemsBoard} />
           <Route path="/reservations" component={ReservationsBoard} />
+          <Route path="/inventoryItems" component={InventoryItemsBoard} />
+          <Route path="/sections" component={SectionBoard} />
+          <Route path="/tables" component={TableBoard} />
           <Route path="/account" render={this.renderAccount} />
           {this.renderAlert()}
           {this.renderSpinner()}
@@ -361,6 +424,10 @@ const mapStateToProps = (state: IAppState) => ({
   mail: state.mail,
   menus: state.menus.items,
   reservations: state.reservations.items,
+  inventoryItems: state.inventoryItems.items,
+  menuItems: state.menuItems.items,
+  sections: state.sections.items,
+  tables: state.tables.items,
   // HERE: add
 });
 
@@ -375,6 +442,10 @@ const mapDispatchtoProps = (dispatch: Dispatch) =>
       MaterialActionCreators,
       RestaurantActionCreators,
       ReservationActionCreators,
+      InventoryItemsActionCreators,
+      MenuItemsActionCreators,
+      SectionActionCreators,
+      TableActionCreators,
       // HERE: add
     ),
     dispatch

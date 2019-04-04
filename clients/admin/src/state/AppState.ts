@@ -9,6 +9,10 @@ export interface IAppState {
   restaurants?: any;
   menus?: any;
   reservations?: any;
+  inventoryItems?: any;
+  menuItems?: any;
+  sections?: any;
+  tables?: any;
   // HERE: add
 }
 
@@ -21,6 +25,10 @@ export const AppStateModel : IAppState = {
   restaurants: null,
   menus: null,
   reservations: null,
+  inventoryItems: null,
+  menuItems: null,
+  sections: null,
+  tables: null,
   // HERE: add
 };
 

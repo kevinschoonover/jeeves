@@ -42,6 +42,35 @@ export interface IApplicationProps {
   deleteReservation: (context: any) => any;
   createReservation: (context: any) => any;
   reservations: any[];
+
+  // inventoryItems
+  fetchInventoryItems: (context?: any) => any;
+  updateInventoryItem: (context: any) => any;
+  deleteInventoryItem: (context: any) => any;
+  createInventoryItem: (context: any) => any;
+  inventoryItems: any[];
+
+  // menuItems
+  fetchMenuItems: (context?: any) => any;
+  updateMenuItem: (context: any) => any;
+  deleteMenuItem: (context: any) => any;
+  createMenuItem: (context: any) => any;
+  menuItems: any[];
+
+  // sections
+  fetchSections: (context?: any) => any;
+  updateSection: (context: any) => any;
+  deleteSection: (context: any) => any;
+  createSection: (context: any) => any;
+  sections: any[];
+
+  // tables
+  fetchTables: (context?: any) => any;
+  updateTable: (context: any) => any;
+  deleteTable: (context: any) => any;
+  createTable: (context: any) => any;
+  tables: any[];
+
   // HERE: add
   match: match<any>;
   location: any;

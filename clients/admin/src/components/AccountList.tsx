@@ -35,9 +35,6 @@ const styles = (theme: Theme) => ({
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
   },
-  grid: {
-    flexGrow: 1,
-  },
 });
 
 interface IRestaurantListProps {
@@ -51,40 +48,43 @@ class RestaurantList extends React.Component<IRestaurantListProps, {}> {
     const { classes } = this.props;
 
     return (
-      <div className={classes.grid}>
-        <Grid container={true} spacing={16}>
-          {this.props.items.map((item: any) => {
-            return (
-              <Grid key={item.id} item={true} xs={3}>
-                <Card className={classes.card}>
-                  <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      className={classes.media}
-                      image={item.imgPath}
-                      title="Item Picture"
-                    />
-                    <CardContent>
-                      <Typography gutterBottom={true} component="h2">
-                        {item.name}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <CardActions>
-                    <Button
-                      size="small"
-                      color="primary"
-                      onClick={() => this.props.deleteItem(item.id)}
-                    >
-                      Delete
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            );
-          })}
-        </Grid>
-      </div>
+      <Grid container={true} spacing={16}>
+        {this.props.items.map((item: any) => {
+          return (
+            <Grid key={item.id} item={true} xs={3}>
+              <Card className={classes.card}>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    className={classes.media}
+                    image={item.imgPath}
+                    title="Item Picture"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom={true} component="h2">
+                      {item.name}
+                    </Typography>
+                    <Typography component="p">
+                      Lizards are a widespread group of squamate reptiles, with
+                      over 6,000 species, ranging across all continents except
+                      Antarctica
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Button
+                    size="small"
+                    color="primary"
+                    onClick={() => this.props.deleteItem(item.id)}
+                  >
+                    Delete
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          );
+        })}
+      </Grid>
     );
   }
 }

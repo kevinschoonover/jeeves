@@ -3,8 +3,10 @@ import { withRouter } from 'react-router';
 import { Theme, withStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 import Send from "@material-ui/icons/Send";
 
@@ -17,35 +19,44 @@ interface IFormProps {
 
 interface IForm {
   name: string;
-  email: string;
-  address: string;
-  imgPath: string;
-  phoneNum: string;
+  quantity: number;
+  category: string;
+  logoPath: string;
+  allergens: string[];
+  isActive: boolean;
 }
 
 class Form extends React.Component<IFormProps, IForm> {
   public state : IForm = {
-    name: "Test",
-    email: "test@test.com",
-    address: "123 Test Drive",
-    imgPath: "https://www.meatpoultry.com/ext/resources/MPImages/11-2018/11082018/wendys-exterior.jpg?1541774773",
-    phoneNum: "123-456-7890"
+    name: "",
+    quantity: 0,
+    category: "Unknown",
+    logoPath: "",
+    allergens: [],
+    isActive: true,
   };
 
   public handleChange = (name : keyof IForm) => (event : any) => {
     this.setState({
-      name: event.target.value,
+      [name]: event.target.value,
+    } as Pick<IForm, keyof IForm>);
+  };
+
+  public handleChecked = (name : keyof IForm) => (event : any) => {
+    this.setState({
+      [name]: event.target.checked,
     } as Pick<IForm, keyof IForm>);
   };
 
   public render() : JSX.Element {
     const { classes } = this.props;
 
+    // HERE: Change
     return (
       <div>
         <div className={classes.appBarSpacer} />
         <Typography gutterBottom={true} component="h2">
-          Add Restaurant
+          Add Inventory Item
         </Typography>
         <form className={classes.container} noValidate={true} autoComplete="off">
           <Grid container={true} spacing={16} direction="column">
@@ -56,41 +67,40 @@ class Form extends React.Component<IFormProps, IForm> {
                 className={classes.textField}
                 value={this.state.name}
                 onChange={this.handleChange('name')}
-                margin="normal"
               />
               <TextField
-                id="email"
-                label="Email"
+                id="quantity"
+                label="Quantity"
                 className={classes.textField}
-                value={this.state.email}
-                onChange={this.handleChange('email')}
-                margin="normal"
+                value={this.state.quantity}
+                onChange={this.handleChange('quantity')}
               />
               <TextField
-                id="address"
-                label="Address"
+                id="category"
+                label="Category"
                 className={classes.textField}
-                value={this.state.address}
-                onChange={this.handleChange('address')}
-                margin="normal"
+                value={this.state.category}
+                onChange={this.handleChange('category')}
               />
             </Grid>
             <Grid item={true}>
               <TextField
-                id="phoneNum"
-                label="Phone Number"
+                id="logoPath"
+                label="Logo Path"
                 className={classes.textField}
-                value={this.state.phoneNum}
-                onChange={this.handleChange('phoneNum')}
-                margin="normal"
+                value={this.state.logoPath}
+                onChange={this.handleChange('logoPath')}
               />
-              <TextField
-                id="imgPath"
-                label="Image Path"
-                className={classes.textField}
-                value={this.state.imgPath}
-                onChange={this.handleChange('imgPath')}
-                margin="normal"
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.state.isActive}
+                    onChange={this.handleChecked('isActive')}
+                    value="isActive"
+                    color="primary"
+                  />
+                }
+                label="Is Active?"
               />
             </Grid>
             <Grid item={true}>
@@ -145,7 +155,7 @@ const styles = (theme: Theme) => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: "150px",
+    width: "225px",
   },
   button: {
     margin: theme.spacing.unit,
