@@ -8,9 +8,6 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Account } from './Account';
-import { Menu } from './Menu';
-import { Section } from './Section';
 
 import {
   IsArray,
@@ -22,8 +19,13 @@ import {
   IsNumber,
   IsString,
 } from 'class-validator';
+
+import { Account } from './Account';
+import { Menu } from './Menu';
 import { Reservation } from './Reservation';
 import { Review } from './Review';
+import { Section } from './Section';
+import { Visit } from './Visit';
 
 export enum cuisineTypes {
   AMERICAN = 'American',
@@ -165,4 +167,7 @@ export class Restaurant extends BaseEntity {
   @ManyToOne((type) => Reservation, (reservation) => reservation.restaurant)
   @IsArray()
   public reservations: Reservation[];
+
+  @OneToMany((type) => Visit, (visit) => visit.restaurant)
+  public visits: Visit[];
 }

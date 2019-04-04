@@ -1,31 +1,31 @@
 import {
+  IsArray,
+  IsBoolean,
+  IsDate,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import {
   BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
-  OneToMany,
   ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { MenuItem } from './MenuItem';
 import { Restaurant } from './Restaurant';
-import {
-  IsString,
-  IsDate,
-  IsBoolean,
-  IsArray,
-  ValidateNested,
-} from 'class-validator';
 
 @Entity()
 export class Menu extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn()
   @IsString()
-  public id: string;
+  public name: string;
 
   @CreateDateColumn()
   @IsDate()
-  public dateJoined: Date;
+  public dateCreated: Date;
 
   @Column({
     default: true,
