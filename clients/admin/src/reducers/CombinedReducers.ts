@@ -12,6 +12,14 @@ import { rootReducer as menuItemReducers } from '../data/menuItem';
 import { rootReducer as sectionReducers } from '../data/section';
 import { rootReducer as tableReducers } from '../data/table';
 
+import { rootReducer as orderReducers } from '../data/order';
+import { rootReducer as reviewReducers } from '../data/review';
+import { rootReducer as serviceReducers } from '../data/service';
+import { rootReducer as shiftReducers } from '../data/shift';
+import { rootReducer as transactionReducers } from '../data/transaction';
+import { rootReducer as visitReducers } from '../data/visit';
+
+
 // HERE: add
 
 export const reducers = combineReducers({
@@ -27,5 +35,11 @@ export const reducers = combineReducers({
   menuItems: menuItemReducers,
   sections: sectionReducers,
   tables: tableReducers,
+  orders: orderReducers,
+  reviews: reviewReducers,
+  services: serviceReducers,
+  shifts: shiftReducers,
+  transactions: transactionReducers,
+  visits: visitReducers,
   // HERE: add
 });

@@ -12,6 +12,12 @@ import FastFoodIcon from '@material-ui/icons/Fastfood';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import TableChartIcon from '@material-ui/icons/TableChart';
 import EventSeatIcon from '@material-ui/icons/EventSeat';
+import AccessibilityIcon from '@material-ui/icons/Accessibility';
+import PaymentIcon from '@material-ui/icons/Payment';
+import VisitIcon from '@material-ui/icons/SentimentSatisfied';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import RateReviewIcon from '@material-ui/icons/RateReview';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 import {
   Drawer,
@@ -48,7 +54,13 @@ class AppDrawer extends React.Component<IAppDrawer, {}> {
     { path: '/reservations', title: 'Reservations', icon: () => <EventIcon /> },
     { path: '/inventoryItems', title: 'Inventory Items', icon: () => <FastFoodIcon /> },
     { path: '/sections', title: 'Sections', icon: () => <TableChartIcon /> },
-    { path: '/tables', title: 'Sections', icon: () => <EventSeatIcon /> },
+    { path: '/tables', title: 'Tables', icon: () => <EventSeatIcon /> },
+    { path: '/orders', title: 'Orders', icon: () => <AttachMoneyIcon /> },
+    { path: '/reviews', title: 'Reviews', icon: () => <RateReviewIcon /> },
+    { path: '/services', title: 'Services', icon: () => <AccessibilityIcon /> },
+    { path: '/shifts', title: 'Shifts', icon: () => <PersonAddIcon /> },
+    { path: '/transactions', title: 'Transactions', icon: () => <PaymentIcon /> },
+    { path: '/visits', title: 'Visits', icon: () => <VisitIcon /> },
     // HERE: add
   ];
 
