@@ -29,7 +29,6 @@ const cartReducer = (state: any = initState, action: any) => {
         total: newTotal,
       };
     } else {
-      const newItem = existedItem;
       existedItem.quantity += 1;
       const newTotal = state.total + existedItem.subheader;
       return {

@@ -1,11 +1,10 @@
-import React, { Component, Dispatch } from 'react';
+import React, { Component } from 'react';
 import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
   ListSubheader,
-  Button,
   Input,
 } from '@material-ui/core';
 import List from '@material-ui/core/List';
@@ -13,6 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import { connect } from 'react-redux';
+import { addQuantity, subQuantity, removeItem } from './actions/cartActions';
 
 class Cart extends Component<State> {
   render() {
@@ -29,20 +29,14 @@ class Cart extends Component<State> {
                 <IconButton>
                   <KeyboardArrowUp
                     onClick={() =>
-                      (this.props as any).dispatch({
-                        type: 'ADD_QUANTITY',
-                        id: item.id,
-                      })
+                      (this.props as any).dispatch(addQuantity(item.id))
                     }
                   />
                 </IconButton>
                 <IconButton>
                   <KeyboardArrowDown
                     onClick={() =>
-                      (this.props as any).dispatch({
-                        type: 'SUB_QUANTITY',
-                        id: item.id,
-                      })
+                      (this.props as any).dispatch(subQuantity(item.id))
                     }
                   />
                 </IconButton>
@@ -57,10 +51,7 @@ class Cart extends Component<State> {
                   <IconButton>
                     <DeleteIcon
                       onClick={() =>
-                        (this.props as any).dispatch({
-                          type: 'REMOVE_ITEM',
-                          id: item.id,
-                        })
+                        (this.props as any).dispatch(removeItem(item.id))
                       }
                     />
                   </IconButton>
@@ -106,11 +97,5 @@ const mapStateToProps = (state: State) => {
     total: state.total,
   };
 };
-
-/*const mapDispatchToProps = (dispatch: any) => {
-  return {
-    addQuantity: () => dispatch(addQuantity()),
-  };
-};*/
 
 export default connect(mapStateToProps)(Cart);

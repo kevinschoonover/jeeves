@@ -14,9 +14,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
 import { yellow, purple, teal } from '@material-ui/core/colors';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import Cart from './cart';
+import menuNavItems from './menunav';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -103,6 +105,7 @@ type Ref = HTMLDivElement;
 const Navbar: React.FC<NavbarProps> = React.forwardRef<Ref, NavbarProps>(
   ({ classes }, ref) => {
     const [open, setOpen] = useState<boolean>(false);
+    const [open2, setOpen2] = useState<boolean>(false);
 
     return (
       <div ref={ref} className={classes.root}>
@@ -111,10 +114,17 @@ const Navbar: React.FC<NavbarProps> = React.forwardRef<Ref, NavbarProps>(
             <IconButton
               className={classes.menuButton}
               color="inherit"
-              aria-label="Menu"
+              onClick={() => setOpen2((prevOpen) => !prevOpen)}
             >
               <MenuIcon />
             </IconButton>
+            <Drawer
+              anchor="left"
+              open={open2}
+              onClose={() => setOpen2((prevOpen) => !prevOpen)}
+            >
+              <List>{menuNavItems}</List>
+            </Drawer>
             <Typography className={classes.brand} variant="h6">
               <span>Gosnell's Diner & Lounge</span>
             </Typography>
