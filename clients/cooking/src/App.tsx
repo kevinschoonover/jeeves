@@ -6,13 +6,20 @@ import {
   createStyles,
   WithStyles,
 } from '@material-ui/core';
+import Navbar from './components/navbar';
+import PaperSheet from './components/PaperSheet';
+import PaperSheet1 from './components/PaperSheet1';
 
 const styles = (theme: Theme) =>
   createStyles({
     root: {
       textAlign: 'center',
-      marginTop: '400px',
+      flexGrow: 1, 
+      fontFamily: [
+        'Raleway',
+      ].join(','),
     },
+
     apple: {
       margin: theme.spacing.unit * 3,
     },
@@ -21,24 +28,15 @@ const styles = (theme: Theme) =>
 type Props = WithStyles<typeof styles>;
 
 const App: React.FC<Props> = ({ classes }) => {
-  const [count, setCount] = React.useState(0);
-
-  const handleClick = () => {
-    setCount((prevCount) => (prevCount + 1) % 10);
-  };
+  const navbarRef = React.useRef<HTMLDivElement | null>(null);
+  const paperRef = React.useRef<HTMLDivElement | null>(null);
 
   return (
     <div className={classes.root}>
-      <h1>Cooking client</h1>
-      <div>Clicked {count} times!</div>
-      <Button
-        className={classes.apple}
-        onClick={handleClick}
-        color="primary"
-        variant="contained"
-      >
-        Click Me!
-      </Button>
+      <Navbar innerRef={navbarRef} />
+      <h2>Incoming Orders:</h2>
+      <PaperSheet />
+      <PaperSheet1 />
     </div>
   );
 };
