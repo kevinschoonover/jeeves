@@ -12,7 +12,7 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
 } from 'typeorm';
 import { MenuItem } from './MenuItem';
 import { Restaurant } from './Restaurant';
