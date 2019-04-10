@@ -47,7 +47,13 @@ export class RestaurantController {
   public async get(@Param('id') id: string) {
     return Restaurant.findOne(
       { id },
-      { relations: ['tables', 'tables.reservations'] }
+      {
+        relations: [
+          'sections',
+          'sections.tables',
+          'sections.tables.reservations',
+        ],
+      }
     );
   }
 
