@@ -5,13 +5,14 @@ import {
   ListItemSecondaryAction,
   IconButton,
   ListSubheader,
-  Input,
+  Button,
 } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import DeleteIcon from '@material-ui/icons/Delete';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { addQuantity, subQuantity, removeItem } from './actions/cartActions';
 
 class Cart extends Component<State> {
@@ -80,6 +81,35 @@ class Cart extends Component<State> {
               }
             />
           </ListItem>
+          <Link to="/checkout" style={{ textDecoration: 'none' }}>
+            <Button
+              style={{
+                whiteSpace: 'nowrap',
+                border: 0,
+                outline: 0,
+                display: 'inline-block',
+                height: '40px',
+                lineHeight: '40px',
+                padding: '0 14px',
+                boxShadow:
+                  '0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08)',
+                color: '#fff',
+                borderRadius: '4px',
+                fontSize: '15px',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.025em',
+                backgroundColor: '#6772e5',
+                textDecoration: 'none',
+                WebkitTransition: 'all 150ms ease',
+                transition: 'all 150ms ease',
+                marginTop: '10px',
+                marginLeft: '20px',
+              }}
+            >
+              Pay
+            </Button>
+          </Link>
         </List>
       </div>
     );

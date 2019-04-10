@@ -13,6 +13,7 @@ import Starters from './components/starters';
 import Entrees from './components/entrees';
 import Desserts from './components/desserts';
 import AddOns from './components/addons';
+import Checkout from './components/checkout';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -42,6 +43,7 @@ const App: React.FC<Props> = ({ classes }) => {
       <Route path="/entrees" component={Entrees} />
       <Route path="/desserts" component={Desserts} />
       <Route path="/addons" component={AddOns} />
+      <Route path="/checkout" component={Checkout} />
     </div>
   );
 };
