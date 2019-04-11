@@ -10,8 +10,8 @@ import {
   Post,
   UnauthorizedError,
 } from 'routing-controllers';
-import { EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
+import { EntityFromBody } from 'typeorm-routing-controllers-extensions';
 
 import { Restaurant } from '../entity/Restaurant';
 
@@ -45,7 +45,16 @@ export class RestaurantController {
   })
   @ResponseSchema(Restaurant)
   public async get(@Param('id') id: string) {
-    return Restaurant.findOne({ id });
+    return Restaurant.findOne(
+      { id },
+      {
+        relations: [
+          'sections',
+          'sections.tables',
+          'sections.tables.reservations',
+        ],
+      }
+    );
   }
 
   @Patch('/restaurants/:id/')
