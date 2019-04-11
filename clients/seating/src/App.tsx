@@ -14,6 +14,10 @@ import ReservationForm from './components/ReservationForm';
 import { Section, fetchSeatingLayout } from './mocks';
 import useOnClickInside from './hooks/useOnClickInside';
 import TableDetails from './components/TableDetails';
+import { Seating } from './DataConnection/Reservation';
+
+const seating = new Seating('535353');
+seating.getTables();
 
 const styles = () =>
   createStyles({
