@@ -19,10 +19,6 @@ import { Restaurant } from './Restaurant';
 
 @Entity()
 export class Menu extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  @IsString()
-  public id: string;
-
   @PrimaryColumn()
   @IsString()
   public name: string;
