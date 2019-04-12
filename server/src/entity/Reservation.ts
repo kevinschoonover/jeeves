@@ -38,7 +38,7 @@ export class Reservation extends BaseEntity {
   @IsNumber()
   public numGuests: number;
 
-  @OneToMany((type) => Table, (table) => table.reservations)
+  @ManyToOne((type) => Table, (table) => table.reservations)
   @ValidateNested()
   public table: Table;
 

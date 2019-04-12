@@ -43,7 +43,7 @@ export class SectionController {
   })
   @ResponseSchema(Section)
   public async get(@Param('id') id: number) {
-    return Section.findOne({ id });
+    return Section.findOne({ id }, { relations: ['restaurant'] });
   }
 
   @Patch('/sections/:id/')

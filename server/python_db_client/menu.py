@@ -1,4 +1,3 @@
-from http_util import get_random_uuid, make_post
 from jeeves_api_config import ApiRoutes
 from ientity import IEntity
 

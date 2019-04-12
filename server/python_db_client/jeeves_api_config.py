@@ -8,5 +8,7 @@ _ROUTE_URLS = {route: '/'.join((DEFAULT_API_URL, route)) for route in _ROUTES}
 
 ApiRoutes = namedtuple('ApiRoutes', _ROUTES)
 
+DEMO_MODE = True
+
 for route, url in _ROUTE_URLS.items():
     setattr(ApiRoutes, route, url)
