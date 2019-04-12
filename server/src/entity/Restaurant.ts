@@ -124,15 +124,27 @@ export class Restaurant extends BaseEntity {
   @IsDate()
   public dateCreated: Date;
 
+  @Column({
+    default: true,
+  })
   @IsBoolean()
   public isActive: boolean;
 
+  @Column({
+    default: false,
+  })
   @IsBoolean()
   public hasWifi: boolean;
 
+  @Column({
+    default: false,
+  })
   @IsBoolean()
   public hasTV: boolean;
 
+  @Column({
+    default: false,
+  })
   @IsBoolean()
   public hasParking: boolean;
 
