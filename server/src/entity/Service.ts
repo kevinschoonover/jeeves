@@ -38,11 +38,11 @@ export class Service extends BaseEntity {
   @IsEnum(serviceType)
   public type: serviceType;
 
-  @OneToMany((type) => Account, (account) => account.services)
+  @ManyToOne((type) => Account, (account) => account.services)
   @ValidateNested()
   public user: Account;
 
-  @OneToMany((type) => Table, (table) => table.services)
+  @ManyToOne((type) => Table, (table) => table.services)
   @ValidateNested()
   public table: Table;
 }

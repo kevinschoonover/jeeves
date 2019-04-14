@@ -79,11 +79,11 @@ export class Table extends BaseEntity {
   @IsBoolean()
   public kidFriendly: boolean;
 
-  @ManyToOne((type) => Service, (service) => service.table)
+  @OneToMany((type) => Service, (service) => service.table)
   @IsArray()
   public services: Service[];
 
-  @ManyToOne((type) => Reservation, (reservation) => reservation.table)
+  @OneToMany((type) => Reservation, (reservation) => reservation.table)
   @IsArray()
   public reservations: Reservation[];
 
