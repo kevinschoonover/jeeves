@@ -21,7 +21,7 @@ import { Restaurant } from './Restaurant';
 @Entity()
 export class Review extends BaseEntity {
   @PrimaryGeneratedColumn()
-  public id: int;
+  public id: number;
 
   @CreateDateColumn()
   @IsDate()

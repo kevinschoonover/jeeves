@@ -12,14 +12,17 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { MenuItem } from './MenuItem';
 import { Restaurant } from './Restaurant';
 
 @Entity()
 export class Menu extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
+  public id: number;
+
+  @Column()
   @IsString()
   public name: string;
 

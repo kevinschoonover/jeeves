@@ -59,9 +59,7 @@ import { Index as VisitIndex } from '../pages/visit/Index';
 
 // HERE: add
 
-import {
-  getRestaurantItems,
-} from '../selectors';
+import { getRestaurantItems } from '../selectors';
 import AppDrawer from './App.Drawer';
 import NotificationIcon from '@material-ui/icons/Notifications';
 //#endregion
@@ -318,67 +316,68 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         return (
           <RestaurantIndex
             createItem={this.props.createRestaurant}
-            deleteItem={this.props.deleteRestaurant} 
+            deleteItem={this.props.deleteRestaurant}
             items={this.props.restaurants}
           />
         );
       }
     );
 
-  const AccountsBoard = isAuthenticated(
+    const AccountsBoard = isAuthenticated(
       (props: any): any => {
         return (
           <AccountIndex
             createItem={this.props.createAccount}
-            deleteItem={this.props.deleteAccount} 
+            deleteItem={this.props.deleteAccount}
             items={this.props.accounts}
           />
         );
       }
     );
 
-  const MenusBoard = isAuthenticated(
+    const MenusBoard = isAuthenticated(
       (props: any): any => {
         return (
           <MenuIndex
             createItem={this.props.createMenu}
-            deleteItem={this.props.deleteMenu} 
+            deleteItem={this.props.deleteMenu}
             items={this.props.menus}
+            restaurants={this.props.restaurants}
           />
         );
       }
     );
 
-  const ReservationsBoard = isAuthenticated(
+    const ReservationsBoard = isAuthenticated(
       (props: any): any => {
         return (
           <ReservationIndex
             createItem={this.props.createReservation}
-            deleteItem={this.props.deleteReservation} 
+            deleteItem={this.props.deleteReservation}
             items={this.props.reservations}
           />
         );
       }
     );
 
-  const InventoryItemsBoard = isAuthenticated(
+    const InventoryItemsBoard = isAuthenticated(
       (props: any): any => {
         return (
           <InventoryItemIndex
             createItem={this.props.createInventoryItem}
-            deleteItem={this.props.deleteInventoryItem} 
+            deleteItem={this.props.deleteInventoryItem}
             items={this.props.inventoryItems}
           />
         );
       }
     );
 
-  const MenuItemsBoard = isAuthenticated(
+    const MenuItemsBoard = isAuthenticated(
       (props: any): any => {
         return (
           <MenuItemIndex
             createItem={this.props.createMenuItem}
-            deleteItem={this.props.deleteMenuItem} 
+            deleteItem={this.props.deleteMenuItem}
             items={this.props.menuItems}
           />
         );
@@ -390,7 +389,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         return (
           <SectionIndex
             createItem={this.props.createSection}
-            deleteItem={this.props.deleteSection} 
+            deleteItem={this.props.deleteSection}
             items={this.props.sections}
           />
         );
@@ -402,7 +401,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         return (
           <TableIndex
             createItem={this.props.createTable}
-            deleteItem={this.props.deleteTable} 
+            deleteItem={this.props.deleteTable}
             items={this.props.tables}
           />
         );
@@ -414,7 +413,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         return (
           <OrderIndex
             createItem={this.props.createOrder}
-            deleteItem={this.props.deleteOrder} 
+            deleteItem={this.props.deleteOrder}
             items={this.props.orders}
           />
         );
@@ -426,7 +425,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         return (
           <ReviewIndex
             createItem={this.props.createReview}
-            deleteItem={this.props.deleteReview} 
+            deleteItem={this.props.deleteReview}
             items={this.props.reviews}
           />
         );
@@ -438,7 +437,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         return (
           <ServiceIndex
             createItem={this.props.createService}
-            deleteItem={this.props.deleteService} 
+            deleteItem={this.props.deleteService}
             items={this.props.services}
           />
         );
@@ -450,7 +449,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         return (
           <ShiftIndex
             createItem={this.props.createShift}
-            deleteItem={this.props.deleteShift} 
+            deleteItem={this.props.deleteShift}
             items={this.props.shifts}
           />
         );
@@ -462,7 +461,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         return (
           <TransactionIndex
             createItem={this.props.createTransaction}
-            deleteItem={this.props.deleteTransaction} 
+            deleteItem={this.props.deleteTransaction}
             items={this.props.transactions}
           />
         );
@@ -474,7 +473,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         return (
           <VisitIndex
             createItem={this.props.createVisit}
-            deleteItem={this.props.deleteVisit} 
+            deleteItem={this.props.deleteVisit}
             items={this.props.visits}
           />
         );
@@ -556,7 +555,7 @@ const mapDispatchtoProps = (dispatch: Dispatch) =>
       ServiceActionCreators,
       ShiftActionCreators,
       TransactionActionCreators,
-      VisitActionCreators,
+      VisitActionCreators
       // HERE: add
     ),
     dispatch
