@@ -29,6 +29,9 @@ export class Seating {
             this.tables[table.id] = table;
           });
         });
+        console.log(response.data);
+        console.log(this.tables);
+        console.log(this.tableIds);
       }
     } catch (error) {
       console.log(error);
@@ -45,7 +48,7 @@ export class Seating {
     table: string;
   }) {
     try {
-      const response = await this.axios.post(`/reservation`, {
+      const response = await this.axios.post(`/Reservations`, {
         startTime,
         numGuests,
         table,
