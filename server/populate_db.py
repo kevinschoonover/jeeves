@@ -21,6 +21,7 @@ def make_menu():
 
 
 def make_order(menuItems):
+    print('making the post')
     return make_post(
         ORDER_URL,
         {
@@ -38,6 +39,7 @@ def make_menu_item(name, price, menu):
             "menu": menu,
         }
     )
+
 
 print(
     make_order(

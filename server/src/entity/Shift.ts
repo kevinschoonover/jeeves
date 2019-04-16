@@ -42,7 +42,7 @@ export class Shift extends BaseEntity {
   @ValidateNested()
   public section: Section;
 
-  @ManyToOne((type) => Visit, (visit) => visit.assignee)
+  @OneToMany((type) => Visit, (visit) => visit.assignee)
   @IsArray()
   public visits: Visit[];
 
