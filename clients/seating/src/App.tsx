@@ -16,7 +16,7 @@ import useOnClickInside from './hooks/useOnClickInside';
 import TableDetails from './components/TableDetails';
 import { Seating } from './DataConnection/Reservation';
 
-const seating = new Seating('535353');
+const seating = new Seating('37ec8893-46d1-4fa8-9631-e3f60e5d0f8f');
 seating.getTables();
 
 const styles = () =>
@@ -85,6 +85,11 @@ const App: React.FC<AppProps> = ({ classes }) => {
     numGuests: number;
   }) => {
     console.log('reserve table', numGuests, startTime);
+    seating.createReservation({
+      startTime,
+      numGuests,
+      table: `${selectedTable}`,
+    });
   };
 
   React.useLayoutEffect(() => {
