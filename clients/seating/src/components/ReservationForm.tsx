@@ -16,9 +16,6 @@ import moment from 'moment';
 
 import 'react-day-picker/lib/style.css';
 import FormInput from './FormInput';
-import { Seating } from '../DataConnection/Reservation';
-
-const seating = new Seating('37ec8893-46d1-4fa8-9631-e3f60e5d0f8f');
 
 const styles = (theme: Theme) =>
   createStyles({

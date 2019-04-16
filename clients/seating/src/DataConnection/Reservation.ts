@@ -15,6 +15,7 @@ export class Seating {
     this.tableIds = [];
     this.tables = {};
   }
+
   async getTables() {
     try {
       const response = await this.axios.get(
