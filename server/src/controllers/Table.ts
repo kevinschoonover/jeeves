@@ -8,10 +8,12 @@ import {
   Patch,
   Post,
 } from 'routing-controllers';
-import { EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
+import { EntityFromBody } from 'typeorm-routing-controllers-extensions';
 
 import { Table } from '../entity/Table';
+
+const relations: any = ['table', 'restaurant'];
 
 @JsonController()
 export class TableController {
@@ -21,7 +23,7 @@ export class TableController {
   })
   @ResponseSchema(Table)
   public async getAll() {
-    return Table.find();
+    return Table.find({ relations });
   }
 
   @Post('/tables/')
@@ -43,7 +45,7 @@ export class TableController {
   })
   @ResponseSchema(Table)
   public async get(@Param('id') id: number) {
-    return Table.findOne({ id });
+    return Table.findOne({ id }, { relations });
   }
 
   @Patch('/tables/:id/')
@@ -53,7 +55,7 @@ export class TableController {
   @ResponseSchema(Table)
   public async patch(@Param('id') id: number, @Body() table: object) {
     await Table.update(id, table);
-    return Table.findOne({ id });
+    return Table.findOne({ id }, { relations });
   }
 
   @Delete('/tables/:id/')

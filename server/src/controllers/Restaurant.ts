@@ -15,6 +15,8 @@ import { EntityFromBody } from 'typeorm-routing-controllers-extensions';
 
 import { Restaurant } from '../entity/Restaurant';
 
+const relations: any = ['menus'];
+
 @JsonController()
 export class RestaurantController {
   @Get('/restaurants/')
@@ -23,7 +25,7 @@ export class RestaurantController {
   })
   @ResponseSchema(Restaurant)
   public async getAll() {
-    return Restaurant.find();
+    return Restaurant.find({ relations });
   }
 
   @Post('/restaurants/')
