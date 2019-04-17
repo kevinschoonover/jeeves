@@ -10,31 +10,28 @@ interface IIndexProps {
   items: any[];
   createItem: (context: any) => any;
   deleteItem: (context: any) => any;
+  restaurants: any[];
 }
 
 export class Index extends React.Component<IIndexProps, {}> {
-  
   public render(): JSX.Element {
     const Catalog = () => {
       return (
-        <Page
-          items={this.props.items}
-          deleteItem={this.props.deleteItem}
-        />
+        <Page items={this.props.items} deleteItem={this.props.deleteItem} />
       );
     };
 
     const CreationForm = () => {
-      return ( 
+      return (
         <Form
           createItem={this.props.createItem}
+          restaurants={this.props.restaurants}
         />
       );
     };
 
     return (
       <Switch>
-        // HERE: change
         <Route path="/sections" exact={true} component={Catalog} />
         <Route path="/sections/create" component={CreationForm} />
       </Switch>

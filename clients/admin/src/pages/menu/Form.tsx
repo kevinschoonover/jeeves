@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
+import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -23,12 +24,14 @@ interface IFormProps {
 }
 
 interface IForm {
+  name: string;
   isActive: boolean;
   restaurant: string;
 }
 
 class Form extends React.Component<IFormProps, IForm> {
   public state: IForm = {
+    name: '',
     isActive: false,
     restaurant: '',
   };
@@ -67,6 +70,14 @@ class Form extends React.Component<IFormProps, IForm> {
         >
           <Grid container={true} spacing={16} direction="column">
             <Grid item={true}>
+              <TextField
+                id="name"
+                label="Name"
+                className={classes.textField}
+                value={this.state.name}
+                onChange={this.handleChange('name')}
+                margin="normal"
+              />
               <FormControlLabel
                 control={
                   <Checkbox
@@ -78,8 +89,6 @@ class Form extends React.Component<IFormProps, IForm> {
                 }
                 label="Is Active?"
               />
-            </Grid>
-            <Grid item={true}>
               <FormControl className={classes.formControl}>
                 <InputLabel shrink={true} htmlFor="age-label-placeholder">
                   Restaurant
