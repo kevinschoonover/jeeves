@@ -5,11 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import MenuItem from '@material-ui/core/MenuItem';
+
+import RestaurantSelect from '../../components/RestaurantSelect';
+import TableSelect from '../../components/TableSelect';
 
 import Send from '@material-ui/icons/Send';
 
@@ -90,59 +88,16 @@ class Form extends React.Component<IFormProps, IForm> {
                 value={this.state.numGuests}
                 onChange={this.handleChange('numGuests')}
               />
-              <FormControl className={classes.formControl}>
-                <InputLabel shrink={true} htmlFor="age-label-placeholder">
-                  Table
-                </InputLabel>
-                <Select
-                  value={this.state.table}
-                  onChange={this.handleSelectChange('table')}
-                  input={<Input name="table" id="table-label-placeholder" />}
-                  displayEmpty={true}
-                  name="table"
-                  className={classes.selectEmpty}
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  {this.props.tables.map((item: any) => {
-                    return (
-                      <MenuItem key={item.id} value={item.id}>
-                        {item.name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel shrink={true} htmlFor="age-label-placeholder">
-                  Restaurant
-                </InputLabel>
-                <Select
-                  value={this.state.restaurant}
-                  onChange={this.handleSelectChange('restaurant')}
-                  input={
-                    <Input
-                      name="restaurant"
-                      id="restaurant-label-placeholder"
-                    />
-                  }
-                  displayEmpty={true}
-                  name="restaurant"
-                  className={classes.selectEmpty}
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  {this.props.restaurants.map((item: any) => {
-                    return (
-                      <MenuItem key={item.id} value={item.id}>
-                        {item.name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
+              <TableSelect
+                value={this.state.table}
+                tables={this.props.tables}
+                handleSelectChange={this.handleSelectChange('table')}
+              />
+              <RestaurantSelect
+                value={this.state.restaurant}
+                restaurants={this.props.restaurants}
+                handleSelectChange={this.handleSelectChange('restaurant')}
+              />
             </Grid>
             <Grid item={true}>
               <Button
