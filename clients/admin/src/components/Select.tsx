@@ -43,11 +43,18 @@ interface ISelectProps {
   value: any;
   items: any;
   handleSelectChange: any;
+  nameConverter?: (item: any) => string;
 }
 
 class Selection extends React.Component<ISelectProps, {}> {
   public render(): JSX.Element {
     const { classes } = this.props;
+
+    const nameConverter = this.props.nameConverter
+      ? this.props.nameConverter
+      : (item: any) => {
+          return item.name;
+        };
 
     return (
       <FormControl className={classes.formControl}>
@@ -68,7 +75,7 @@ class Selection extends React.Component<ISelectProps, {}> {
           {this.props.items.map((item: any) => {
             return (
               <MenuItem key={item.id} value={item.id}>
-                {item.name}
+                {nameConverter(item)}
               </MenuItem>
             );
           })}

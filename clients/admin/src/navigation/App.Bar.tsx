@@ -407,6 +407,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
             createItem={this.props.createTable}
             deleteItem={this.props.deleteTable}
             items={this.props.tables}
+            sections={this.props.sections}
           />
         );
       }
@@ -431,6 +432,9 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
             createItem={this.props.createReview}
             deleteItem={this.props.deleteReview}
             items={this.props.reviews}
+            restaurants={this.props.restaurants}
+            menuItems={this.props.menuItems}
+            accounts={this.props.accounts}
           />
         );
       }

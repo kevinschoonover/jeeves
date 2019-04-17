@@ -2,43 +2,62 @@ import * as React from 'react';
 import { withRouter } from 'react-router';
 import { Theme, withStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
-import Send from "@material-ui/icons/Send";
+import RestaurantSelection from '../../components/RestaurantSelect';
+import MenuItemSelection from '../../components/MenuItemSelect';
+import AccountSelection from '../../components/AccountSelect';
+
+import Send from '@material-ui/icons/Send';
 
 interface IFormProps {
   items: any[];
   classes: any;
   history: any;
   createItem: (context: any) => any;
+  restaurants: any[];
+  accounts: any[];
+  menuItems: any[];
 }
 
 interface IForm {
   score: number;
   comment: string;
+  restaurant: string;
+  reviewer: string;
+  menuItem: string;
 }
 
 class Form extends React.Component<IFormProps, IForm> {
-  public state : IForm = {
+  public state: IForm = {
     score: 0,
-    comment: "",
+    comment: '',
+    restaurant: '',
+    reviewer: '',
+    menuItem: '',
   };
 
-  public handleChange = (name : keyof IForm) => (event : any) => {
+  public handleChange = (name: keyof IForm) => (event: any) => {
     this.setState({
       [name]: event.target.value,
     } as Pick<IForm, keyof IForm>);
   };
 
-  public handleChecked = (name : keyof IForm) => (event : any) => {
+  public handleChecked = (name: keyof IForm) => (event: any) => {
     this.setState({
       [name]: event.target.checked,
     } as Pick<IForm, keyof IForm>);
   };
 
-  public render() : JSX.Element {
+  public handleSelectChange = (name: keyof IForm) => (event: any) => {
+    this.setState({
+      [name]: event.target.value,
+    } as Pick<IForm, keyof IForm>);
+  };
+
+  public render(): JSX.Element {
     const { classes } = this.props;
 
     // HERE: Change
@@ -48,7 +67,11 @@ class Form extends React.Component<IFormProps, IForm> {
         <Typography gutterBottom={true} component="h2">
           Add Review
         </Typography>
-        <form className={classes.container} noValidate={true} autoComplete="off">
+        <form
+          className={classes.container}
+          noValidate={true}
+          autoComplete="off"
+        >
           <Grid container={true} spacing={16} direction="column">
             <Grid item={true}>
               <TextField
@@ -68,16 +91,31 @@ class Form extends React.Component<IFormProps, IForm> {
               />
             </Grid>
             <Grid item={true}>
+              <RestaurantSelection
+                value={this.state.restaurant}
+                restaurants={this.props.restaurants}
+                handleSelectChange={this.handleSelectChange('restaurant')}
+              />
+              <AccountSelection
+                value={this.state.reviewer}
+                accounts={this.props.accounts}
+                handleSelectChange={this.handleSelectChange('reviewer')}
+              />
+              <MenuItemSelection
+                value={this.state.menuItem}
+                menuItems={this.props.menuItems}
+                handleSelectChange={this.handleSelectChange('menuItem')}
+              />
+            </Grid>
+            <Grid item={true}>
               <Button
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={
-                  () => {
-                    this.props.createItem(this.state);
-                    this.props.history.goBack();
-                  }
-                }
+                onClick={() => {
+                  this.props.createItem(this.state);
+                  this.props.history.goBack();
+                }}
               >
                 Send
                 <Send className={classes.rightIcon} />
@@ -111,7 +149,7 @@ const styles = (theme: Theme) => ({
       display: 'none',
     },
   },
-    appBarSpacer: theme.mixins.toolbar,
+  appBarSpacer: theme.mixins.toolbar,
   container: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -119,7 +157,7 @@ const styles = (theme: Theme) => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: "225px",
+    width: '225px',
   },
   button: {
     margin: theme.spacing.unit,
@@ -137,7 +175,7 @@ const styles = (theme: Theme) => ({
   },
   selectEmpty: {
     marginTop: theme.spacing.unit * 2,
-  }
+  },
 });
 
 export default withRouter(withStyles(styles as any)(Form as any) as any) as any;
