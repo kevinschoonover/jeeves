@@ -8,8 +8,8 @@ import {
   Patch,
   Post,
 } from 'routing-controllers';
-import { EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
+import { EntityFromBody } from 'typeorm-routing-controllers-extensions';
 
 import { Shift } from '../entity/Shift';
 
