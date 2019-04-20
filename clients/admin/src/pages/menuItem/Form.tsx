@@ -46,7 +46,7 @@ class Form extends React.Component<IFormProps, IForm> {
     prepETA: 15,
     spicyLevel: 0,
     imgPath: 'http://lorempixel.com/640/480/cats',
-    category: 'Unknown',
+    category: 'unknown',
     servingSizeUnits: 'cup',
     isActive: true,
     menu: '',
