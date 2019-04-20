@@ -459,6 +459,8 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
             createItem={this.props.createShift}
             deleteItem={this.props.deleteShift}
             items={this.props.shifts}
+            accounts={this.props.accounts}
+            sections={this.props.sections}
           />
         );
       }
