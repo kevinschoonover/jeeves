@@ -10,6 +10,7 @@ interface IIndexProps {
   items: any[];
   createItem: (context: any) => any;
   deleteItem: (context: any) => any;
+  menuItems: any[];
 }
 
 export class Index extends React.Component<IIndexProps, {}> {
@@ -28,6 +29,7 @@ export class Index extends React.Component<IIndexProps, {}> {
       return ( 
         <Form
           createItem={this.props.createItem}
+          menuItems={this.props.menuItems}
         />
       );
     };
