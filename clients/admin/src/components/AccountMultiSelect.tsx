@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withStyles, Theme } from '@material-ui/core/styles';
 
-import Select from './Select';
+import MultiSelect from './MultiSelect';
 
 const styles = (theme: Theme) => ({
   card: {
@@ -34,21 +34,21 @@ const styles = (theme: Theme) => ({
   },
 });
 
-interface IVisitSelectProps {
+interface IAccountSelectProps {
   classes: any;
   value: any;
-  visits: any;
+  accounts: any;
   handleSelectChange: any;
 }
 
-class VisitSelect extends React.Component<IVisitSelectProps, {}> {
+class AccountMultiSelect extends React.Component<IAccountSelectProps, {}> {
   public render(): JSX.Element {
-    const converter = (item: any) => item.id;
+    const converter = (item: any) => item.firstName + ' ' + item.lastName;
     return (
-      <Select
-        name="Visit"
+      <MultiSelect
+        name="Account"
         value={this.props.value}
-        items={this.props.visits}
+        items={this.props.accounts}
         handleSelectChange={this.props.handleSelectChange}
         nameConverter={converter}
       />
@@ -56,4 +56,4 @@ class VisitSelect extends React.Component<IVisitSelectProps, {}> {
   }
 }
 
-export default withStyles(styles)(VisitSelect);
+export default withStyles(styles)(AccountMultiSelect);

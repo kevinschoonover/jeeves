@@ -1,30 +1,31 @@
 import {
+  IsArray,
+  IsBoolean,
+  IsDate,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+import {
   BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
   ManyToMany,
-  PrimaryGeneratedColumn,
   PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { MenuItem } from './MenuItem';
-import {
-  IsOptional,
-  IsString,
-  IsBoolean,
-  IsArray,
-  IsDate,
-  IsEnum,
-  IsNumber,
-} from 'class-validator';
 
 export enum itemCategory {
-  UNKNOWN = 'Unknown',
-  VEGETABLE = 'Vegetable',
-  MEAT = 'Meat',
-  DAILY = 'Daily',
-  FRUIT = 'Fruit',
-  OTHERs = 'Others',
+  UNKNOWN = 'unknown',
+  VEGETABLE = 'vegetable',
+  MEAT = 'meat',
+  DAILY = 'daily',
+  FRUIT = 'fruit',
+  OTHERs = 'other',
 }
 
 @Entity()
@@ -66,6 +67,7 @@ export class InventoryItem extends BaseEntity {
   public isActive: boolean;
 
   @ManyToMany((type) => MenuItem, (menuitem) => menuitem.ingredients)
+  @JoinTable()
   @IsArray()
   public menuItems: MenuItem[];
 }

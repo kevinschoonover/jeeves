@@ -493,6 +493,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
             items={this.props.visits}
             accounts={this.props.accounts}
             restaurants={this.props.restaurants}
+            shifts={this.props.shifts}
           />
         );
       }
@@ -548,7 +549,7 @@ const mapStateToProps = (state: IAppState) => ({
   reviews: state.reviews.items,
   services: state.services.items,
   shifts: state.shifts.items,
-  transactions: state.shifts.items,
+  transactions: state.transactions.items,
   visits: state.visits.items,
   // HERE: add
 });

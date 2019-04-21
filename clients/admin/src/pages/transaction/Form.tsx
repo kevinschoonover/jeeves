@@ -33,6 +33,8 @@ class Form extends React.Component<IFormProps, IForm> {
     cost: 0,
     tip: 0,
     tax: 0,
+    user: '',
+    visit: '',
   };
 
   public handleChange = (name: keyof IForm) => (event: any) => {
@@ -98,7 +100,7 @@ class Form extends React.Component<IFormProps, IForm> {
               />
               <VisitSelect
                 value={this.state.visit}
-                restaurants={this.props.vists}
+                visits={this.props.visits}
                 handleSelectChange={this.handleSelectChange('visit')}
               />
             </Grid>

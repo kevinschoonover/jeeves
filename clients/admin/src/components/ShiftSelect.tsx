@@ -34,26 +34,27 @@ const styles = (theme: Theme) => ({
   },
 });
 
-interface IVisitSelectProps {
+interface IShiftSelectProps {
   classes: any;
   value: any;
-  visits: any;
+  shifts: any;
   handleSelectChange: any;
 }
 
-class VisitSelect extends React.Component<IVisitSelectProps, {}> {
+class ShiftSelect extends React.Component<IShiftSelectProps, {}> {
+  public converter = (item: any) => item.id;
+
   public render(): JSX.Element {
-    const converter = (item: any) => item.id;
     return (
       <Select
-        name="Visit"
+        name="Shift"
         value={this.props.value}
-        items={this.props.visits}
+        items={this.props.shifts}
         handleSelectChange={this.props.handleSelectChange}
-        nameConverter={converter}
+        nameConverter={this.converter}
       />
     );
   }
 }
 
-export default withStyles(styles)(VisitSelect);
+export default withStyles(styles)(ShiftSelect);
