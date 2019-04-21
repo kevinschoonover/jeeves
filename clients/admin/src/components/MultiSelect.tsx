@@ -72,7 +72,7 @@ class MultiSelect extends React.Component<ISelectProps, {}> {
     const idToName = (id: string) => {
       for (const value of this.props.items) {
         if (value.id === id) {
-          return value.name;
+          return nameConverter(value);
         }
       }
     };
