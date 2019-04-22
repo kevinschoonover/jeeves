@@ -1,5 +1,4 @@
-import { Restaurant } from './../../../../server/src/entity/Restaurant';
-import axios, { AxiosInstance } from 'axios';
+import { AxiosInstance } from 'axios';
 
 export class Seating {
   private restaurantId: string;
@@ -7,10 +6,8 @@ export class Seating {
   private tableIds: any[];
   private tables: { [key: string]: any };
 
-  constructor(restaurantId: string) {
-    this.axios = axios.create({
-      baseURL: 'http://localhost/api/v1',
-    });
+  constructor(axiosInstance: AxiosInstance, restaurantId: string) {
+    this.axios = axiosInstance;
     this.restaurantId = restaurantId;
     this.tableIds = [];
     this.tables = {};

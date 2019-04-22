@@ -8,7 +8,7 @@ export enum TableStatus {
 }
 
 export interface Section {
-  sectionId: number;
+  id: number;
   tables: Table[];
 }
 
@@ -24,7 +24,7 @@ export interface Table {
 
 const fakeSeatingLayout: Section[] = [
   {
-    sectionId: 2,
+    id: 2,
     tables: [
       {
         id: 1,
@@ -61,7 +61,7 @@ const fakeSeatingLayout: Section[] = [
     ],
   },
   {
-    sectionId: 1,
+    id: 1,
     tables: [
       {
         id: 5,
@@ -102,7 +102,7 @@ const fakeSeatingLayout: Section[] = [
     ],
   },
   {
-    sectionId: 3,
+    id: 3,
     tables: [
       {
         id: 9,
@@ -128,7 +128,7 @@ const fakeSeatingLayout: Section[] = [
     ],
   },
   {
-    sectionId: 5,
+    id: 5,
     tables: [
       {
         id: 13,

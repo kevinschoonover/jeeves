@@ -11,13 +11,9 @@ import {
 import Layout from './components/Layout';
 import Navbar from './components/Navbar';
 import ReservationForm from './components/ReservationForm';
-import { Section, fetchSeatingLayout } from './mocks';
 import useOnClickInside from './hooks/useOnClickInside';
 import TableDetails from './components/TableDetails';
-import { Seating } from './DataConnection/Reservation';
-
-const seating = new Seating('37ec8893-46d1-4fa8-9631-e3f60e5d0f8f');
-seating.getTables();
+import useSeating from './hooks/useSeating';
 
 const styles = () =>
   createStyles({
@@ -35,10 +31,10 @@ const styles = () =>
 
 type AppProps = WithStyles<typeof styles>;
 
+const restaurantId = '37ec8893-46d1-4fa8-9631-e3f60e5d0f8f';
+
 const App: React.FC<AppProps> = ({ classes }) => {
   const [seatingLayoutYOffset, setSeatingLayoutYOffset] = React.useState(0);
-  const [sections, setSections] = React.useState<Section[]>([]);
-  const [isLoading, setLoading] = React.useState(true);
   const [selectedTable, setSelectedTable] = React.useState<number | null>(null);
   const [layout, setLayout] = React.useState<SVGElement | null>(null);
 
@@ -47,25 +43,16 @@ const App: React.FC<AppProps> = ({ classes }) => {
 
   const navbarRef = React.useRef<HTMLDivElement | null>(null);
 
-  const getTable = (tableId: number | null) => {
-    if (tableId === null) {
-      return null;
-    }
+  const { isLoading, sections, error, tables, createReservation } = useSeating(
+    restaurantId
+  );
 
-    for (const section of sections) {
-      for (const table of section.tables) {
-        if (table.id === tableId) {
-          return table;
-        }
-      }
-    }
-    return null;
-  };
+  const { tablesMap } = tables;
 
   const handleClickAway = React.useCallback(() => {
     setSelectedTable(null);
     setShowTableDetails(false);
-  }, []);
+  }, [setSelectedTable, setShowTableDetails]);
 
   useOnClickInside(layout, handleClickAway);
 
@@ -85,7 +72,7 @@ const App: React.FC<AppProps> = ({ classes }) => {
     numGuests: number;
   }) => {
     console.log('reserve table', numGuests, startTime);
-    seating.createReservation({
+    createReservation({
       startTime,
       numGuests,
       table: `${selectedTable}`,
@@ -103,13 +90,6 @@ const App: React.FC<AppProps> = ({ classes }) => {
       setSeatingLayoutYOffset(navBarHeight);
     }
   });
-
-  React.useEffect(() => {
-    fetchSeatingLayout().then((data) => {
-      setSections(data);
-      setLoading(false);
-    });
-  }, []);
 
   return (
     <>
@@ -136,7 +116,7 @@ const App: React.FC<AppProps> = ({ classes }) => {
               >
                 {showTableDetails ? (
                   <TableDetails
-                    table={getTable(selectedTable)}
+                    table={selectedTable && tablesMap[`${selectedTable}`]}
                     onReserveClick={() => {
                       setShowReserveForm(true);
                       setShowTableDetails(false);
