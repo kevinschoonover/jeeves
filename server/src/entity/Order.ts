@@ -15,9 +15,10 @@ import { Visit } from './Visit';
 import { IsBoolean, IsDate, IsEnum, IsNumber } from 'class-validator';
 
 export enum orderStatus {
-  CREATED = 'created',
-  PROCESSING = 'processing',
-  DONE = 'done',
+  RECEIVE = 'receive',
+  PREP = 'prep',
+  COOK = 'cook',
+  READY = 'ready',
 }
 
 @Entity()
@@ -28,7 +29,7 @@ export class Order extends BaseEntity {
   @Column({
     type: 'enum',
     enum: orderStatus,
-    default: orderStatus.CREATED,
+    default: orderStatus.RECEIVE,
   })
   @IsEnum(orderStatus)
   public prepStatus: orderStatus;

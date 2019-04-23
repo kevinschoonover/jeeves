@@ -10,6 +10,9 @@ import requests
 import pickle
 
 
+ENV_IP = ""+ENV_IP+""
+
+
 def save_obj(obj, name):
     with open('../recommender/'+name + '.pkl', 'wb') as f:
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
@@ -102,10 +105,10 @@ def recommend_all_users(user_names, item_id):
 @app.task
 def update_eta():
     import time
-    url_order = "http://192.168.99.100/api/v1/orders"
+    url_order = "http://"+ENV_IP+"/api/v1/orders"
     r = requests.get(url_order)
     for order in r.json():
-        if order['prepStatus'] == 'processing':
+        if order['prepStatus'] == 'prep' or order['prepStatus'] == 'cook':
             all_times = []
             numItems = len(order['menuItems'])
             for item in order['menuItems']:
@@ -123,10 +126,10 @@ def update_eta():
 
 @app.task
 def update_recommender():
-    url_user = "http://192.168.99.100/api/v1/accounts"
-    url_visit = "http://192.168.99.100/api/v1/visits"
-    url_order = "http://192.168.99.100/api/v1/orders"
-    url_menuitem = "http://192.168.99.100/api/v1/menuitems"
+    url_user = "http://"+ENV_IP+"/api/v1/accounts"
+    url_visit = "http://"+ENV_IP+"/api/v1/visits"
+    url_order = "http://"+ENV_IP+"/api/v1/orders"
+    url_menuitem = "http://"+ENV_IP+"/api/v1/menuitems"
     data_name = "review_data.txt"
     model_name = "model"
     item_id = get_menuItem(url_menuitem)
