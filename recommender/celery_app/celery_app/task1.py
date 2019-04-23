@@ -25,7 +25,7 @@ def get_menuItem(url_menuitem):
     r = requests.get(url_menuitem)
     item_id = {}
     for i in range(len(r.json())):
-        item_id[r.json()[i]['itemName']] = r.json()[i]['id']
+        item_id[r.json()[i]['name']] = r.json()[i]['id']
     print("MenuItem info extracted!")
     return item_id
 

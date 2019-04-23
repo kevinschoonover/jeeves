@@ -35,7 +35,8 @@ def recommend_to_explore(userID, num_items=3):
     num_byTaste = num_items // 2
     num_toExplore = num_items - num_byTaste
     recommended_item_IDs = load_obj("recommended_item_IDs")
-    assert num_items <= len(recommended_item_IDs[userID])
+    if num_items > len(recommended_item_IDs[userID]):
+        return array(recommended_item_IDs[userID])
 
     index_byTaste = choice(
         range(min(10, len(recommended_item_IDs[userID]))), num_byTaste, replace=False)

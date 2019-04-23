@@ -14,13 +14,15 @@ services:
       - '5000:5000'
     volumes:
       - ./server/:/recommender
+      - ./recommender/:/recommender
   celery:
     build: './recommender/celery_app'
     links:
       - redis
     volumes:
       - ./server/:/recommender
-
+      - ./recommender
+      - ./recommender/:/recommender
   web:
     build:
       context: ./server
