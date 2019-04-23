@@ -12,7 +12,7 @@ import {
 import { MenuItem } from './MenuItem';
 import { Shift } from './Shift';
 import { Visit } from './Visit';
-import { IsBoolean, IsDate, IsEnum } from 'class-validator';
+import { IsBoolean, IsDate, IsEnum, IsNumber } from 'class-validator';
 
 export enum orderStatus {
   CREATED = 'created',
@@ -32,6 +32,12 @@ export class Order extends BaseEntity {
   })
   @IsEnum(orderStatus)
   public prepStatus: orderStatus;
+
+  @Column({
+    default: 10,
+  })
+  @IsNumber()
+  public orderETA: number;
 
   @CreateDateColumn()
   @IsDate()

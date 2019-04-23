@@ -100,12 +100,25 @@ def recommend_all_users(user_names, item_id):
 
 
 @app.task
-def add(x, y):
-    time.sleep(2)
-    print("hello world!!!!!!")
-    with open("log.txt", 'a') as dat:
-        dat.write("hello kevin \n")
-    return x + y
+def update_eta():
+    import time
+    url_order = "http://192.168.99.100/api/v1/orders"
+    r = requests.get(url_order)
+    for order in r.json():
+        if order['prepStatus'] == 'processing':
+            all_times = []
+            numItems = len(order['menuItems'])
+            for item in order['menuItems']:
+                all_times.append(item['PrepETA'])
+            sh = int(order['start'].split(":")[0][-2:])
+            sm = int(order['start'].split(":")[1])
+            ss = int(order['start'].split(":")[2][:2])
+            ch = int(time.ctime().split(":")[0][-2:])
+            cm = int(time.ctime().split(":")[1])
+            cs = int(time.ctime().split(":")[2][:2])
+            eta = -ch*60-cm+sum(sorted(all_times)[-numItems//3:])+sh*60+sm
+            order = {'id': order['id'], 'orderETA': eta}
+            r = requests.post(url_order, json=order)
 
 
 @app.task

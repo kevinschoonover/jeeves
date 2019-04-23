@@ -13,6 +13,10 @@ CELERY_IMPORTS = (
 CELERYBEAT_SCHEDULE = {
     'add-every-5-minutes': {
         'task': 'celery_app.task1.update_recommender',
+        'schedule': timedelta(seconds=300)
+    },
+    'update_order_eta': {
+        'task': 'celery_app.task1.update_eta',
         'schedule': timedelta(seconds=30)
     }
 }
