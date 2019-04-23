@@ -1,12 +1,10 @@
 import {
   BaseEntity,
-  Column,
-  CreateDateColumn,
   Entity,
   ManyToMany,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
+  JoinTable,
 } from 'typeorm';
 
 import { MenuItem } from './MenuItem';
@@ -16,12 +14,13 @@ import { Visit } from './Visit';
 @Entity()
 export class Order extends BaseEntity {
   @PrimaryGeneratedColumn()
-  public id: number;
+  public id: string;
 
   @ManyToOne((type) => Shift, (shift) => shift.orders)
   public shift: Shift;
 
   @ManyToOne((type) => Visit, (visit) => visit.orders)
+  @JoinTable()
   public visit: Visit;
 
   @ManyToMany((type) => MenuItem, (menuItem) => menuItem.orders)

@@ -8,6 +8,7 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  JoinTable,
 } from 'typeorm';
 
 import {
@@ -152,6 +153,7 @@ export class MenuItem extends BaseEntity {
   public reviews: Review[];
 
   @ManyToOne((type) => Menu, (menu) => menu.menuItems)
+  @JoinTable()
   @ValidateNested()
   public menu: Menu;
 
@@ -164,5 +166,6 @@ export class MenuItem extends BaseEntity {
 
   @ManyToMany((type) => Order, (order) => order.menuItems)
   @IsArray()
+  @JoinTable()
   public orders: Order[];
 }

@@ -1,33 +1,50 @@
 version: '3'
 
-services: 
-  db: 
-    image: "postgres"
+services:
+  db:
+    image: 'postgres'
     networks:
       - db_nw
-    environment: 
+    environment:
       - POSTGRES_USER=jeeves
       - POSTGRES_PASSWORD=jeeves
-  web: 
+  recommender:
+    build: './recommender'
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./server/:/recommender
+  celery:
+    build: './recommender/celery_app'
+    links:
+      - redis
+    volumes:
+      - ./server/:/recommender
+
+  web:
     build:
-        context: ./server
+      context: ./server
     volumes:
       - ./server/:/server
       - node_modules:/server/node_modules
     networks:
       - db_nw
       - web_nw
-    depends_on: 
-      - db 
-    environment: 
+    depends_on:
+      - db
+    environment:
       - DB_HOST=db
       - DB_USERNAME=jeeves
       - DB_PASSWORD=jeeves
+  redis:
+    image: 'redis:alpine'
+    ports:
+      - '6379:6379'
   nginx:
-    image: "nginx"
+    image: 'nginx'
     restart: always
     ports:
-      - "80:80"
+      - '80:80'
     volumes:
       - ./.docker/conf.d:/etc/nginx/conf.d
     networks:

@@ -1,3 +1,7 @@
+import time
+from celery_app import app
+
+
 from collections import defaultdict
 from surprise import Dataset
 from surprise import Reader
@@ -7,12 +11,12 @@ import pickle
 
 
 def save_obj(obj, name):
-    with open(name + '.pkl', 'wb') as f:
+    with open('../recommender/'+name + '.pkl', 'wb') as f:
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
 
 
 def load_obj(name):
-    with open(name + '.pkl', 'rb') as f:
+    with open('../recommender/'+name + '.pkl', 'rb') as f:
         return pickle.load(f)
 
 
@@ -31,6 +35,7 @@ def get_user_history(url_user, url_visit, url_order):
     user_names = {}
     user_item_list = {}
     r = requests.get(url_user)
+    print(r.text)
     for i in range(len(r.json())):
         user_names[r.json()[i]['id']] = r.json()[i]['firstName'] + \
             "_"+r.json()[i]['lastName']
@@ -70,6 +75,7 @@ def train_recommender(data_name, model_name):
     algo = SVD()
     algo.fit(trainset)
     save_obj(algo, model_name)
+    print("model saved!!!")
 
 
 def load_recommender(model_name):
@@ -89,4 +95,30 @@ def recommend_all_users(user_names, item_id):
         for item in sorted_item_ratings:
             recommended_item_IDs[user_id].append(item_id[item])
     save_obj(recommended_item_IDs, "recommended_item_IDs")
+    print("recommended_item_IDs saved!!!")
     return recommended_item_IDs
+
+
+@app.task
+def add(x, y):
+    time.sleep(2)
+    print("hello world!!!!!!")
+    with open("log.txt", 'a') as dat:
+        dat.write("hello kevin \n")
+    return x + y
+
+
+@app.task
+def update_recommender():
+    url_user = "http://192.168.99.100/api/v1/accounts"
+    url_visit = "http://192.168.99.100/api/v1/visits"
+    url_order = "http://192.168.99.100/api/v1/orders"
+    url_menuitem = "http://192.168.99.100/api/v1/menuitems"
+    data_name = "review_data.txt"
+    model_name = "model"
+    item_id = get_menuItem(url_menuitem)
+    user_names, user_item_list = get_user_history(
+        url_user, url_visit, url_order)
+    generate_review_data(data_name, user_item_list, item_id)
+    train_recommender(data_name, model_name)
+    recommend_all_users(user_names, item_id)

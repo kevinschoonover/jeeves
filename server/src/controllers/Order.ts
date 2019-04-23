@@ -18,7 +18,7 @@ import { Order } from '../entity/Order';
 export class OrderController {
   @Get('/orders/')
   public async getAll() {
-    return Order.find();
+    return Order.find({ relations: ['visit', 'menuItems'] });
   }
 
   @Post('/orders/')
@@ -28,13 +28,13 @@ export class OrderController {
 
   @Get('/orders/:id/')
   public async get(@Param('id') id: string) {
-    return Order.findOne({ id });
+    return Order.findOne({ id }, { relations: ['visit', 'menuItems'] });
   }
 
   @Patch('/orders/:id/')
   public async patch(@Param('id') id: string, @Body() order: object) {
     await Order.update(id, order);
-    return Order.findOne({ id });
+    return Order.findOne({ id }, { relations: ['visit', 'menuItems'] });
   }
 
   @Delete('/orders/:id/')

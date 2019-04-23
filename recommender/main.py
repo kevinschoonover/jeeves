@@ -8,22 +8,26 @@ CORS(app)
 
 
 def save_obj(obj, name):
-    with open(name + '.pkl', 'wb') as f:
+    with open('../recommender/'+name + '.pkl', 'wb') as f:
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
 
 
 def load_obj(name):
-    with open(name + '.pkl', 'rb') as f:
+    with open('../recommender/'+name + '.pkl', 'rb') as f:
         return pickle.load(f)
 
 
-def recommend_by_taste(userID, num_items=10):
+def recommend_by_taste(userID, num_items=3):
     # recommend menu items based on other users that are very similar to the user
     recommended_item_IDs = load_obj("recommended_item_IDs")
+    print("Recommended IDs: ", recommended_item_IDs)
+    print("Recommended IDs for that user: ", recommended_item_IDs[userID])
+    print("Recommended IDs for that user (limited): ",
+          recommended_item_IDs[userID][:num_items])
     return recommended_item_IDs[userID][:num_items]
 
 
-def recommend_to_explore(userID, num_items=10):
+def recommend_to_explore(userID, num_items=3):
     # recommend menu items that slightly deviates from user's taste
     from numpy.random import choice
     from numpy import array
@@ -40,7 +44,7 @@ def recommend_to_explore(userID, num_items=10):
     return append(array(recommended_item_IDs[userID])[index_byTaste], array(recommended_item_IDs[userID])[index_toExplore])
 
 
-def get_recommended_item_IDs(userID, wantExplore=False, num_items=10):
+def get_recommended_item_IDs(userID, wantExplore=False, num_items=3):
     if wantExplore:
         return recommend_to_explore(userID, num_items)
     else:
@@ -64,4 +68,4 @@ def welcome():
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=False, host='0.0.0.0')

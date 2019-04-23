@@ -26,7 +26,7 @@ export enum paymentMethod {
 export class Visit extends BaseEntity {
   @PrimaryGeneratedColumn()
   @IsNumber()
-  public id: number;
+  public id: string;
 
   @Column()
   @IsDate()
@@ -40,7 +40,8 @@ export class Visit extends BaseEntity {
   @ValidateNested()
   public assignee: Shift;
 
-  @OneToMany((type) => Order, (order) => order.shift)
+  @OneToMany((type) => Order, (order) => order.visit)
+  @JoinTable()
   @IsArray()
   public orders: Order[];
 
