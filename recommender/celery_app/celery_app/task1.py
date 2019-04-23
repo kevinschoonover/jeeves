@@ -25,10 +25,11 @@ def load_obj(name):
 
 def get_menuItem(url_menuitem):
     # get menuItem information
-    r = requests.get(url_menuitem)
+    r = requests.get(url_menuitem).json()
     item_id = {}
-    for i in range(len(r.json())):
-        item_id[r.json()[i]['name']] = r.json()[i]['id']
+    for i in range(len(r)):
+        item = r[i]
+        item_id[item['name']] = item['id']
     print("MenuItem info extracted!")
     return item_id
 
@@ -37,21 +38,21 @@ def get_user_history(url_user, url_visit, url_order):
     # get user ordering history
     user_names = {}
     user_item_list = {}
-    r = requests.get(url_user)
+    r = requests.get(url_user).json()
     print(r.text)
-    for i in range(len(r.json())):
-        user_names[r.json()[i]['id']] = r.json()[i]['firstName'] + \
-            "_"+r.json()[i]['lastName']
-    #     print("Users: ", user_names[r.json()[i]['id']], r.json()[i]['id'], r.json()[i]['visits'])
-        visits = r.json()[i]['visits']
-        user_item_list[r.json()[i]['id']] = []
+    for i in range(len(r)):
+        user = r[i]
+        user_names[user['id']] = user['firstName'] + \
+            "_"+user['lastName']
+        visits = user['visits']
+        user_item_list[user['id']] = []
         for visit in visits:
             order_id = requests.get(
-                url_visit+"/"+str(visit['id'])).json()['orders'][0]['id']
+                url_visit+"/"+str(visit['id']))['orders'][0]['id']
             items = requests.get(
-                url_order+"/"+str(order_id)).json()['menuItems']
+                url_order+"/"+str(order_id))['menuItems']
             for item in items:
-                user_item_list[r.json()[i]['id']].append(item)
+                user_item_list[user['id']].append(item)
     print("User ordering info extracted!")
     return user_names, user_item_list
 
