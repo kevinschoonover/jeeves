@@ -4,18 +4,21 @@ import * as koaBody from 'koa-bodyparser';
 import * as logger from 'koa-logger';
 import * as session from 'koa-session';
 
-import { Action, useKoaServer } from 'routing-controllers';
+import {
+  Action,
+  getMetadataArgsStorage,
+  useKoaServer,
+} from 'routing-controllers';
 import { createConnection } from 'typeorm';
 import { passport } from './middleware/auth';
 
 import { config } from './config';
 import { router } from './routes';
 
-import * as controllers from './controllers';
 import { getFromContainer, MetadataStorage } from 'class-validator';
-import { routingControllersToSpec } from 'routing-controllers-openapi';
 import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
-import { getMetadataArgsStorage } from 'routing-controllers';
+import { routingControllersToSpec } from 'routing-controllers-openapi';
+import * as controllers from './controllers';
 
 export const app = new Koa();
 

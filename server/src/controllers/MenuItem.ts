@@ -8,10 +8,12 @@ import {
   Patch,
   Post,
 } from 'routing-controllers';
-import { EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
+import { EntityFromBody } from 'typeorm-routing-controllers-extensions';
 
 import { MenuItem } from '../entity/MenuItem';
+
+const relations = ['orders'];
 
 @JsonController()
 export class MenuItemController {
@@ -21,7 +23,7 @@ export class MenuItemController {
   })
   @ResponseSchema(MenuItem)
   public async getAll() {
-    return MenuItem.find();
+    return MenuItem.find({ relations });
   }
 
   @Post('/menuitems/')
@@ -43,7 +45,7 @@ export class MenuItemController {
   })
   @ResponseSchema(MenuItem)
   public async get(@Param('id') id: string) {
-    return MenuItem.findOne({ id });
+    return MenuItem.findOne({ id }, { relations });
   }
 
   @Patch('/menuitems/:id/')
@@ -53,7 +55,7 @@ export class MenuItemController {
   @ResponseSchema(MenuItem)
   public async patch(@Param('id') id: string, @Body() menuitem: object) {
     await MenuItem.update(id, menuitem);
-    return MenuItem.findOne({ id });
+    return MenuItem.findOne({ id }, { relations });
   }
 
   @Delete('/menuitems/:id/')

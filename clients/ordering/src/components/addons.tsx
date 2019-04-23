@@ -24,6 +24,7 @@ const AddOns: React.FC<Props> = ({ classes }) => {
         spacing={32}
         alignItems={'center'}
         justify={'space-evenly'}
+        style={{ backgroundColor: 'tan' }}
       >
         {addons.map((menucard) => (
           <MenuCard key={menucard.id} {...menucard} />

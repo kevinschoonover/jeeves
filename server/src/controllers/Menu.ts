@@ -8,10 +8,12 @@ import {
   Patch,
   Post,
 } from 'routing-controllers';
-import { EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
+import { EntityFromBody } from 'typeorm-routing-controllers-extensions';
 
 import { Menu } from '../entity/Menu';
+
+const relations = ['menuItems'];
 
 @JsonController()
 export class MenuController {
@@ -21,7 +23,7 @@ export class MenuController {
   })
   @ResponseSchema(Menu)
   public async getAll() {
-    return Menu.find();
+    return Menu.find({ relations });
   }
 
   @Post('/menus/')
@@ -37,31 +39,31 @@ export class MenuController {
     return menu.save();
   }
 
-  @Get('/menus/:id/')
+  @Get('/menus/:name/')
   @OpenAPI({
-    summary: 'Return the menu associated with id',
+    summary: 'Return the menu associated with name',
   })
   @ResponseSchema(Menu)
-  public async get(@Param('id') id: string) {
-    return Menu.findOne({ id });
+  public async get(@Param('name') name: string) {
+    return Menu.findOne({ name }, { relations });
   }
 
-  @Patch('/menus/:id/')
+  @Patch('/menus/:name/')
   @OpenAPI({
-    summary: 'Update the fields of a menu associated with id',
+    summary: 'Update the fields of a menu associated with name',
   })
   @ResponseSchema(Menu)
-  public async patch(@Param('id') id: string, @Body() menu: object) {
-    await Menu.update(id, menu);
-    return Menu.findOne({ id });
+  public async patch(@Param('name') name: string, @Body() menu: object) {
+    await Menu.update(name, menu);
+    return Menu.findOne({ name }, { relations });
   }
 
-  @Delete('/menus/:id/')
+  @Delete('/menus/:name/')
   @OnUndefined(204)
   @OpenAPI({
-    summary: 'Delete a menu associated with given id',
+    summary: 'Delete a menu associated with given name',
   })
-  public async remove(@Param('id') id: string) {
-    return Menu.delete({ id });
+  public async remove(@Param('name') name: string) {
+    return Menu.delete({ name });
   }
 }

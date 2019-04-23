@@ -24,6 +24,9 @@ const Starters: React.FC<Props> = ({ classes }) => {
         spacing={32}
         alignItems={'center'}
         justify={'space-evenly'}
+        style={{
+          backgroundColor: 'tan',
+        }}
       >
         {starters.map((menucard) => (
           <MenuCard key={menucard.id} {...menucard} />

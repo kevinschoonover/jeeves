@@ -51,7 +51,7 @@ const Layout: React.FC<LayoutProps> = ({
   }
 
   return (
-    <svg className={classes.container} width="100%" height="100%">
+    <svg id="layout" className={classes.container} width="100%" height="100%">
       {sections.map((section) => (
         <React.Fragment key={section.sectionId}>
           {section.tables.map((table) => (

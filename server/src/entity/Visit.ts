@@ -11,11 +11,12 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { IsArray, IsDate, IsNumber, ValidateNested } from 'class-validator';
 import { Account } from './Account';
 import { Order } from './Order';
 import { Shift } from './Shift';
 import { Transaction } from './Transaction';
+import { Restaurant } from './Restaurant';
+import { IsNumber, ValidateNested, IsArray } from 'class-validator';
 
 export enum paymentMethod {
   SPLIT = 'split',
@@ -29,11 +30,9 @@ export class Visit extends BaseEntity {
   public id: string;
 
   @Column()
-  @IsDate()
   public arrival: Date;
 
   @Column()
-  @IsDate()
   public departure: Date;
 
   @OneToMany((type) => Shift, (shift) => shift.visits)
@@ -45,11 +44,12 @@ export class Visit extends BaseEntity {
   @IsArray()
   public orders: Order[];
 
-  @ManyToOne((type) => Transaction, (transaction) => transaction.visit)
-  @IsArray()
+  @OneToMany((type) => Transaction, (transaction) => transaction.visit)
   public transactions: Transaction[];
 
   @ManyToMany((type) => Account, (account) => account.visits)
-  @IsArray()
   public users: Account[];
+
+  @ManyToOne((type) => Restaurant, (restaurant) => restaurant.visits)
+  public restaurant: Restaurant;
 }

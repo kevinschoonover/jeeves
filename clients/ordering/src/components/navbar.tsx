@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   withStyles,
   WithStyles,
@@ -8,12 +8,15 @@ import {
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { IconButton } from '@material-ui/core';
+import { IconButton, FormHelperText } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import Drawer from '@material-ui/core/Drawer';
 import { yellow, purple, teal } from '@material-ui/core/colors';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import Cart from './cart';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -40,6 +43,9 @@ const styles = (theme: Theme) =>
     menuButton: {
       marginLeft: -12,
       marginRight: 20,
+    },
+    shoppingCartButton: {
+      flexGrow: 1,
     },
     search: {
       position: 'relative',
@@ -81,6 +87,14 @@ const styles = (theme: Theme) =>
         width: 200,
       },
     },
+    list: {
+      width: 500,
+    },
+    listHeader: {
+      marginleft: '50',
+      textAlign: 'center',
+      verticalAlign: 'middle',
+    },
   });
 
 export type NavbarProps = WithStyles<typeof styles>;
@@ -88,6 +102,8 @@ type Ref = HTMLDivElement;
 
 const Navbar: React.FC<NavbarProps> = React.forwardRef<Ref, NavbarProps>(
   ({ classes }, ref) => {
+    const [open, setOpen] = useState<boolean>(false);
+
     return (
       <div ref={ref} className={classes.root}>
         <AppBar className={classes.appBar} position="fixed">
@@ -111,6 +127,22 @@ const Navbar: React.FC<NavbarProps> = React.forwardRef<Ref, NavbarProps>(
                 classes={{ root: classes.inputRoot, input: classes.inputInput }}
               />
             </div>
+            <div className={classes.shoppingCartButton} />
+            <IconButton
+              color="inherit"
+              onClick={() => setOpen((prevOpen) => !prevOpen)}
+            >
+              <ShoppingCartIcon />
+            </IconButton>
+            <Drawer
+              anchor="right"
+              open={open}
+              onClose={() => setOpen((prevOpen) => !prevOpen)}
+            >
+              <div className={classes.list}>
+                <Cart />
+              </div>
+            </Drawer>
           </Toolbar>
         </AppBar>
       </div>

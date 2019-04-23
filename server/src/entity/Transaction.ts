@@ -5,6 +5,7 @@ import {
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
+  ManyToOne,
 } from 'typeorm';
 import { Account } from './Account';
 import { Visit } from './Visit';
@@ -16,11 +17,11 @@ export class Transaction extends BaseEntity {
   @IsNumber()
   public id: number;
 
-  @OneToMany((type) => Visit, (visit) => visit.transactions)
+  @ManyToOne((type) => Visit, (visit) => visit.transactions)
   @ValidateNested()
   public visit: Visit;
 
-  @OneToMany((type) => Account, (account) => account.transactions)
+  @ManyToOne((type) => Account, (account) => account.transactions)
   @ValidateNested()
   public user: Account;
 

@@ -14,6 +14,8 @@ import { EntityFromBody } from 'typeorm-routing-controllers-extensions';
 
 import { Order } from '../entity/Order';
 
+const relations = ['menuItems'];
+
 @JsonController()
 export class OrderController {
   @Get('/orders/')

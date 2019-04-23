@@ -5,16 +5,43 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   JoinTable,
+  Column,
+  CreateDateColumn,
 } from 'typeorm';
 
 import { MenuItem } from './MenuItem';
 import { Shift } from './Shift';
 import { Visit } from './Visit';
+import { IsBoolean, IsDate, IsEnum } from 'class-validator';
+
+export enum orderStatus {
+  CREATED = 'created',
+  PROCESSING = 'processing',
+  DONE = 'done',
+}
 
 @Entity()
 export class Order extends BaseEntity {
   @PrimaryGeneratedColumn()
   public id: string;
+
+  @Column({
+    type: 'enum',
+    enum: orderStatus,
+    default: orderStatus.CREATED,
+  })
+  @IsEnum(orderStatus)
+  public prepStatus: orderStatus;
+
+  @CreateDateColumn()
+  @IsDate()
+  public start: Date;
+
+  @Column({
+    nullable: true,
+  })
+  @IsDate()
+  public end: Date;
 
   @ManyToOne((type) => Shift, (shift) => shift.orders)
   public shift: Shift;
