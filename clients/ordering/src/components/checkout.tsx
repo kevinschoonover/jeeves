@@ -1,30 +1,42 @@
 import React, { Component } from 'react';
 import {
   List,
-  ListSubheader,
   ListItem,
   ListItemText,
   Paper,
-  Theme,
-  createStyles,
   Typography,
   Grid,
   TextField,
+  FormControl,
+  FormLabel,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
 } from '@material-ui/core';
 import { Elements } from 'react-stripe-elements';
 import { connect } from 'react-redux';
 import CardForm from './cardForm';
 
 class Checkout extends Component<State> {
+  state = {
+    value: '0.15',
+  };
+
+  handleTipChange = (event: any) => {
+    this.setState({ value: event.target.value });
+  };
+
   render() {
     return (
       <Elements>
         <div>
           <Paper
             style={{
-              paddingTop: 25,
-              paddingLeft: 600,
-              paddingRight: 600,
+              padding: 25,
+              marginLeft: 550,
+              marginRight: 550,
+              marginBottom: 25,
+              align: 'center',
             }}
           >
             <Typography component={'h1'} variant={'h4'} align={'center'}>
@@ -60,13 +72,54 @@ class Checkout extends Component<State> {
                 </Typography>
               </ListItem>
               <ListItem>
+                <FormControl>
+                  <FormLabel>Tip</FormLabel>
+                  <RadioGroup
+                    aria-label="Tip"
+                    name="tip1"
+                    row={true}
+                    value={this.state.value}
+                    onChange={this.handleTipChange}
+                  >
+                    <FormControlLabel
+                      value="0.10"
+                      control={<Radio color={'primary'} />}
+                      label="10%"
+                    />
+                    <FormControlLabel
+                      value="0.15"
+                      control={<Radio color={'primary'} />}
+                      label="15%"
+                    />
+                    <FormControlLabel
+                      value="0.20"
+                      control={<Radio color={'primary'} />}
+                      label="20%"
+                    />
+                    <FormControlLabel
+                      value="0.05"
+                      control={<Radio color={'primary'} />}
+                      label="Other"
+                    />
+                  </RadioGroup>
+                </FormControl>
+                <ListItemText primary={''} />
+                <Typography variant={'subtitle2'}>
+                  {'$' + (+this.state.value * this.props.total).toFixed(2)}
+                </Typography>
+              </ListItem>
+              <ListItem>
                 <ListItemText primary={'Total'} />
                 <Typography
                   variant={'subtitle2'}
                   style={{ fontWeight: 'bold', fontSize: 'large' }}
                 >
                   {'$' +
-                    (this.props.total + this.props.total * 0.09).toFixed(2)}
+                    (
+                      +this.state.value * this.props.total +
+                      this.props.total +
+                      this.props.total * 0.09
+                    ).toFixed(2)}
                 </Typography>
               </ListItem>
             </List>
