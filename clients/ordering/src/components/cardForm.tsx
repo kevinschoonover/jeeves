@@ -98,7 +98,6 @@ class CardForm extends Component<Props> {
     return (
       <form className={classes.form}>
         <label className={classes.label}>
-          Card details
           <CardElement
             onBlur={handleBlur}
             onChange={handleChange}

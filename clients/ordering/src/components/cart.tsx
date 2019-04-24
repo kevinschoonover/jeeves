@@ -6,6 +6,7 @@ import {
   IconButton,
   ListSubheader,
   Button,
+  Typography,
 } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -60,26 +61,26 @@ class Cart extends Component<State> {
               </ListItem>
             );
           })}
-        </List>
-        <List>
           <ListItem>
-            <ListItemText
-              primary={'Subtotal: $' + this.props.total.toFixed(2)}
-            />
+            <ListItemText primary={'Subtotal'} />
+            <Typography variant={'subtitle2'}>
+              {'$' + this.props.total.toFixed(2)}
+            </Typography>
           </ListItem>
           <ListItem>
-            <ListItemText
-              primary={'Tax: $' + (this.props.total * 0.09).toFixed(2)}
-              secondary={'~9%'}
-            />
+            <ListItemText primary={'Tax'} />
+            <Typography variant={'subtitle2'}>
+              {'$' + (this.props.total * 0.09).toFixed(2)}
+            </Typography>
           </ListItem>
           <ListItem>
-            <ListItemText
-              primary={
-                'Total: $' +
-                (this.props.total + this.props.total * 0.09).toFixed(2)
-              }
-            />
+            <ListItemText primary={'Total'} />
+            <Typography
+              variant={'subtitle2'}
+              style={{ fontWeight: 'bold', fontSize: 'large' }}
+            >
+              {'$' + (this.props.total + this.props.total * 0.09).toFixed(2)}
+            </Typography>
           </ListItem>
           <Link to="/checkout" style={{ textDecoration: 'none' }}>
             <Button
@@ -107,7 +108,7 @@ class Cart extends Component<State> {
                 marginLeft: '20px',
               }}
             >
-              Pay
+              Checkout
             </Button>
           </Link>
         </List>
