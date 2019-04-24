@@ -1,0 +1,27 @@
+Milk
+Egg
+Ham
+Bacon
+Sandwich
+Steak
+Salad
+Letttuce
+Mashed Potato
+Wine
+Rice
+Spring Rolls
+Dim Sum
+Noodle
+Fried Tofu
+Scallops
+Shrimp
+Swai
+Tuna
+Eels
+Sushi1
+Sushi2
+Sushi3
+Sushi4
+Sushi5
+Ramen
+Sashimi

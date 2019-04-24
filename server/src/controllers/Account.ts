@@ -22,7 +22,7 @@ export class AccountController {
   })
   @ResponseSchema(Account)
   public async getAll() {
-    return Account.find();
+    return Account.find({ relations: ['visits'] });
   }
 
   @Post('/accounts/')
@@ -44,7 +44,7 @@ export class AccountController {
   })
   @ResponseSchema(Account)
   public async get(@Param('id') id: string) {
-    return Account.findOne({ id });
+    return Account.findOne({ id }, { relations: ['visits'] });
   }
 
   @Patch('/accounts/:id/')
@@ -54,7 +54,7 @@ export class AccountController {
   @ResponseSchema(Account)
   public async patch(@Param('id') id: string, @Body() account: object) {
     await Account.update(id, account);
-    return Account.findOne({ id });
+    return Account.findOne({ id }, { relations: ['visits'] });
   }
 
   @Delete('/accounts/:id/')
