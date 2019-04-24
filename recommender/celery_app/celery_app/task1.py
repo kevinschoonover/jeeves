@@ -10,7 +10,11 @@ import requests
 import pickle
 
 
-ENV_IP = ""+ENV_IP+""
+import os
+HOST = os.environ.get("API_HOST", None)
+PORT = os.environ.get("API_PORT", "80")
+base_url = "http://{}:{}/api/v1/".format(HOST, PORT)
+print(HOST, PORT, base_url)
 
 
 def save_obj(obj, name):
@@ -24,6 +28,7 @@ def load_obj(name):
 
 
 def get_menuItem(url_menuitem):
+    print(HOST, base_url)
     # get menuItem information
     r = requests.get(url_menuitem).json()
     item_id = {}
@@ -106,7 +111,7 @@ def recommend_all_users(user_names, item_id):
 @app.task
 def update_eta():
     import time
-    url_order = "http://"+ENV_IP+"/api/v1/orders"
+    url_order = base_url+"orders"
     r = requests.get(url_order)
     for order in r.json():
         if order['prepStatus'] == 'prep' or order['prepStatus'] == 'cook':
@@ -127,10 +132,11 @@ def update_eta():
 
 @app.task
 def update_recommender():
-    url_user = "http://"+ENV_IP+"/api/v1/accounts"
-    url_visit = "http://"+ENV_IP+"/api/v1/visits"
-    url_order = "http://"+ENV_IP+"/api/v1/orders"
-    url_menuitem = "http://"+ENV_IP+"/api/v1/menuitems"
+    print("\n", HOST, base_url, "\n")
+    url_user = base_url+"accounts"
+    url_visit = base_url+"visits"
+    url_order = base_url+"orders"
+    url_menuitem = base_url+"menuitems"
     data_name = "review_data.txt"
     model_name = "model"
     item_id = get_menuItem(url_menuitem)
