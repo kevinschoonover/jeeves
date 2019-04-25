@@ -134,7 +134,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
         input={<FormInput adornment={<Person />} />}
         disabled={disabled}
       >
-        {renderPartySizeList()}
+        {table && renderPartySizeList()}
       </Select>
       {disabled && <div>Please select an open table to proceed</div>}
       <Button
