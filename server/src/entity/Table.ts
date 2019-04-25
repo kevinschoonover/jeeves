@@ -15,6 +15,7 @@ import {
   IsBoolean,
   IsEnum,
   IsNumber,
+  IsString,
   ValidateNested,
 } from 'class-validator';
 
@@ -44,6 +45,10 @@ export class Table extends BaseEntity {
   @Column()
   @IsNumber()
   public seatingCapacity: number;
+
+  @Column()
+  @IsString()
+  public displayName: string;
 
   @Column()
   @IsNumber()
@@ -79,11 +84,11 @@ export class Table extends BaseEntity {
   @IsBoolean()
   public kidFriendly: boolean;
 
-  @ManyToOne((type) => Service, (service) => service.table)
+  @OneToMany((type) => Service, (service) => service.table)
   @IsArray()
   public services: Service[];
 
-  @ManyToOne((type) => Reservation, (reservation) => reservation.table)
+  @OneToMany((type) => Reservation, (reservation) => reservation.table)
   @IsArray()
   public reservations: Reservation[];
 

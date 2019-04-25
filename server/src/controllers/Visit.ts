@@ -21,7 +21,7 @@ export class VisitController {
   })
   @ResponseSchema(Visit)
   public async getAll() {
-    return Visit.find();
+    return Visit.find({ relations: ['users', 'orders'] });
   }
 
   @Post('/visits/')
@@ -42,8 +42,8 @@ export class VisitController {
     summary: 'Return the visit associated with id',
   })
   @ResponseSchema(Visit)
-  public async get(@Param('id') id: number) {
-    return Visit.findOne({ id });
+  public async get(@Param('id') id: string) {
+    return Visit.findOne({ id }, { relations: ['users', 'orders'] });
   }
 
   @Patch('/visits/:id/')
@@ -51,9 +51,9 @@ export class VisitController {
     summary: 'Update the fields of a visit associated with id',
   })
   @ResponseSchema(Visit)
-  public async patch(@Param('id') id: number, @Body() visit: object) {
+  public async patch(@Param('id') id: string, @Body() visit: object) {
     await Visit.update(id, visit);
-    return Visit.findOne({ id });
+    return Visit.findOne({ id }, { relations: ['users', 'orders'] });
   }
 
   @Delete('/visits/:id/')
@@ -61,7 +61,7 @@ export class VisitController {
   @OpenAPI({
     summary: 'Delete a visit associated with given id',
   })
-  public async remove(@Param('id') id: number) {
+  public async remove(@Param('id') id: string) {
     return Visit.delete({ id });
   }
 }

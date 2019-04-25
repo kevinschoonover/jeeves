@@ -84,3 +84,5 @@ yarn-error.log*
 
 try_request.py
 .vs/
+
+*.pyc

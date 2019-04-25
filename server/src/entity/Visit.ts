@@ -16,6 +16,7 @@ import { Order } from './Order';
 import { Shift } from './Shift';
 import { Transaction } from './Transaction';
 import { Restaurant } from './Restaurant';
+import { IsNumber, ValidateNested, IsArray } from 'class-validator';
 
 export enum paymentMethod {
   SPLIT = 'split',
@@ -25,7 +26,8 @@ export enum paymentMethod {
 @Entity()
 export class Visit extends BaseEntity {
   @PrimaryGeneratedColumn()
-  public id: number;
+  @IsNumber()
+  public id: string;
 
   @Column()
   public arrival: Date;
@@ -33,14 +35,17 @@ export class Visit extends BaseEntity {
   @Column()
   public departure: Date;
 
+  @OneToMany((type) => Shift, (shift) => shift.visits)
+  @ValidateNested()
+  public assignee: Shift;
+
   @OneToMany((type) => Order, (order) => order.visit)
+  @JoinTable()
+  @IsArray()
   public orders: Order[];
 
   @OneToMany((type) => Transaction, (transaction) => transaction.visit)
   public transactions: Transaction[];
-
-  @ManyToOne((type) => Shift, (shift) => shift.visits)
-  public assignee: Shift;
 
   @ManyToMany((type) => Account, (account) => account.visits)
   public users: Account[];

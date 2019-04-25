@@ -14,13 +14,13 @@ import { EntityFromBody } from 'typeorm-routing-controllers-extensions';
 
 import { Order } from '../entity/Order';
 
-const relations = ["menuItems"];
+const relations = ['menuItems'];
 
 @JsonController()
 export class OrderController {
   @Get('/orders/')
   public async getAll() {
-    return Order.find({ relations });
+    return Order.find({ relations: ['visit', 'menuItems'] });
   }
 
   @Post('/orders/')
@@ -29,19 +29,19 @@ export class OrderController {
   }
 
   @Get('/orders/:id/')
-  public async get(@Param('id') id: number) {
-    return Order.findOne({ id }, { relations });
+  public async get(@Param('id') id: string) {
+    return Order.findOne({ id }, { relations: ['visit', 'menuItems'] });
   }
 
   @Patch('/orders/:id/')
-  public async patch(@Param('id') id: number, @Body() order: object) {
+  public async patch(@Param('id') id: string, @Body() order: object) {
     await Order.update(id, order);
-    return Order.findOne({ id }, { relations });
+    return Order.findOne({ id }, { relations: ['visit', 'menuItems'] });
   }
 
   @Delete('/orders/:id/')
   @OnUndefined(204)
-  public async remove(@Param('id') id: number) {
+  public async remove(@Param('id') id: string) {
     return Order.delete({ id });
   }
 }

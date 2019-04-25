@@ -7,6 +7,7 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  JoinTable,
 } from 'typeorm';
 
 import { Service } from './Service';
@@ -79,6 +80,7 @@ export class Account extends BaseEntity {
   public services: Service[];
 
   @ManyToMany((type) => Visit, (visit) => visit.users)
+  @JoinTable()
   @IsArray()
   @IsOptional()
   public visits: Visit[];

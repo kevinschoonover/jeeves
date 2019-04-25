@@ -156,7 +156,7 @@ export class Restaurant extends BaseEntity {
   @IsArray()
   public reviews: Review[];
 
-  @ManyToOne((type) => Section, (section) => section.restaurant)
+  @OneToMany((type) => Section, (section) => section.restaurant)
   @IsArray()
   public sections: Section[];
 
@@ -164,7 +164,7 @@ export class Restaurant extends BaseEntity {
   @IsArray()
   public managers: Account[];
 
-  @ManyToOne((type) => Reservation, (reservation) => reservation.restaurant)
+  @OneToMany((type) => Reservation, (reservation) => reservation.restaurant)
   @IsArray()
   public reservations: Reservation[];
 
