@@ -5,6 +5,7 @@ import {
   SUB_QUANTITY,
   REMOVE_ITEM,
   ADD_ORDER,
+  PURCHASE,
 } from '../actions/action-types/cart-actions';
 
 const initState = {
@@ -12,6 +13,7 @@ const initState = {
   addedItems: [],
   boughtItems: [],
   total: 0,
+  finalTotal: 0,
 };
 
 const cartReducer = (state: any = initState, action: any) => {
@@ -79,21 +81,34 @@ const cartReducer = (state: any = initState, action: any) => {
   if (action.type === ADD_ORDER) {
     if (state.boughtItems.length === 0) {
       const allOrders = state.addedItems;
+      const newTotal = state.total;
       return {
         ...state,
         addedItems: [],
         boughtItems: allOrders,
         total: 0,
+        finalTotal: newTotal,
       };
     } else {
       const allOrders = state.boughtItems.concat(state.addedItems);
+      const newTotal = state.finalTotal + state.total;
       return {
         ...state,
         addedItems: [],
         boughtItems: allOrders,
         total: 0,
+        finalTotal: newTotal,
       };
     }
+  }
+  if (action.type === PURCHASE) {
+    return {
+      ...state,
+      addedItems: [],
+      boughtItems: [],
+      total: 0,
+      finalTotal: 0,
+    };
   } else {
     return {
       ...state,

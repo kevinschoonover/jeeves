@@ -48,7 +48,7 @@ class Checkout extends Component<State> {
               Order summary
             </Typography>
             <List>
-              {this.props.addedItems.map((item) => {
+              {this.props.boughtItems.map((item) => {
                 return (
                   <ListItem key={item.id}>
                     <ListItemText
@@ -64,13 +64,13 @@ class Checkout extends Component<State> {
               <ListItem>
                 <ListItemText primary={'Subtotal'} />
                 <Typography variant={'subtitle2'}>
-                  {'$' + this.props.total.toFixed(2)}
+                  {'$' + this.props.finalTotal.toFixed(2)}
                 </Typography>
               </ListItem>
               <ListItem>
                 <ListItemText primary={'Tax'} />
                 <Typography variant={'subtitle2'}>
-                  {'$' + (this.props.total * 0.09).toFixed(2)}
+                  {'$' + (this.props.finalTotal * 0.09).toFixed(2)}
                 </Typography>
               </ListItem>
               <ListItem>
@@ -107,7 +107,7 @@ class Checkout extends Component<State> {
                 </FormControl>
                 <ListItemText primary={''} />
                 <Typography variant={'subtitle2'}>
-                  {'$' + (+this.state.value * this.props.total).toFixed(2)}
+                  {'$' + (+this.state.value * this.props.finalTotal).toFixed(2)}
                 </Typography>
               </ListItem>
               <ListItem>
@@ -118,9 +118,9 @@ class Checkout extends Component<State> {
                 >
                   {'$' +
                     (
-                      +this.state.value * this.props.total +
-                      this.props.total +
-                      this.props.total * 0.09
+                      +this.state.value * this.props.finalTotal +
+                      this.props.finalTotal +
+                      this.props.finalTotal * 0.09
                     ).toFixed(2)}
                 </Typography>
               </ListItem>
@@ -240,12 +240,12 @@ class Checkout extends Component<State> {
                   }}
                   onClick={() =>
                     (this.props as any).dispatch({
-                      type: 'ADD_ORDER',
+                      type: 'PURCHASE',
                       // tslint:disable-next-line:object-literal-shorthand
                     })
                   }
                 >
-                  Pay
+                  Submit
                 </Button>
               </Link>
             </div>
@@ -260,6 +260,7 @@ interface State {
   addedItems: any[];
   boughtItems: any[];
   total: number;
+  finalTotal: number;
 }
 
 const mapStateToProps = (state: State) => {
@@ -267,6 +268,7 @@ const mapStateToProps = (state: State) => {
     addedItems: state.addedItems,
     boughtItems: state.boughtItems,
     total: state.total,
+    finalTotal: state.finalTotal,
   };
 };
 

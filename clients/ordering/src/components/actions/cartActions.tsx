@@ -4,6 +4,7 @@ import {
   SUB_QUANTITY,
   REMOVE_ITEM,
   ADD_ORDER,
+  PURCHASE,
 } from './action-types/cart-actions';
 
 export const addToCart = (id: string) => {
@@ -36,5 +37,10 @@ export const removeItem = (id: string) => {
 export const addOrder = () => {
   return {
     type: ADD_ORDER,
+  };
+};
+export const purchase = () => {
+  return {
+    type: PURCHASE,
   };
 };

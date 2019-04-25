@@ -15,6 +15,7 @@ import {
   Button,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Orders extends Component<State> {
   render() {
@@ -47,6 +48,35 @@ class Orders extends Component<State> {
               );
             })}
           </List>
+          <Link to="/checkout" style={{ textDecoration: 'none' }}>
+            <Button
+              style={{
+                whiteSpace: 'nowrap',
+                border: 0,
+                outline: 0,
+                display: 'inline-block',
+                height: '40px',
+                lineHeight: '40px',
+                padding: '0 14px',
+                boxShadow:
+                  '0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08)',
+                color: '#fff',
+                borderRadius: '4px',
+                fontSize: '15px',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.025em',
+                backgroundColor: '#6772e5',
+                textDecoration: 'none',
+                WebkitTransition: 'all 150ms ease',
+                transition: 'all 150ms ease',
+                marginTop: '10px',
+                marginLeft: '20px',
+              }}
+            >
+              Pay
+            </Button>
+          </Link>
         </Paper>
       </div>
     );

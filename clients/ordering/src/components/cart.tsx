@@ -82,7 +82,7 @@ class Cart extends Component<State> {
               {'$' + (this.props.total + this.props.total * 0.09).toFixed(2)}
             </Typography>
           </ListItem>
-          <Link to="/checkout" style={{ textDecoration: 'none' }}>
+          <Link to="/orders" style={{ textDecoration: 'none' }}>
             <Button
               style={{
                 whiteSpace: 'nowrap',
@@ -107,8 +107,14 @@ class Cart extends Component<State> {
                 marginTop: '10px',
                 marginLeft: '20px',
               }}
+              onClick={() =>
+                (this.props as any).dispatch({
+                  type: 'ADD_ORDER',
+                  // tslint:disable-next-line:object-literal-shorthand
+                })
+              }
             >
-              Checkout
+              Purchase
             </Button>
           </Link>
         </List>
@@ -119,12 +125,14 @@ class Cart extends Component<State> {
 
 interface State {
   addedItems: any[];
+  boughtItems: any[];
   total: number;
 }
 
 const mapStateToProps = (state: State) => {
   return {
     addedItems: state.addedItems,
+    boughtItems: state.boughtItems,
     total: state.total,
   };
 };
