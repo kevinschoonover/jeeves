@@ -1,22 +1,13 @@
 import React from 'react';
 import Rectangle, { RectangleColor } from './tables/Rectangle';
 import Circle from './tables/Circle';
-import { TableStatus } from '../mocks';
+import { ITable, TableStatus, TablesEntity } from '../types';
 
 export interface TableProps {
-  shape?: TableShape;
-  rotation?: number;
-  details: {
-    seatingCapacity: number;
-    status: string;
-    x: number;
-    y: number;
-  };
+  table: ITable | TablesEntity;
   isSelected: boolean;
   onTableClick(): void;
 }
-
-export type TableShape = 'circle' | 'rectangle' | 'square';
 
 const TABLE_STATUS_COLOR_MAP: { [key in TableStatus]: RectangleColor } = {
   cleaning: 'success',
@@ -26,22 +17,22 @@ const TABLE_STATUS_COLOR_MAP: { [key in TableStatus]: RectangleColor } = {
 };
 
 const Table: React.FC<TableProps> = ({
-  details,
+  table,
   onTableClick,
   children,
   isSelected,
-  rotation,
-  shape = 'circle',
 }) => {
+  const { x, y, status, seatingCapacity, rotation, shape } = table;
+
   if (shape === 'circle') {
     return (
       <Circle
-        x={details.x}
-        y={details.y}
+        x={x}
+        y={y}
         isSelected={isSelected}
         onClick={onTableClick}
-        color={(TABLE_STATUS_COLOR_MAP as any)[details.status]}
-        size={details.seatingCapacity <= 2 ? 'small' : 'large'}
+        color={TABLE_STATUS_COLOR_MAP[status]}
+        size={seatingCapacity <= 2 ? 'small' : 'large'}
       >
         {children}
       </Circle>
@@ -50,16 +41,16 @@ const Table: React.FC<TableProps> = ({
 
   return (
     <Rectangle
-      x={details.x}
-      y={details.y}
+      x={x}
+      y={y}
       onClick={onTableClick}
       isSelected={isSelected}
-      color={(TABLE_STATUS_COLOR_MAP as any)[details.status]}
+      color={TABLE_STATUS_COLOR_MAP[status]}
       rotation={rotation}
       size={
-        details.seatingCapacity <= 2
+        seatingCapacity <= 2
           ? 'small'
-          : details.seatingCapacity <= 4
+          : seatingCapacity <= 4
           ? 'square'
           : 'large'
       }

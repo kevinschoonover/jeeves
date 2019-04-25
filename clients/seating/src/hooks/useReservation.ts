@@ -1,6 +1,13 @@
 import React from 'react';
 import { useJeevesAPI } from '@jeeves/common';
 import { useSeatingData } from '../components/SeatingProvider';
+import { TablesEntity } from '../types';
+
+export interface ReservationFormValues {
+  startTime: Date;
+  numGuests: number;
+  table: TablesEntity['id'];
+}
 
 const useReservation = () => {
   const jeeves = useJeevesAPI();
@@ -8,7 +15,10 @@ const useReservation = () => {
   const [isLoading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(false);
 
-  const addReservation = (tableId: string, reservation: any) => {
+  const addReservation = (
+    tableId: TablesEntity['id'],
+    reservation: ReservationFormValues
+  ) => {
     console.log('addReservation', tableId, reservation);
     const table = tablesMap[tableId];
 
@@ -23,11 +33,11 @@ const useReservation = () => {
 
       newSections[index] = {
         ...newSections[index],
-        tables: newSections[index].tables.map((t: any) =>
+        tables: newSections[index].tables.map((t) =>
           t.id === tableId
             ? {
                 ...table,
-                reservations: [...table.reservations, reservation],
+                reservations: [...table.reservations, reservation as any],
               }
             : t
         ),
@@ -41,11 +51,7 @@ const useReservation = () => {
     startTime,
     numGuests,
     table,
-  }: {
-    startTime: Date;
-    numGuests: number;
-    table: string;
-  }) => {
+  }: ReservationFormValues) => {
     console.log(startTime, numGuests, table);
     setLoading(true);
     try {

@@ -14,6 +14,7 @@ import ReservationForm from './components/ReservationForm';
 import useOnClickInside from './hooks/useOnClickInside';
 import TableDetails from './components/TableDetails';
 import useSeating from './hooks/useSeating';
+import { TablesEntity } from './types';
 
 const styles = () =>
   createStyles({
@@ -33,7 +34,9 @@ type AppProps = WithStyles<typeof styles>;
 
 const App: React.FC<AppProps> = ({ classes }) => {
   const [seatingLayoutYOffset, setSeatingLayoutYOffset] = React.useState(0);
-  const [selectedTable, setSelectedTable] = React.useState<number | null>(null);
+  const [selectedTable, setSelectedTable] = React.useState<
+    TablesEntity['id'] | null
+  >(null);
   const [layout, setLayout] = React.useState<SVGElement | null>(null);
 
   const [showTableDetails, setShowTableDetails] = React.useState(false);
@@ -97,7 +100,9 @@ const App: React.FC<AppProps> = ({ classes }) => {
               >
                 {showTableDetails ? (
                   <TableDetails
-                    table={selectedTable && tablesMap[`${selectedTable}`]}
+                    table={
+                      selectedTable !== null ? tablesMap[selectedTable] : null
+                    }
                     onReserveClick={() => {
                       setShowReserveForm(true);
                       setShowTableDetails(false);
@@ -107,7 +112,9 @@ const App: React.FC<AppProps> = ({ classes }) => {
                   <>
                     <h1>Book Table {selectedTable || ''}</h1>
                     <ReservationForm
-                      table={selectedTable && tablesMap[`${selectedTable}`]}
+                      table={
+                        selectedTable !== null ? tablesMap[selectedTable] : null
+                      }
                     />
                   </>
                 ) : (

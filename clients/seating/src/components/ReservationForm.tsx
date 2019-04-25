@@ -17,6 +17,7 @@ import moment from 'moment';
 import 'react-day-picker/lib/style.css';
 import FormInput from './FormInput';
 import useReservation from '../hooks/useReservation';
+import { ITable } from '../types';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -38,7 +39,7 @@ const styles = (theme: Theme) =>
   });
 
 interface ReservationFormProps extends WithStyles<typeof styles> {
-  table: any | null;
+  table: ITable | null;
 }
 
 const formatPartySizeDisplay = (value: any) => (
@@ -85,7 +86,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
 
   const renderPartySizeList = () => {
     const partySizeList: JSX.Element[] = [];
-    for (let size = 1; size <= table.seatingCapacity; size++) {
+    for (let size = 1; size <= table!.seatingCapacity; size++) {
       partySizeList.push(
         <MenuItem key={size} value={size}>
           <span>{formatPartySizeDisplay(size)}</span>

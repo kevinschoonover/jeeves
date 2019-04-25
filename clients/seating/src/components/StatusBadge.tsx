@@ -2,7 +2,7 @@ import React from 'react';
 import { Theme, withStyles, createStyles, WithStyles } from '@material-ui/core';
 import classNames from 'classnames';
 import { deepPurple, green } from '@material-ui/core/colors';
-import { TableStatus } from '../mocks';
+import { TableStatus } from '../types';
 
 const styles = (theme: Theme) =>
   createStyles({

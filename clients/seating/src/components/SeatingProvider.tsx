@@ -1,13 +1,14 @@
 import React from 'react';
+import { SectionsEntity, TablesEntity, ITable } from '../types';
 
 export interface ISeatingContext {
   restaurantId: string;
-  sections: any[];
-  tableIds: string[];
+  sections: SectionsEntity[];
+  tableIds: Array<TablesEntity['id']>;
   tablesMap: {
-    [tableId: string]: any;
+    [tableId: number]: ITable;
   };
-  setSections: React.Dispatch<React.SetStateAction<any[]>>;
+  setSections: React.Dispatch<React.SetStateAction<SectionsEntity[]>>;
 }
 
 export interface SeatingProviderProps {
@@ -23,14 +24,14 @@ export const SeatingProvider: React.FC<SeatingProviderProps> = ({
   children,
   restaurantId,
 }) => {
-  const [sections, setSections] = React.useState<any[]>([]);
+  const [sections, setSections] = React.useState<SectionsEntity[]>([]);
 
   const tables = React.useMemo(() => {
-    const tableIds: string[] = [];
-    const tablesMap: { [key: string]: any } = {};
+    const tableIds: Array<TablesEntity['id']> = [];
+    const tablesMap: { [tableId: number]: ITable } = {};
 
-    sections.forEach((section: any) => {
-      section.tables.forEach((table: any) => {
+    sections.forEach((section: SectionsEntity) => {
+      section.tables.forEach((table: TablesEntity) => {
         tableIds.push(table.id);
         tablesMap[table.id] = {
           ...table,
