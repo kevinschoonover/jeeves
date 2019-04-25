@@ -1,6 +1,6 @@
 import * as React from 'react';
-import RestaurantList from '../../components/RestaurantList';
-import { withRouter } from "react-router";
+import ShiftTable from '../../components/ShiftTable';
+import { withRouter } from 'react-router';
 import { Typography, Theme, withStyles } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -19,12 +19,15 @@ class Page extends React.Component<IPageProps, {}> {
     return (
       <div>
         <div className={classes.boxHeader}>
-          <Typography className={classes.boxHeaderTitle}>
-            Shifts
-          </Typography>
+          <Typography className={classes.boxHeaderTitle}>Shifts</Typography>
         </div>
-        <RestaurantList {...this.props} />
-        <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.props.history.push("/shifts/create")}>
+        <ShiftTable items={this.props.items} />
+        <Fab
+          color="primary"
+          aria-label="Add"
+          className={classes.fab}
+          onClick={() => this.props.history.push('/shifts/create')}
+        >
           <AddIcon />
         </Fab>
       </div>
