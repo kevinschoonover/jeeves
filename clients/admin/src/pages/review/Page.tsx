@@ -1,8 +1,9 @@
 import * as React from 'react';
-import RestaurantList from '../../components/RestaurantList';
-import { withRouter } from "react-router";
+import ReviewCard from '../../components/ReviewCard';
+import { withRouter } from 'react-router';
 import { Typography, Theme, withStyles } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
+import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
 
 interface IPageProps {
@@ -19,12 +20,23 @@ class Page extends React.Component<IPageProps, {}> {
     return (
       <div>
         <div className={classes.boxHeader}>
-          <Typography className={classes.boxHeaderTitle}>
-            Reviews
-          </Typography>
+          <Typography className={classes.boxHeaderTitle}>Reviews</Typography>
         </div>
-        <RestaurantList {...this.props} />
-        <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.props.history.push("/reviews/create")}>
+        <Grid container={true} className={classes.grid} spacing={8}>
+          {this.props.items.map((item: any) => {
+            return (
+              <Grid key={item.id} item={true} xs={3}>
+                <ReviewCard key={item.id} item={item} />
+              </Grid>
+            );
+          })}
+        </Grid>
+        <Fab
+          color="primary"
+          aria-label="Add"
+          className={classes.fab}
+          onClick={() => this.props.history.push('/orders/create')}
+        >
           <AddIcon />
         </Fab>
       </div>
