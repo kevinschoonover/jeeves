@@ -19,6 +19,7 @@ import {
   Button,
 } from '@material-ui/core';
 import { InjectedProps } from '@material-ui/core/withMobileDialog';
+import { Link } from 'react-router-dom';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -106,7 +107,6 @@ class CardForm extends Component<Props> {
             {...createOptions()}
           />
         </label>
-        <Button className={classes.button}>Pay</Button>
       </form>
     );
   }

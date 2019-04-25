@@ -3,7 +3,7 @@ import {
   ADD_QUANTITY,
   SUB_QUANTITY,
   REMOVE_ITEM,
-  ADD_TIP,
+  ADD_ORDER,
 } from './action-types/cart-actions';
 
 export const addToCart = (id: string) => {
@@ -33,9 +33,8 @@ export const removeItem = (id: string) => {
     id,
   };
 };
-export const addTip = (tip: number) => {
+export const addOrder = () => {
   return {
-    type: ADD_TIP,
-    tip,
+    type: ADD_ORDER,
   };
 };

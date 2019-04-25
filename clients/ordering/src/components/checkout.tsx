@@ -12,9 +12,11 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
+  Button,
 } from '@material-ui/core';
 import { Elements } from 'react-stripe-elements';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import CardForm from './cardForm';
 
 class Checkout extends Component<State> {
@@ -211,6 +213,41 @@ class Checkout extends Component<State> {
                 Card Details
               </Typography>
               <CardForm />
+              <Link to="/orders" style={{ textDecoration: 'none' }}>
+                <Button
+                  style={{
+                    whiteSpace: 'nowrap',
+                    border: 0,
+                    outline: 0,
+                    display: 'inline-block',
+                    height: '40px',
+                    lineHeight: '40px',
+                    padding: '0 14px',
+                    boxShadow:
+                      '0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08)',
+                    color: '#fff',
+                    borderRadius: '4px',
+                    fontSize: '15px',
+                    fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.025em',
+                    backgroundColor: '#6772e5',
+                    textDecoration: 'none',
+                    WebkitTransition: 'all 150ms ease',
+                    transition: 'all 150ms ease',
+                    marginTop: '10px',
+                    marginLeft: '20px',
+                  }}
+                  onClick={() =>
+                    (this.props as any).dispatch({
+                      type: 'ADD_ORDER',
+                      // tslint:disable-next-line:object-literal-shorthand
+                    })
+                  }
+                >
+                  Pay
+                </Button>
+              </Link>
             </div>
           </Paper>
         </div>
@@ -221,12 +258,14 @@ class Checkout extends Component<State> {
 
 interface State {
   addedItems: any[];
+  boughtItems: any[];
   total: number;
 }
 
 const mapStateToProps = (state: State) => {
   return {
     addedItems: state.addedItems,
+    boughtItems: state.boughtItems,
     total: state.total,
   };
 };

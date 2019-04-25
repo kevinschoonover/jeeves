@@ -4,12 +4,13 @@ import {
   ADD_QUANTITY,
   SUB_QUANTITY,
   REMOVE_ITEM,
-  ADD_TIP,
+  ADD_ORDER,
 } from '../actions/action-types/cart-actions';
 
 const initState = {
   items: menucards,
   addedItems: [],
+  boughtItems: [],
   total: 0,
 };
 
@@ -75,12 +76,24 @@ const cartReducer = (state: any = initState, action: any) => {
       total: newTotal,
     };
   }
-  if (action.type === ADD_TIP) {
-    const newTotal = state.total + action.tip;
-    return {
-      ...state,
-      total: newTotal,
-    };
+  if (action.type === ADD_ORDER) {
+    if (state.boughtItems.length === 0) {
+      const allOrders = state.addedItems;
+      return {
+        ...state,
+        addedItems: [],
+        boughtItems: allOrders,
+        total: 0,
+      };
+    } else {
+      const allOrders = state.boughtItems.concat(state.addedItems);
+      return {
+        ...state,
+        addedItems: [],
+        boughtItems: allOrders,
+        total: 0,
+      };
+    }
   } else {
     return {
       ...state,

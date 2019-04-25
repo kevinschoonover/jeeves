@@ -45,6 +45,14 @@ const menuNavItems = (
         <ListItemText primary="Add-ons" />
       </ListItem>
     </Link>
+    <Link to="/orders" style={{ textDecoration: 'none' }}>
+      <ListItem button={true}>
+        <ListItemIcon>
+          <RestaurantMenuIcon />
+        </ListItemIcon>
+        <ListItemText primary="All Orders" />
+      </ListItem>
+    </Link>
   </div>
 );
 

@@ -14,6 +14,7 @@ import Entrees from './components/entrees';
 import Desserts from './components/desserts';
 import AddOns from './components/addons';
 import Checkout from './components/checkout';
+import Orders from './components/orders';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -44,6 +45,7 @@ const App: React.FC<Props> = ({ classes }) => {
       <Route path="/desserts" component={Desserts} />
       <Route path="/addons" component={AddOns} />
       <Route path="/checkout" component={Checkout} />
+      <Route path="/orders" component={Orders} />
     </div>
   );
 };
