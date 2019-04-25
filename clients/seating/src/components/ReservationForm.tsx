@@ -16,6 +16,7 @@ import moment from 'moment';
 
 import 'react-day-picker/lib/style.css';
 import FormInput from './FormInput';
+import useReservation from '../hooks/useReservation';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -37,14 +38,7 @@ const styles = (theme: Theme) =>
   });
 
 interface ReservationFormProps extends WithStyles<typeof styles> {
-  table: number | null;
-  onSubmit({
-    startTime,
-    numGuests,
-  }: {
-    startTime: Date;
-    numGuests: number;
-  }): Promise<void>;
+  table: any | null;
 }
 
 const formatPartySizeDisplay = (value: any) => (
@@ -55,16 +49,14 @@ const FormInputWithCalendar = (props: any) => (
   <FormInput adornment={<CalendarToday />} {...props} />
 );
 
-const partySizeList = Array.from({ length: 10 }, (_, i) => i + 1);
-
 const ReservationForm: React.FC<ReservationFormProps> = ({
   classes,
-  onSubmit,
   table,
 }) => {
   const [date, setDate] = React.useState(new Date());
   const [time, setTime] = React.useState('6:30 PM');
   const [partySize, setPartySize] = React.useState(1);
+  const { createReservation, error, isLoading } = useReservation();
 
   const disabled = table === null;
 
@@ -73,10 +65,13 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
 
     const d = moment(date).format('LL');
 
-    onSubmit({
-      startTime: moment(`${d} ${time}`, ['LL h:m a']).toDate(),
-      numGuests: partySize,
-    });
+    if (table) {
+      createReservation({
+        startTime: moment(`${d} ${time}`, ['LL h:m a']).toDate(),
+        numGuests: partySize,
+        table: table.id,
+      });
+    }
   };
 
   const handleDateChange = (day: Date) => setDate(day);
@@ -86,6 +81,18 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
 
   const handlePartySizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPartySize(parseInt(e.target.value, 10));
+  };
+
+  const renderPartySizeList = () => {
+    const partySizeList: JSX.Element[] = [];
+    for (let size = 1; size <= table.seatingCapacity; size++) {
+      partySizeList.push(
+        <MenuItem key={size} value={size}>
+          <span>{formatPartySizeDisplay(size)}</span>
+        </MenuItem>
+      );
+    }
+    return partySizeList;
   };
 
   return (
@@ -127,11 +134,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
         input={<FormInput adornment={<Person />} />}
         disabled={disabled}
       >
-        {partySizeList.map((size) => (
-          <MenuItem key={size} value={size}>
-            <span>{formatPartySizeDisplay(size)}</span>
-          </MenuItem>
-        ))}
+        {renderPartySizeList()}
       </Select>
       {disabled && <div>Please select an open table to proceed</div>}
       <Button

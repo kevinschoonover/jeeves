@@ -31,8 +31,6 @@ const styles = () =>
 
 type AppProps = WithStyles<typeof styles>;
 
-const restaurantId = '37ec8893-46d1-4fa8-9631-e3f60e5d0f8f';
-
 const App: React.FC<AppProps> = ({ classes }) => {
   const [seatingLayoutYOffset, setSeatingLayoutYOffset] = React.useState(0);
   const [selectedTable, setSelectedTable] = React.useState<number | null>(null);
@@ -43,9 +41,7 @@ const App: React.FC<AppProps> = ({ classes }) => {
 
   const navbarRef = React.useRef<HTMLDivElement | null>(null);
 
-  const { isLoading, sections, error, tables, createReservation } = useSeating(
-    restaurantId
-  );
+  const { isLoading, sections, error, tables } = useSeating();
 
   const { tablesMap } = tables;
 
@@ -62,21 +58,6 @@ const App: React.FC<AppProps> = ({ classes }) => {
       setShowReserveForm(false);
       setShowTableDetails(true);
     }
-  };
-
-  const reserveTable = async ({
-    startTime,
-    numGuests,
-  }: {
-    startTime: Date;
-    numGuests: number;
-  }) => {
-    console.log('reserve table', numGuests, startTime);
-    createReservation({
-      startTime,
-      numGuests,
-      table: `${selectedTable}`,
-    });
   };
 
   React.useLayoutEffect(() => {
@@ -126,8 +107,7 @@ const App: React.FC<AppProps> = ({ classes }) => {
                   <>
                     <h1>Book Table {selectedTable || ''}</h1>
                     <ReservationForm
-                      onSubmit={reserveTable}
-                      table={selectedTable}
+                      table={selectedTable && tablesMap[`${selectedTable}`]}
                     />
                   </>
                 ) : (
