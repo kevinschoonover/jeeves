@@ -63,7 +63,7 @@ export class Order extends BaseEntity {
 
   @Column()
   @IsString()
-  public commets: string;
+  public comments: string;
 
   @ManyToOne((type) => Shift, (shift) => shift.orders)
   public shift: Shift;
