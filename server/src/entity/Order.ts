@@ -12,7 +12,14 @@ import {
 import { MenuItem } from './MenuItem';
 import { Shift } from './Shift';
 import { Visit } from './Visit';
-import { IsBoolean, IsDate, IsEnum, IsNumber } from 'class-validator';
+import {
+  IsBoolean,
+  IsDate,
+  IsEnum,
+  IsNumber,
+  ValidateNested,
+  IsString,
+} from 'class-validator';
 
 export enum orderStatus {
   RECEIVE = 'receive',
@@ -49,6 +56,14 @@ export class Order extends BaseEntity {
   })
   @IsDate()
   public end: Date;
+
+  @Column()
+  @ValidateNested()
+  public cookAssigned: Account;
+
+  @Column()
+  @IsString()
+  public comments: string;
 
   @ManyToOne((type) => Shift, (shift) => shift.orders)
   public shift: Shift;
