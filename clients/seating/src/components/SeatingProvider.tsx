@@ -1,5 +1,10 @@
 import React from 'react';
-import { SectionsEntity, TablesEntity, ITable } from '../types';
+import {
+  SectionsEntity,
+  TablesEntity,
+  ITable,
+  RestaurantEntity,
+} from '../types';
 
 export interface ISeatingContext {
   restaurantId: string;
@@ -8,7 +13,8 @@ export interface ISeatingContext {
   tablesMap: {
     [tableId: number]: ITable;
   };
-  setSections: React.Dispatch<React.SetStateAction<SectionsEntity[]>>;
+  restaurant: RestaurantEntity;
+  setRestaurant: React.Dispatch<React.SetStateAction<RestaurantEntity>>;
 }
 
 export interface SeatingProviderProps {
@@ -16,35 +22,46 @@ export interface SeatingProviderProps {
 }
 
 export const SeatingContext = React.createContext<ISeatingContext>(
-  // tslint:disable-next-line: no-object-literal-type-assertion
-  {} as ISeatingContext
+  ({} as unknown) as ISeatingContext
 );
 
 export const SeatingProvider: React.FC<SeatingProviderProps> = ({
   children,
   restaurantId,
 }) => {
-  const [sections, setSections] = React.useState<SectionsEntity[]>([]);
+  const [restaurant, setRestaurant] = React.useState<RestaurantEntity>(
+    ({} as unknown) as RestaurantEntity
+  );
+
+  console.log('restaurant', restaurant);
 
   const tables = React.useMemo(() => {
     const tableIds: Array<TablesEntity['id']> = [];
     const tablesMap: { [tableId: number]: ITable } = {};
 
-    sections.forEach((section: SectionsEntity) => {
-      section.tables.forEach((table: TablesEntity) => {
-        tableIds.push(table.id);
-        tablesMap[table.id] = {
-          ...table,
-          sectionId: section.id,
-        };
+    if (restaurant && restaurant.sections) {
+      restaurant.sections.forEach((section: SectionsEntity) => {
+        section.tables.forEach((table: TablesEntity) => {
+          tableIds.push(table.id);
+          tablesMap[table.id] = {
+            ...table,
+            sectionId: section.id,
+          };
+        });
       });
-    });
+    }
     return { tableIds, tablesMap };
-  }, [sections]);
+  }, [restaurant]);
 
   return (
     <SeatingContext.Provider
-      value={{ sections, ...tables, setSections, restaurantId }}
+      value={{
+        sections: restaurant.sections || [],
+        ...tables,
+        restaurantId,
+        restaurant,
+        setRestaurant,
+      }}
     >
       {children}
     </SeatingContext.Provider>

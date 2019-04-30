@@ -24,15 +24,11 @@ export interface Location {
   lon: number;
 }
 
-export interface WeeklyHours {
-  Monday: Hours;
-  Tuesday: Hours;
-  Wednesday: Hours;
-  Thursday: Hours;
-  Friday: Hours;
-  Saturday: Hours;
-  Sunday: Hours;
-}
+export type DayOfWeek = "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday";
+
+type WeeklyHours = {
+  [key in DayOfWeek]: Hours;
+};
 
 export interface Hours {
   startTime: string;

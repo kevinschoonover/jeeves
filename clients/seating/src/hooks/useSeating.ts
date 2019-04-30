@@ -8,7 +8,7 @@ const useSeating = () => {
     sections,
     tableIds,
     tablesMap,
-    setSections,
+    setRestaurant,
     restaurantId,
   } = useSeatingData();
   const [isLoading, setLoading] = React.useState(true);
@@ -20,7 +20,7 @@ const useSeating = () => {
     try {
       const response = await jeeves.get(`/Restaurants/${restaurantId}`);
       console.log(response.data);
-      setSections(response.data.sections);
+      setRestaurant(response.data);
     } catch (error) {
       console.log(error);
       setError(true);
