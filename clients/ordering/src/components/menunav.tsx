@@ -2,9 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 
 const menuNavItems = (
   <div>
+    <Link to="/orders" style={{ textDecoration: 'none' }}>
+      <ListItem button={true}>
+        <ListItemIcon>
+          <ListAltIcon />
+        </ListItemIcon>
+        <ListItemText primary="All Orders" />
+      </ListItem>
+    </Link>
     <Link to="/" style={{ textDecoration: 'none' }}>
       <ListItem button={true}>
         <ListItemIcon>
@@ -43,14 +52,6 @@ const menuNavItems = (
           <RestaurantMenuIcon />
         </ListItemIcon>
         <ListItemText primary="Add-ons" />
-      </ListItem>
-    </Link>
-    <Link to="/orders" style={{ textDecoration: 'none' }}>
-      <ListItem button={true}>
-        <ListItemIcon>
-          <RestaurantMenuIcon />
-        </ListItemIcon>
-        <ListItemText primary="All Orders" />
       </ListItem>
     </Link>
   </div>

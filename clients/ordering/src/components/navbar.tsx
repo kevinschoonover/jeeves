@@ -8,7 +8,7 @@ import {
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { IconButton, FormHelperText } from '@material-ui/core';
+import { IconButton, Button, Modal } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -97,6 +97,21 @@ const styles = (theme: Theme) =>
       textAlign: 'center',
       verticalAlign: 'middle',
     },
+    paper: {
+      position: 'absolute',
+      width: theme.spacing.unit * 50,
+      backgroundColor: theme.palette.background.paper,
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing.unit * 4,
+      outline: 'none',
+      marginTop: 100,
+      marginLeft: 700,
+    },
+    service: {
+      position: 'relative',
+      justifyContent: 'center',
+      left: '175px',
+    },
   });
 
 export type NavbarProps = WithStyles<typeof styles>;
@@ -106,6 +121,8 @@ const Navbar: React.FC<NavbarProps> = React.forwardRef<Ref, NavbarProps>(
   ({ classes }, ref) => {
     const [open, setOpen] = useState<boolean>(false);
     const [open2, setOpen2] = useState<boolean>(false);
+
+    const [modalOpen, setModal] = useState<boolean>(false);
 
     return (
       <div ref={ref} className={classes.root}>
@@ -136,6 +153,27 @@ const Navbar: React.FC<NavbarProps> = React.forwardRef<Ref, NavbarProps>(
                 placeholder="Search..."
                 classes={{ root: classes.inputRoot, input: classes.inputInput }}
               />
+            </div>
+            <div className={classes.service}>
+              <Button
+                variant="outlined"
+                color="inherit"
+                onClick={() => setModal((prevOpen) => !prevOpen)}
+              >
+                Request Service
+              </Button>
+              <Modal
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                open={modalOpen}
+                onClose={() => setModal((prevOpen) => !prevOpen)}
+              >
+                <div className={classes.paper}>
+                  <Typography variant={'h6'} id="modal-title">
+                    Service options
+                  </Typography>
+                </div>
+              </Modal>
             </div>
             <div className={classes.shoppingCartButton} />
             <IconButton

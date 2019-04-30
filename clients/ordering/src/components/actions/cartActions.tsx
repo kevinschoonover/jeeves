@@ -34,11 +34,13 @@ export const removeItem = (id: string) => {
     id,
   };
 };
+
 export const addOrder = () => {
   return {
     type: ADD_ORDER,
   };
 };
+
 export const purchase = () => {
   return {
     type: PURCHASE,

@@ -7,9 +7,11 @@ import {
   ADD_ORDER,
   PURCHASE,
 } from '../actions/action-types/cart-actions';
+import Entrees from '../entrees';
 
 const initState = {
   items: menucards,
+  showItems: [],
   addedItems: [],
   boughtItems: [],
   total: 0,

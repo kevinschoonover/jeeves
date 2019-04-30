@@ -14,6 +14,7 @@ import {
   RadioGroup,
   Button,
 } from '@material-ui/core';
+import Slider from '@material-ui/lab/Slider';
 import { Elements } from 'react-stripe-elements';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -21,14 +22,15 @@ import CardForm from './cardForm';
 
 class Checkout extends Component<State> {
   state = {
-    value: '0.15',
+    value: 15,
   };
 
-  handleTipChange = (event: any) => {
-    this.setState({ value: event.target.value });
+  handleTipChange = (event: any, value: any) => {
+    this.setState({ value });
   };
 
   render() {
+    const { value } = this.state;
     return (
       <Elements>
         <div>
@@ -74,40 +76,21 @@ class Checkout extends Component<State> {
                 </Typography>
               </ListItem>
               <ListItem>
-                <FormControl>
-                  <FormLabel>Tip</FormLabel>
-                  <RadioGroup
-                    aria-label="Tip"
-                    name="tip1"
-                    row={true}
-                    value={this.state.value}
-                    onChange={this.handleTipChange}
-                  >
-                    <FormControlLabel
-                      value="0.10"
-                      control={<Radio color={'primary'} />}
-                      label="10%"
-                    />
-                    <FormControlLabel
-                      value="0.15"
-                      control={<Radio color={'primary'} />}
-                      label="15%"
-                    />
-                    <FormControlLabel
-                      value="0.20"
-                      control={<Radio color={'primary'} />}
-                      label="20%"
-                    />
-                    <FormControlLabel
-                      value="0.05"
-                      control={<Radio color={'primary'} />}
-                      label="Other"
-                    />
-                  </RadioGroup>
-                </FormControl>
-                <ListItemText primary={''} />
+                <ListItemText primary={'Tip'} />
+                <Slider
+                  style={{ marginLeft: 40 }}
+                  value={value}
+                  min={0}
+                  max={100}
+                  step={1}
+                  onChange={this.handleTipChange}
+                />
+                <ListItemText
+                  primary={value + '%'}
+                  style={{ marginRight: 300 }}
+                />
                 <Typography variant={'subtitle2'}>
-                  {'$' + (+this.state.value * this.props.finalTotal).toFixed(2)}
+                  {'$' + ((value / 100) * this.props.finalTotal).toFixed(2)}
                 </Typography>
               </ListItem>
               <ListItem>
@@ -118,7 +101,7 @@ class Checkout extends Component<State> {
                 >
                   {'$' +
                     (
-                      +this.state.value * this.props.finalTotal +
+                      (value / 100) * this.props.finalTotal +
                       this.props.finalTotal +
                       this.props.finalTotal * 0.09
                     ).toFixed(2)}
