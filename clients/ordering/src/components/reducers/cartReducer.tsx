@@ -4,13 +4,18 @@ import {
   ADD_QUANTITY,
   SUB_QUANTITY,
   REMOVE_ITEM,
-  ADD_TIP,
+  ADD_ORDER,
+  PURCHASE,
 } from '../actions/action-types/cart-actions';
+import Entrees from '../entrees';
 
 const initState = {
   items: menucards,
+  showItems: [],
   addedItems: [],
+  boughtItems: [],
   total: 0,
+  finalTotal: 0,
 };
 
 const cartReducer = (state: any = initState, action: any) => {
@@ -29,7 +34,6 @@ const cartReducer = (state: any = initState, action: any) => {
         total: newTotal,
       };
     } else {
-      const newItem = existedItem;
       existedItem.quantity += 1;
       const newTotal = state.total + existedItem.subheader;
       return {
@@ -76,11 +80,36 @@ const cartReducer = (state: any = initState, action: any) => {
       total: newTotal,
     };
   }
-  if (action.type === ADD_TIP) {
-    const newTotal = state.total + action.tip;
+  if (action.type === ADD_ORDER) {
+    if (state.boughtItems.length === 0) {
+      const allOrders = state.addedItems;
+      const newTotal = state.total;
+      return {
+        ...state,
+        addedItems: [],
+        boughtItems: allOrders,
+        total: 0,
+        finalTotal: newTotal,
+      };
+    } else {
+      const allOrders = state.boughtItems.concat(state.addedItems);
+      const newTotal = state.finalTotal + state.total;
+      return {
+        ...state,
+        addedItems: [],
+        boughtItems: allOrders,
+        total: 0,
+        finalTotal: newTotal,
+      };
+    }
+  }
+  if (action.type === PURCHASE) {
     return {
       ...state,
-      total: newTotal,
+      addedItems: [],
+      boughtItems: [],
+      total: 0,
+      finalTotal: 0,
     };
   } else {
     return {

@@ -1,4 +1,4 @@
-import React, { Component, Dispatch } from 'react';
+import React, { Component } from 'react';
 import {
   ListItem,
   ListItemText,
@@ -6,21 +6,63 @@ import {
   IconButton,
   ListSubheader,
   Button,
-  Input,
+  Typography,
+  Theme,
+  withStyles,
+  createStyles,
+  WithStyles,
 } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import DeleteIcon from '@material-ui/icons/Delete';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { addQuantity, subQuantity, removeItem } from './actions/cartActions';
 
-class Cart extends Component<State> {
+const styles = (theme: Theme) =>
+  createStyles({
+    button: {
+      whiteSpace: 'nowrap',
+      border: 0,
+      outline: 0,
+      display: 'inline-block',
+      height: '40px',
+      lineHeight: '40px',
+      padding: '0 14px',
+      boxShadow:
+        '0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08)',
+      color: '#fff',
+      borderRadius: '4px',
+      fontSize: '15px',
+      fontWeight: 600,
+      textTransform: 'uppercase',
+      letterSpacing: '0.025em',
+      backgroundColor: '#6772e5',
+      textDecoration: 'none',
+      WebkitTransition: 'all 150ms ease',
+      transition: 'all 150ms ease',
+      marginTop: '10px',
+      marginLeft: '20px',
+    },
+    cartTitle: {
+      textAlign: 'center',
+      verticalAlign: 'middle',
+    },
+  });
+
+interface CartProps extends WithStyles<typeof styles> {
+  addedItems: any[];
+  boughtItems: any[];
+  total: number;
+}
+
+class Cart extends Component<CartProps> {
   render() {
+    const { classes } = this.props;
     return (
       <div>
-        <h1 style={{ textAlign: 'center', verticalAlign: 'middle' }}>
-          Shopping Cart
-        </h1>
+        <h1 className={classes.cartTitle}>Shopping Cart</h1>
         <List subheader={<ListSubheader>Quantity</ListSubheader>}>
           {this.props.addedItems.map((item) => {
             return (
@@ -29,20 +71,14 @@ class Cart extends Component<State> {
                 <IconButton>
                   <KeyboardArrowUp
                     onClick={() =>
-                      (this.props as any).dispatch({
-                        type: 'ADD_QUANTITY',
-                        id: item.id,
-                      })
+                      (this.props as any).dispatch(addQuantity(item.id))
                     }
                   />
                 </IconButton>
                 <IconButton>
                   <KeyboardArrowDown
                     onClick={() =>
-                      (this.props as any).dispatch({
-                        type: 'SUB_QUANTITY',
-                        id: item.id,
-                      })
+                      (this.props as any).dispatch(subQuantity(item.id))
                     }
                   />
                 </IconButton>
@@ -57,10 +93,7 @@ class Cart extends Component<State> {
                   <IconButton>
                     <DeleteIcon
                       onClick={() =>
-                        (this.props as any).dispatch({
-                          type: 'REMOVE_ITEM',
-                          id: item.id,
-                        })
+                        (this.props as any).dispatch(removeItem(item.id))
                       }
                     />
                   </IconButton>
@@ -68,49 +101,52 @@ class Cart extends Component<State> {
               </ListItem>
             );
           })}
-        </List>
-        <List>
           <ListItem>
-            <ListItemText
-              primary={'Subtotal: $' + this.props.total.toFixed(2)}
-            />
+            <ListItemText primary={'Subtotal'} />
+            <Typography variant={'subtitle2'}>
+              {'$' + this.props.total.toFixed(2)}
+            </Typography>
           </ListItem>
           <ListItem>
-            <ListItemText
-              primary={'Tax: $' + (this.props.total * 0.09).toFixed(2)}
-              secondary={'~9%'}
-            />
+            <ListItemText primary={'Tax'} />
+            <Typography variant={'subtitle2'}>
+              {'$' + (this.props.total * 0.09).toFixed(2)}
+            </Typography>
           </ListItem>
           <ListItem>
-            <ListItemText
-              primary={
-                'Total: $' +
-                (this.props.total + this.props.total * 0.09).toFixed(2)
+            <ListItemText primary={'Total'} />
+            <Typography
+              variant={'subtitle2'}
+              style={{ fontWeight: 'bold', fontSize: 'large' }}
+            >
+              {'$' + (this.props.total + this.props.total * 0.09).toFixed(2)}
+            </Typography>
+          </ListItem>
+          <Link to="/orders" style={{ textDecoration: 'none' }}>
+            <Button
+              className={classes.button}
+              onClick={() =>
+                (this.props as any).dispatch({
+                  type: 'ADD_ORDER',
+                  // tslint:disable-next-line:object-literal-shorthand
+                })
               }
-            />
-          </ListItem>
+            >
+              Purchase
+            </Button>
+          </Link>
         </List>
       </div>
     );
   }
 }
 
-interface State {
-  addedItems: any[];
-  total: number;
-}
-
-const mapStateToProps = (state: State) => {
+const mapStateToProps = (state: CartProps) => {
   return {
     addedItems: state.addedItems,
+    boughtItems: state.boughtItems,
     total: state.total,
   };
 };
 
-/*const mapDispatchToProps = (dispatch: any) => {
-  return {
-    addQuantity: () => dispatch(addQuantity()),
-  };
-};*/
-
-export default connect(mapStateToProps)(Cart);
+export default withStyles(styles)(connect(mapStateToProps)(Cart));

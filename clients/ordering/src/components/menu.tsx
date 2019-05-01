@@ -5,6 +5,7 @@ import {
   createStyles,
   WithStyles,
   Button,
+  Typography,
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import MenuCard from './card';
@@ -24,13 +25,14 @@ class Menu extends Component {
   render() {
     return (
       <div>
-        <h1>All Items</h1>
+        <Typography variant="h4" gutterBottom={true} component="h2">
+          All Items
+        </Typography>
         <Grid
           container={true}
           spacing={32}
           alignItems={'center'}
           justify={'space-evenly'}
-          style={{ backgroundColor: 'tan' }}
         >
           {menucards.map((menucard) => (
             <MenuCard key={menucard.id} {...menucard} />

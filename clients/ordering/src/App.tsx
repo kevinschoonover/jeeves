@@ -13,6 +13,8 @@ import Starters from './components/starters';
 import Entrees from './components/entrees';
 import Desserts from './components/desserts';
 import AddOns from './components/addons';
+import Checkout from './components/checkout';
+import Orders from './components/orders';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -35,59 +37,15 @@ const App: React.FC<Props> = ({ classes }) => {
   return (
     <div className={classes.root}>
       <Navbar innerRef={navbarRef} />
-      <div className={classes.buttonGrid}>
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <Button
-            variant={'outlined'}
-            className={classes.buttonSpacing}
-            style={{ color: 'blue' }}
-          >
-            All Items
-          </Button>
-        </Link>
-        <Link to="/starters" style={{ textDecoration: 'none' }}>
-          <Button
-            variant={'outlined'}
-            className={classes.buttonSpacing}
-            style={{ color: 'red' }}
-          >
-            Starters
-          </Button>
-        </Link>
-        <Link to="/entrees" style={{ textDecoration: 'none' }}>
-          <Button
-            variant={'outlined'}
-            className={classes.buttonSpacing}
-            style={{ color: 'green' }}
-          >
-            Entrees
-          </Button>
-        </Link>
-        <Link to="/desserts" style={{ textDecoration: 'none' }}>
-          <Button
-            variant={'outlined'}
-            className={classes.buttonSpacing}
-            style={{ color: 'fuchsia' }}
-          >
-            Desserts
-          </Button>
-        </Link>
-        <Link to="/addons" style={{ textDecoration: 'none' }}>
-          <Button
-            variant={'outlined'}
-            className={classes.buttonSpacing}
-            style={{ color: 'maroon' }}
-          >
-            Add-ons
-          </Button>
-        </Link>
-      </div>
+      <div className={classes.buttonGrid} />
 
       <Route exact={true} path="/" component={Menu} />
       <Route path="/starters" component={Starters} />
       <Route path="/entrees" component={Entrees} />
       <Route path="/desserts" component={Desserts} />
       <Route path="/addons" component={AddOns} />
+      <Route path="/checkout" component={Checkout} />
+      <Route path="/orders" component={Orders} />
     </div>
   );
 };
