@@ -5,31 +5,62 @@ import {
   ListItemText,
   Paper,
   Typography,
-  Grid,
-  TextField,
-  FormControl,
-  FormLabel,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
   Button,
+  Theme,
+  withStyles,
+  createStyles,
+  WithStyles,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-class Orders extends Component<State> {
+const styles = (theme: Theme) =>
+  createStyles({
+    button: {
+      whiteSpace: 'nowrap',
+      border: 0,
+      outline: 0,
+      display: 'inline-block',
+      height: '40px',
+      lineHeight: '40px',
+      padding: '0 14px',
+      boxShadow:
+        '0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08)',
+      color: '#fff',
+      borderRadius: '4px',
+      fontSize: '15px',
+      fontWeight: 600,
+      textTransform: 'uppercase',
+      letterSpacing: '0.025em',
+      backgroundColor: '#6772e5',
+      textDecoration: 'none',
+      WebkitTransition: 'all 150ms ease',
+      transition: 'all 150ms ease',
+      marginTop: '10px',
+      marginLeft: '20px',
+    },
+    paper: {
+      padding: 25,
+      marginLeft: 550,
+      marginRight: 550,
+      marginBottom: 25,
+      align: 'center',
+    },
+  });
+
+interface OrdersProps extends WithStyles<typeof styles> {
+  addedItems: any[];
+  boughtItems: any[];
+  total: number;
+  finalTotal: number;
+}
+
+class Orders extends Component<OrdersProps> {
   render() {
+    const { classes } = this.props;
     return (
       <div>
-        <Paper
-          style={{
-            padding: 25,
-            marginLeft: 550,
-            marginRight: 550,
-            marginBottom: 25,
-            align: 'center',
-          }}
-        >
+        <Paper className={classes.paper}>
           <Typography variant="h6" align={'left'} gutterBottom={true}>
             Order summary
           </Typography>
@@ -49,33 +80,7 @@ class Orders extends Component<State> {
             })}
           </List>
           <Link to="/checkout" style={{ textDecoration: 'none' }}>
-            <Button
-              style={{
-                whiteSpace: 'nowrap',
-                border: 0,
-                outline: 0,
-                display: 'inline-block',
-                height: '40px',
-                lineHeight: '40px',
-                padding: '0 14px',
-                boxShadow:
-                  '0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08)',
-                color: '#fff',
-                borderRadius: '4px',
-                fontSize: '15px',
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '0.025em',
-                backgroundColor: '#6772e5',
-                textDecoration: 'none',
-                WebkitTransition: 'all 150ms ease',
-                transition: 'all 150ms ease',
-                marginTop: '10px',
-                marginLeft: '20px',
-              }}
-            >
-              Pay
-            </Button>
+            <Button className={classes.button}>Pay</Button>
           </Link>
         </Paper>
       </div>
@@ -83,13 +88,7 @@ class Orders extends Component<State> {
   }
 }
 
-interface State {
-  addedItems: any[];
-  boughtItems: any[];
-  total: number;
-}
-
-const mapStateToProps = (state: State) => {
+const mapStateToProps = (state: OrdersProps) => {
   return {
     addedItems: state.addedItems,
     boughtItems: state.boughtItems,
@@ -97,4 +96,4 @@ const mapStateToProps = (state: State) => {
   };
 };
 
-export default connect(mapStateToProps)(Orders);
+export default withStyles(styles)(connect(mapStateToProps)(Orders));

@@ -7,6 +7,10 @@ import {
   ListSubheader,
   Button,
   Typography,
+  Theme,
+  withStyles,
+  createStyles,
+  WithStyles,
 } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -16,13 +20,49 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addQuantity, subQuantity, removeItem } from './actions/cartActions';
 
-class Cart extends Component<State> {
+const styles = (theme: Theme) =>
+  createStyles({
+    button: {
+      whiteSpace: 'nowrap',
+      border: 0,
+      outline: 0,
+      display: 'inline-block',
+      height: '40px',
+      lineHeight: '40px',
+      padding: '0 14px',
+      boxShadow:
+        '0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08)',
+      color: '#fff',
+      borderRadius: '4px',
+      fontSize: '15px',
+      fontWeight: 600,
+      textTransform: 'uppercase',
+      letterSpacing: '0.025em',
+      backgroundColor: '#6772e5',
+      textDecoration: 'none',
+      WebkitTransition: 'all 150ms ease',
+      transition: 'all 150ms ease',
+      marginTop: '10px',
+      marginLeft: '20px',
+    },
+    cartTitle: {
+      textAlign: 'center',
+      verticalAlign: 'middle',
+    },
+  });
+
+interface CartProps extends WithStyles<typeof styles> {
+  addedItems: any[];
+  boughtItems: any[];
+  total: number;
+}
+
+class Cart extends Component<CartProps> {
   render() {
+    const { classes } = this.props;
     return (
       <div>
-        <h1 style={{ textAlign: 'center', verticalAlign: 'middle' }}>
-          Shopping Cart
-        </h1>
+        <h1 className={classes.cartTitle}>Shopping Cart</h1>
         <List subheader={<ListSubheader>Quantity</ListSubheader>}>
           {this.props.addedItems.map((item) => {
             return (
@@ -84,29 +124,7 @@ class Cart extends Component<State> {
           </ListItem>
           <Link to="/orders" style={{ textDecoration: 'none' }}>
             <Button
-              style={{
-                whiteSpace: 'nowrap',
-                border: 0,
-                outline: 0,
-                display: 'inline-block',
-                height: '40px',
-                lineHeight: '40px',
-                padding: '0 14px',
-                boxShadow:
-                  '0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08)',
-                color: '#fff',
-                borderRadius: '4px',
-                fontSize: '15px',
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '0.025em',
-                backgroundColor: '#6772e5',
-                textDecoration: 'none',
-                WebkitTransition: 'all 150ms ease',
-                transition: 'all 150ms ease',
-                marginTop: '10px',
-                marginLeft: '20px',
-              }}
+              className={classes.button}
               onClick={() =>
                 (this.props as any).dispatch({
                   type: 'ADD_ORDER',
@@ -123,13 +141,7 @@ class Cart extends Component<State> {
   }
 }
 
-interface State {
-  addedItems: any[];
-  boughtItems: any[];
-  total: number;
-}
-
-const mapStateToProps = (state: State) => {
+const mapStateToProps = (state: CartProps) => {
   return {
     addedItems: state.addedItems,
     boughtItems: state.boughtItems,
@@ -137,4 +149,4 @@ const mapStateToProps = (state: State) => {
   };
 };
 
-export default connect(mapStateToProps)(Cart);
+export default withStyles(styles)(connect(mapStateToProps)(Cart));
