@@ -67,18 +67,23 @@ interface CheckoutProps extends WithStyles<typeof styles> {
   finalTotal: number;
 }
 
-class Checkout extends Component<CheckoutProps> {
-  state = {
-    value: 15,
-  };
+interface CheckoutState {
+  value: number;
+}
+
+class Checkout extends Component<CheckoutProps, CheckoutState> {
+  constructor(props: CheckoutProps) {
+    super(props);
+    this.state = { value: 15 };
+  }
 
   handleTipChange = (event: any, value: any) => {
     this.setState({ value });
   };
 
   render() {
-    const { value } = this.state;
     const { classes } = this.props;
+
     return (
       <Elements>
         <div>
@@ -119,18 +124,21 @@ class Checkout extends Component<CheckoutProps> {
                 <ListItemText primary={'Tip'} />
                 <Slider
                   className={classes.slider}
-                  value={value}
+                  value={this.state.value}
                   min={0}
                   max={100}
                   step={1}
                   onChange={this.handleTipChange}
                 />
                 <ListItemText
-                  primary={value + '%'}
+                  primary={this.state.value + '%'}
                   style={{ marginRight: 300 }}
                 />
                 <Typography variant={'subtitle2'}>
-                  {'$' + ((value / 100) * this.props.finalTotal).toFixed(2)}
+                  {'$' +
+                    ((this.state.value / 100) * this.props.finalTotal).toFixed(
+                      2
+                    )}
                 </Typography>
               </ListItem>
               <ListItem>
@@ -138,7 +146,7 @@ class Checkout extends Component<CheckoutProps> {
                 <Typography variant={'subtitle2'} className={classes.totalText}>
                   {'$' +
                     (
-                      (value / 100) * this.props.finalTotal +
+                      (this.state.value / 100) * this.props.finalTotal +
                       this.props.finalTotal +
                       this.props.finalTotal * 0.09
                     ).toFixed(2)}
@@ -176,7 +184,7 @@ class Checkout extends Component<CheckoutProps> {
                   name={'address1'}
                   label={'Address line 1'}
                   fullWidth={true}
-                  autoComplete={'biling address-line1'}
+                  autoComplete={'billing address-line1'}
                 />
               </Grid>
               <Grid item={true} xs={12}>
@@ -186,7 +194,7 @@ class Checkout extends Component<CheckoutProps> {
                   name={'address2'}
                   label={'Address line 2'}
                   fullWidth={true}
-                  autoComplete={'biling address-line2'}
+                  autoComplete={'billing address-line2'}
                 />
               </Grid>
               <Grid item={true} xs={12} sm={6}>
@@ -196,7 +204,7 @@ class Checkout extends Component<CheckoutProps> {
                   name={'city'}
                   label={'City'}
                   fullWidth={true}
-                  autoComplete={'biling address-line2'}
+                  autoComplete={'billing address-line2'}
                 />
               </Grid>
               <Grid item={true} xs={12} sm={6}>
