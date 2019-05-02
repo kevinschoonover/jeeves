@@ -113,8 +113,13 @@ def update_eta():
     import time
     url_order = base_url+"orders"
     r = requests.get(url_order)
+    all_orders = []
     for order in r.json():
-        if order['prepStatus'] == 'prep' or order['prepStatus'] == 'cook':
+        if order['prepStatus'] != 'done':
+            all_orders.append(order)
+    all_orders = sorted(all_orders, key=lambda o: o['start'])
+    for i, order in enumerate(all_orders):
+        if order['prepStatus'] != 'done':
             all_times = []
             numItems = len(order['menuItems'])
             for item in order['menuItems']:
@@ -125,7 +130,7 @@ def update_eta():
             ch = int(time.ctime().split(":")[0][-2:])
             cm = int(time.ctime().split(":")[1])
             cs = int(time.ctime().split(":")[2][:2])
-            eta = -ch*60-cm+sum(sorted(all_times)[-numItems//3:])+sh*60+sm
+            eta = -ch*60-cm+sum(sorted(all_times)[-numItems//3:])+sh*60+sm+10*i
             order = {'id': order['id'], 'orderETA': eta}
             r = requests.post(url_order, json=order)
 

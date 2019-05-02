@@ -24,6 +24,7 @@ import {
   IsArray,
   IsDate,
 } from 'class-validator';
+import { Order } from './Order';
 
 @Entity()
 export class Account extends BaseEntity {
@@ -89,6 +90,11 @@ export class Account extends BaseEntity {
   @IsArray()
   @IsOptional()
   public reviews: Review[];
+
+  @OneToMany((type) => Order, (order) => order.cookAssigned)
+  @IsArray()
+  @IsOptional()
+  public orders: Order[];
 
   @ManyToMany((type) => Restaurant, (restaurant) => restaurant.managers)
   @IsArray()

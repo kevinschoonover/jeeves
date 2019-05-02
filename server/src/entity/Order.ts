@@ -20,6 +20,7 @@ import {
   ValidateNested,
   IsString,
 } from 'class-validator';
+import { Account } from './Account';
 
 export enum orderStatus {
   RECEIVE = 'receive',
@@ -57,13 +58,12 @@ export class Order extends BaseEntity {
   @IsDate()
   public end: Date;
 
-  @Column()
-  @ValidateNested()
-  public cookAssigned: Account;
-
-  @Column()
+  @Column({ nullable: true })
   @IsString()
   public comments: string;
+
+  @ManyToOne((type) => Account, (account) => account.orders)
+  public cookAssigned: Account;
 
   @ManyToOne((type) => Shift, (shift) => shift.orders)
   public shift: Shift;
