@@ -3,6 +3,10 @@ from jeeves_api_config import ApiRoutes, DEMO_MODE
 from section import Section
 from table import Table
 from reservation import Reservation
+from account import Account
+from shift import Shift
+from visit import Visit
+from order import Status, Order
 
 DEFAULT_TEST_UUID = '37ec8893-46d1-4fa8-9631-e3f60e5d0f8f'
 
@@ -24,3 +28,15 @@ class Restaurant(IEntity):
             print(table.post())
             reservation = Reservation(table.table_id, id)
             print(reservation.post())
+            account = Account()
+            print(account.post())
+            shift = Shift(None, section.id)
+            print(shift.post())
+            visit = Visit(shift.id, id)
+            print(visit.post())
+            order = Order(Status.COOK, 10, account.id,
+                          'Steak was undercooked last time.', shift.id, visit.id)
+            print(order.post())
+            order_two = Order(Status.PREP, 30, account.id,
+                              'Less pie flavor please.', shift.id, visit.id)
+            print(order_two.post())

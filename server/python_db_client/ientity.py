@@ -51,6 +51,9 @@ class IEntity():
             self._json[attr] = str(self._json[attr])
 
         json_response = make_post(self.url, self.json)
+        print('response:', json_response)
+        if ('id' in json_response):
+            self._id = json_response['id']
         return self._check_for_error(json_response)
 
     def get(self):
