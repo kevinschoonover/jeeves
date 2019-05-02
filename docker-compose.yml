@@ -32,8 +32,7 @@ services:
     ports:
       - '5000:5000'
     volumes:
-      - ./recommender/:/recommender
-      - ./recommender/celery_app/:/server
+      - ./recommender/:/server
     depends_on:
       - web
   web:
