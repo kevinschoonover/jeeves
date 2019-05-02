@@ -129,6 +129,16 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
   const [success, setSuccess] = React.useState(false);
   const { restaurant } = useSeatingData();
 
+  // Return the form state back to normal after submitting
+  React.useEffect(() => {
+    const successTimeout = setTimeout(() => {
+      if (success) {
+        resetForm();
+      }
+    }, 2000);
+    return () => clearTimeout(successTimeout);
+  }, [success]);
+
   const availableReservationSlots = table
     ? getAvailableReservationSlots(
         table.reservations.map(({ startTime }) => new Date(startTime)),
@@ -139,6 +149,15 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
   const [time, setTime] = React.useState(
     availableReservationSlots.length > 0 ? availableReservationSlots[0] : ''
   );
+
+  const resetForm = () => {
+    setDate(new Date());
+    setPartySize(1);
+    setTime(
+      availableReservationSlots.length > 0 ? availableReservationSlots[0] : ''
+    );
+    setSuccess(false);
+  };
 
   const disabled = table === null || isLoading;
 
