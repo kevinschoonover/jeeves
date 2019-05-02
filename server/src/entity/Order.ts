@@ -1,25 +1,26 @@
 import {
   BaseEntity,
+  Column,
+  CreateDateColumn,
   Entity,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
-  JoinTable,
-  Column,
-  CreateDateColumn,
 } from 'typeorm';
 
-import { MenuItem } from './MenuItem';
-import { Shift } from './Shift';
-import { Visit } from './Visit';
 import {
   IsBoolean,
   IsDate,
   IsEnum,
   IsNumber,
-  ValidateNested,
   IsString,
+  ValidateNested,
 } from 'class-validator';
+import { Account } from './Account';
+import { MenuItem } from './MenuItem';
+import { Shift } from './Shift';
+import { Visit } from './Visit';
 
 export enum orderStatus {
   RECEIVE = 'receive',
@@ -57,7 +58,7 @@ export class Order extends BaseEntity {
   @IsDate()
   public end: Date;
 
-  @Column()
+  @ManyToOne((type) => Account, (account) => account.assignedOrders)
   @ValidateNested()
   public cookAssigned: Account;
 

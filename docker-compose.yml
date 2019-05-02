@@ -19,6 +19,8 @@ services:
     environment:
       - API_HOST=web
       - API_PORT=3000
+    depends_on:
+      - web
   redis:
     image: 'redis:alpine'
     ports:
@@ -32,6 +34,8 @@ services:
     volumes:
       - ./recommender/:/recommender
       - ./recommender/celery_app/:/server
+    depends_on:
+      - web
   web:
     build:
       context: ./server
