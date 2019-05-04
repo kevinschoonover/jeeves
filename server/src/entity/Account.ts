@@ -3,26 +3,29 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+import {
+  IsArray,
+  IsBoolean,
+  IsDate,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import { Order } from './Order';
+import { Reservation } from './Reservation';
+import { Restaurant } from './Restaurant';
+import { Review } from './Review';
 import { Service } from './Service';
 import { Shift } from './Shift';
 import { Transaction } from './Transaction';
 import { Visit } from './Visit';
-import { Restaurant } from './Restaurant';
-import { Reservation } from './Reservation';
-import { Review } from './Review';
-import {
-  IsOptional,
-  IsString,
-  IsBoolean,
-  IsArray,
-  IsDate,
-} from 'class-validator';
 
 @Entity()
 export class Account extends BaseEntity {
@@ -68,6 +71,10 @@ export class Account extends BaseEntity {
   @IsArray()
   public shifts: Shift[];
 
+  @OneToMany((type) => Order, (order) => order.cookAssigned)
+  @ValidateNested()
+  public assignedOrders: Order[];
+
   @ManyToOne((type) => Transaction, (transaction) => transaction.user)
   @IsArray()
   @IsOptional()
@@ -79,6 +86,7 @@ export class Account extends BaseEntity {
   public services: Service[];
 
   @ManyToMany((type) => Visit, (visit) => visit.users)
+  @JoinTable()
   @IsArray()
   @IsOptional()
   public visits: Visit[];

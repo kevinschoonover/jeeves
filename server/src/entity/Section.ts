@@ -36,6 +36,7 @@ export class Section extends BaseEntity {
   public tables: Table[];
 
   @ManyToMany((type) => Shift, (shift) => shift.sections)
+  @JoinTable()
   @IsArray()
   public shifts: Shift[];
 }

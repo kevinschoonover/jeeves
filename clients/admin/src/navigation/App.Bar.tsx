@@ -20,8 +20,8 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { Alert } from '../state/Alert';
 import { AlertDialog } from '../alert/Alert';
 import SpinnerDialog from '../spinner/Spinner';
-import { AccountPage } from '../pages/account/Account';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+
 import { actions as AccountActionCreators } from '../data/account';
 import { actions as MenuActionCreators } from '../data/menu';
 import { actions as MailActionCreators } from '../data/mail';
@@ -32,8 +32,15 @@ import { actions as InventoryItemsActionCreators } from '../data/inventoryItem';
 import { actions as MenuItemsActionCreators } from '../data/menuItem';
 import { actions as SectionActionCreators } from '../data/section';
 import { actions as TableActionCreators } from '../data/table';
+import { actions as OrderActionCreators } from '../data/order';
+import { actions as ReviewActionCreators } from '../data/review';
+import { actions as ServiceActionCreators } from '../data/service';
+import { actions as ShiftActionCreators } from '../data/shift';
+import { actions as TransactionActionCreators } from '../data/transaction';
+import { actions as VisitActionCreators } from '../data/visit';
 // HERE: add
 
+import { AccountPage } from '../pages/account/Account';
 import { Index as RestaurantIndex } from '../pages/restaurant/Index';
 import { Index as AccountIndex } from '../pages/account/Index';
 import { Index as MenuIndex } from '../pages/menu/Index';
@@ -42,11 +49,17 @@ import { Index as InventoryItemIndex } from '../pages/inventoryItem/Index';
 import { Index as MenuItemIndex } from '../pages/menuItem/Index';
 import { Index as SectionIndex } from '../pages/section/Index';
 import { Index as TableIndex } from '../pages/table/Index';
+
+import { Index as OrderIndex } from '../pages/order/Index';
+import { Index as ReviewIndex } from '../pages/review/Index';
+import { Index as ServiceIndex } from '../pages/service/Index';
+import { Index as ShiftIndex } from '../pages/shift/Index';
+import { Index as TransactionIndex } from '../pages/transaction/Index';
+import { Index as VisitIndex } from '../pages/visit/Index';
+
 // HERE: add
 
-import {
-  getRestaurantItems,
-} from '../selectors';
+import { getRestaurantItems } from '../selectors';
 import AppDrawer from './App.Drawer';
 import NotificationIcon from '@material-ui/icons/Notifications';
 //#endregion
@@ -76,6 +89,12 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
     this.props.fetchMenuItems();
     this.props.fetchSections();
     this.props.fetchTables();
+    this.props.fetchOrders();
+    this.props.fetchReviews();
+    this.props.fetchServices();
+    this.props.fetchShifts();
+    this.props.fetchTransactions();
+    this.props.fetchVisits();
     // HERE: add
   }
 
@@ -297,68 +316,73 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         return (
           <RestaurantIndex
             createItem={this.props.createRestaurant}
-            deleteItem={this.props.deleteRestaurant} 
+            deleteItem={this.props.deleteRestaurant}
             items={this.props.restaurants}
           />
         );
       }
     );
 
-  const AccountsBoard = isAuthenticated(
+    const AccountsBoard = isAuthenticated(
       (props: any): any => {
         return (
           <AccountIndex
             createItem={this.props.createAccount}
-            deleteItem={this.props.deleteAccount} 
+            deleteItem={this.props.deleteAccount}
             items={this.props.accounts}
           />
         );
       }
     );
 
-  const MenusBoard = isAuthenticated(
+    const MenusBoard = isAuthenticated(
       (props: any): any => {
         return (
           <MenuIndex
             createItem={this.props.createMenu}
-            deleteItem={this.props.deleteMenu} 
+            deleteItem={this.props.deleteMenu}
             items={this.props.menus}
+            restaurants={this.props.restaurants}
           />
         );
       }
     );
 
-  const ReservationsBoard = isAuthenticated(
+    const ReservationsBoard = isAuthenticated(
       (props: any): any => {
         return (
           <ReservationIndex
             createItem={this.props.createReservation}
-            deleteItem={this.props.deleteReservation} 
+            deleteItem={this.props.deleteReservation}
             items={this.props.reservations}
+            tables={this.props.tables}
+            restaurants={this.props.restaurants}
           />
         );
       }
     );
 
-  const InventoryItemsBoard = isAuthenticated(
+    const InventoryItemsBoard = isAuthenticated(
       (props: any): any => {
         return (
           <InventoryItemIndex
             createItem={this.props.createInventoryItem}
-            deleteItem={this.props.deleteInventoryItem} 
+            deleteItem={this.props.deleteInventoryItem}
             items={this.props.inventoryItems}
+            menuItems={this.props.menuItems}
           />
         );
       }
     );
 
-  const MenuItemsBoard = isAuthenticated(
+    const MenuItemsBoard = isAuthenticated(
       (props: any): any => {
         return (
           <MenuItemIndex
             createItem={this.props.createMenuItem}
-            deleteItem={this.props.deleteMenuItem} 
+            deleteItem={this.props.deleteMenuItem}
             items={this.props.menuItems}
+            menus={this.props.menus}
           />
         );
       }
@@ -369,8 +393,9 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         return (
           <SectionIndex
             createItem={this.props.createSection}
-            deleteItem={this.props.deleteSection} 
+            deleteItem={this.props.deleteSection}
             items={this.props.sections}
+            restaurants={this.props.restaurants}
           />
         );
       }
@@ -381,8 +406,94 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         return (
           <TableIndex
             createItem={this.props.createTable}
-            deleteItem={this.props.deleteTable} 
+            deleteItem={this.props.deleteTable}
             items={this.props.tables}
+            sections={this.props.sections}
+          />
+        );
+      }
+    );
+
+    const OrderBoard = isAuthenticated(
+      (props: any): any => {
+        return (
+          <OrderIndex
+            createItem={this.props.createOrder}
+            deleteItem={this.props.deleteOrder}
+            items={this.props.orders}
+            menuItems={this.props.menuItems}
+          />
+        );
+      }
+    );
+
+    const ReviewBoard = isAuthenticated(
+      (props: any): any => {
+        return (
+          <ReviewIndex
+            createItem={this.props.createReview}
+            deleteItem={this.props.deleteReview}
+            items={this.props.reviews}
+            restaurants={this.props.restaurants}
+            menuItems={this.props.menuItems}
+            accounts={this.props.accounts}
+          />
+        );
+      }
+    );
+
+    const ServiceBoard = isAuthenticated(
+      (props: any): any => {
+        return (
+          <ServiceIndex
+            createItem={this.props.createService}
+            deleteItem={this.props.deleteService}
+            items={this.props.services}
+            accounts={this.props.accounts}
+            tables={this.props.tables}
+          />
+        );
+      }
+    );
+
+    const ShiftBoard = isAuthenticated(
+      (props: any): any => {
+        return (
+          <ShiftIndex
+            createItem={this.props.createShift}
+            deleteItem={this.props.deleteShift}
+            items={this.props.shifts}
+            accounts={this.props.accounts}
+            sections={this.props.sections}
+          />
+        );
+      }
+    );
+
+    const TransactionBoard = isAuthenticated(
+      (props: any): any => {
+        return (
+          <TransactionIndex
+            createItem={this.props.createTransaction}
+            deleteItem={this.props.deleteTransaction}
+            items={this.props.transactions}
+            accounts={this.props.accounts}
+            visits={this.props.visits}
+          />
+        );
+      }
+    );
+
+    const VisitBoard = isAuthenticated(
+      (props: any): any => {
+        return (
+          <VisitIndex
+            createItem={this.props.createVisit}
+            deleteItem={this.props.deleteVisit}
+            items={this.props.visits}
+            accounts={this.props.accounts}
+            restaurants={this.props.restaurants}
+            shifts={this.props.shifts}
           />
         );
       }
@@ -405,6 +516,12 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
           <Route path="/inventoryItems" component={InventoryItemsBoard} />
           <Route path="/sections" component={SectionBoard} />
           <Route path="/tables" component={TableBoard} />
+          <Route path="/orders" component={OrderBoard} />
+          <Route path="/reviews" component={ReviewBoard} />
+          <Route path="/services" component={ServiceBoard} />
+          <Route path="/shifts" component={ShiftBoard} />
+          <Route path="/transactions" component={TransactionBoard} />
+          <Route path="/visits" component={VisitBoard} />
           <Route path="/account" render={this.renderAccount} />
           {this.renderAlert()}
           {this.renderSpinner()}
@@ -428,6 +545,12 @@ const mapStateToProps = (state: IAppState) => ({
   menuItems: state.menuItems.items,
   sections: state.sections.items,
   tables: state.tables.items,
+  orders: state.orders.items,
+  reviews: state.reviews.items,
+  services: state.services.items,
+  shifts: state.shifts.items,
+  transactions: state.transactions.items,
+  visits: state.visits.items,
   // HERE: add
 });
 
@@ -446,6 +569,12 @@ const mapDispatchtoProps = (dispatch: Dispatch) =>
       MenuItemsActionCreators,
       SectionActionCreators,
       TableActionCreators,
+      OrderActionCreators,
+      ReviewActionCreators,
+      ServiceActionCreators,
+      ShiftActionCreators,
+      TransactionActionCreators,
+      VisitActionCreators
       // HERE: add
     ),
     dispatch

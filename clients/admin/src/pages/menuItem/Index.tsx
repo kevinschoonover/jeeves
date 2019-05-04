@@ -10,24 +10,20 @@ interface IIndexProps {
   items: any[];
   createItem: (context: any) => any;
   deleteItem: (context: any) => any;
+  menus: any[];
 }
 
-export class Index extends React.Component<IIndexProps, {}> { 
+export class Index extends React.Component<IIndexProps, {}> {
   public render(): JSX.Element {
     const Catalog = () => {
       return (
-        <Page
-          items={this.props.items}
-          deleteItem={this.props.deleteItem}
-        />
+        <Page items={this.props.items} deleteItem={this.props.deleteItem} />
       );
     };
 
     const CreationForm = () => {
-      return ( 
-        <Form
-          createItem={this.props.createItem}
-        />
+      return (
+        <Form createItem={this.props.createItem} menus={this.props.menus} />
       );
     };
 

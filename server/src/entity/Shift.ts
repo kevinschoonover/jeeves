@@ -30,17 +30,13 @@ export class Shift extends BaseEntity {
   @IsDate()
   public endTime: Date;
 
-  @OneToMany((type) => Order, (order) => order.shift)
-  @IsArray()
-  public orders: Order[];
-
   @ManyToOne((type) => Account, (account) => account.shifts)
   @ValidateNested()
   public server: Account;
 
-  @ManyToOne((type) => Section, (section) => section.tables)
-  @ValidateNested()
-  public section: Section;
+  @OneToMany((type) => Order, (order) => order.shift)
+  @IsArray()
+  public orders: Order[];
 
   @OneToMany((type) => Visit, (visit) => visit.assignee)
   @IsArray()
@@ -48,5 +44,4 @@ export class Shift extends BaseEntity {
 
   @ManyToMany((type) => Section, (section) => section.shifts)
   public sections: Section[];
-
 }

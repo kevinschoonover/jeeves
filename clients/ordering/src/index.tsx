@@ -10,16 +10,19 @@ import * as serviceWorker from './serviceWorker';
 import cartReducer from './components/reducers/cartReducer';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import { StripeProvider } from 'react-stripe-elements';
 
 const store = createStore(cartReducer);
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
+    <StripeProvider apiKey="pk_test_12345">
+      <BrowserRouter>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </BrowserRouter>
+    </StripeProvider>
   </ThemeProvider>,
   document.getElementById('root')
 );

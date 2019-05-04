@@ -1,5 +1,5 @@
 import React from 'react';
-import { Theme, createStyles, WithStyles } from '@material-ui/core';
+import { Theme, createStyles, WithStyles, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import MenuCard from './card';
 import menucards from './menucards';
@@ -18,15 +18,14 @@ const Starters: React.FC<Props> = ({ classes }) => {
 
   return (
     <div>
-      <h1>Starters</h1>
+      <Typography variant="h4" gutterBottom={true} component="h2">
+        Starters
+      </Typography>
       <Grid
         container={true}
         spacing={32}
         alignItems={'center'}
         justify={'space-evenly'}
-        style={{
-          backgroundColor: 'tan',
-        }}
       >
         {starters.map((menucard) => (
           <MenuCard key={menucard.id} {...menucard} />

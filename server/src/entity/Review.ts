@@ -1,28 +1,27 @@
 import {
   BaseEntity,
   Column,
-  Entity,
   CreateDateColumn,
+  Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Account } from './Account';
-import { Restaurant } from './Restaurant';
-import { MenuItem } from './MenuItem';
 import {
-  IsUUID,
   IsDate,
   IsNumber,
   IsString,
+  IsUUID,
   ValidateNested,
 } from 'class-validator';
+import { Account } from './Account';
+import { MenuItem } from './MenuItem';
+import { Restaurant } from './Restaurant';
 
 @Entity()
 export class Review extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  @IsUUID()
-  public id: string;
+  @PrimaryGeneratedColumn()
+  public id: number;
 
   @CreateDateColumn()
   @IsDate()

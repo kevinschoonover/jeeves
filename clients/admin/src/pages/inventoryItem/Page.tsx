@@ -1,8 +1,9 @@
 import * as React from 'react';
-import RestaurantList from '../../components/RestaurantList';
-import { withRouter } from "react-router";
+import InventoryItemCard from '../../components/InventoryItemCard';
+import { withRouter } from 'react-router';
 import { Typography, Theme, withStyles } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
+import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
 
 interface IPageProps {
@@ -23,8 +24,26 @@ class Page extends React.Component<IPageProps, {}> {
             Inventory Items
           </Typography>
         </div>
-        <RestaurantList {...this.props} />
-        <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.props.history.push("/inventoryItems/create")}>
+        <Grid container={true} spacing={16}>
+          {this.props.items.map((item: any) => {
+            return (
+              <Grid key={item.id} item={true} xs={3}>
+                <InventoryItemCard
+                  key={item.id}
+                  name={item.name}
+                  quantity={item.quantity}
+                  category={item.category}
+                />
+              </Grid>
+            );
+          })}
+        </Grid>
+        <Fab
+          color="primary"
+          aria-label="Add"
+          className={classes.fab}
+          onClick={() => this.props.history.push('/inventoryItems/create')}
+        >
           <AddIcon />
         </Fab>
       </div>

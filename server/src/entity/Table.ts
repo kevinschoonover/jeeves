@@ -15,6 +15,7 @@ import {
   IsBoolean,
   IsEnum,
   IsNumber,
+  IsString,
   ValidateNested,
 } from 'class-validator';
 
@@ -44,6 +45,10 @@ export class Table extends BaseEntity {
   @Column()
   @IsNumber()
   public seatingCapacity: number;
+
+  @Column()
+  @IsString()
+  public displayName: string;
 
   @Column()
   @IsNumber()

@@ -71,6 +71,48 @@ export interface IApplicationProps {
   createTable: (context: any) => any;
   tables: any[];
 
+  // orders
+  fetchOrders: (context?: any) => any;
+  updateOrder: (context: any) => any;
+  deleteOrder: (context: any) => any;
+  createOrder: (context: any) => any;
+  orders: any[];
+
+  // reviews
+  fetchReviews: (context?: any) => any;
+  updateReview: (context: any) => any;
+  deleteReview: (context: any) => any;
+  createReview: (context: any) => any;
+  reviews: any[];
+
+  // services
+  fetchServices: (context?: any) => any;
+  updateService: (context: any) => any;
+  deleteService: (context: any) => any;
+  createService: (context: any) => any;
+  services: any[];
+
+  // shifts
+  fetchShifts: (context?: any) => any;
+  updateShift: (context: any) => any;
+  deleteShift: (context: any) => any;
+  createShift: (context: any) => any;
+  shifts: any[];
+
+  // transactions
+  fetchTransactions: (context?: any) => any;
+  updateTransaction: (context: any) => any;
+  deleteTransaction: (context: any) => any;
+  createTransaction: (context: any) => any;
+  transactions: any[];
+
+  // visits
+  fetchVisits: (context?: any) => any;
+  updateVisit: (context: any) => any;
+  deleteVisit: (context: any) => any;
+  createVisit: (context: any) => any;
+  visits: any[];
+
   // HERE: add
   match: match<any>;
   location: any;
