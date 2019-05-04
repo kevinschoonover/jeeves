@@ -8,7 +8,7 @@ export interface IJeevesContext {
 const jeevesAxiosInstance = axios.create({
   baseURL:
     process.env.NODE_ENV !== 'production'
-      ? 'http://localhost:80/api/v1'
+      ? process.env.REACT_APP_JEEVES_DEV
       : (() => {
           throw new Error('No Jeeves API endpoint set for production!');
         })(),
