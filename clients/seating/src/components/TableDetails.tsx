@@ -7,8 +7,8 @@ import {
   Theme,
   Button,
 } from '@material-ui/core';
-import { Table } from '../mocks';
 import StatusBadge from './StatusBadge';
+import { ITable } from '../types';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -28,7 +28,7 @@ const styles = (theme: Theme) =>
   });
 
 interface TableDetailsProps extends WithStyles<typeof styles> {
-  table: Table | null;
+  table: ITable | null;
   onReserveClick(): void;
 }
 

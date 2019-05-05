@@ -4,17 +4,24 @@ import {
   MuiThemeProvider as ThemeProvider,
   CssBaseline,
 } from '@material-ui/core';
-import { theme } from '@jeeves/common';
+import { theme, JeevesProvider } from '@jeeves/common';
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { SeatingProvider } from './components/SeatingProvider';
+
+const restaurantId = '37ec8893-46d1-4fa8-9631-e3f60e5d0f8f';
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <App />
-  </ThemeProvider>,
+  <JeevesProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <SeatingProvider restaurantId={restaurantId}>
+        <App />
+      </SeatingProvider>
+    </ThemeProvider>
+  </JeevesProvider>,
   document.getElementById('root')
 );
 

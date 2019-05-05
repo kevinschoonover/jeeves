@@ -7,7 +7,7 @@ import {
   LinearProgress,
 } from '@material-ui/core';
 import Table from './Table';
-import { Section } from '../mocks';
+import { SectionsEntity } from '../types';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -21,7 +21,7 @@ const styles = (theme: Theme) =>
 
 export interface LayoutProps extends WithStyles<typeof styles> {
   yOffset: number;
-  sections: Section[];
+  sections: SectionsEntity[];
   isLoading: boolean;
   setSelectedTable: (tableId: number) => () => void;
   selectedTable: number | null;
@@ -53,20 +53,13 @@ const Layout: React.FC<LayoutProps> = ({
   return (
     <svg id="layout" className={classes.container} width="100%" height="100%">
       {sections.map((section) => (
-        <React.Fragment key={section.sectionId}>
+        <React.Fragment key={section.id}>
           {section.tables.map((table) => (
             <Table
               key={table.id}
               isSelected={selectedTable === table.id}
               onTableClick={setSelectedTable(table.id)}
-              rotation={table.rotation}
-              shape={table.shape}
-              details={{
-                seatingCapacity: table.seatingCapacity,
-                status: table.status,
-                x: table.x,
-                y: table.y,
-              }}
+              table={table}
             >
               {table.id}
             </Table>
