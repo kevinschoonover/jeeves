@@ -1,6 +1,5 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-import Card from '@material-ui/core/Card';
 
 const initialState: any = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -63,11 +62,7 @@ class Graph extends React.Component<{}, { datasets: any[]; labels: any[] }> {
   }
 
   public render() {
-    return (
-      <Card style={{ minHeight: '50vh' }}>
-        <Line data={this.state} options={options} />
-      </Card>
-    );
+    return <Line data={this.state} options={options} />;
   }
 }
 

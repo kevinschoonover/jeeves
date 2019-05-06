@@ -18,6 +18,7 @@ import VisitIcon from '@material-ui/icons/SentimentSatisfied';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import RateReviewIcon from '@material-ui/icons/RateReview';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 
 import {
   Drawer,
@@ -47,19 +48,40 @@ interface IAppDrawer {
 
 class AppDrawer extends React.Component<IAppDrawer, {}> {
   public routes = [
-    { path: '/restaurants', title: 'Restaurants', icon: () => <RestaurantIcon /> },
+    {
+      path: '/',
+      title: 'Dashboard',
+      icon: () => <DashboardIcon />,
+    },
+    {
+      path: '/restaurants',
+      title: 'Restaurants',
+      icon: () => <RestaurantIcon />,
+    },
     { path: '/accounts', title: 'Accounts', icon: () => <AccountCircleIcon /> },
     { path: '/menus', title: 'Menus', icon: () => <RestaurantMenuIcon /> },
-    { path: '/menuItems', title: 'Menu Items', icon: () => <ShoppingCartIcon /> },
+    {
+      path: '/menuItems',
+      title: 'Menu Items',
+      icon: () => <ShoppingCartIcon />,
+    },
     { path: '/reservations', title: 'Reservations', icon: () => <EventIcon /> },
-    { path: '/inventoryItems', title: 'Inventory Items', icon: () => <FastFoodIcon /> },
+    {
+      path: '/inventoryItems',
+      title: 'Inventory Items',
+      icon: () => <FastFoodIcon />,
+    },
     { path: '/sections', title: 'Sections', icon: () => <TableChartIcon /> },
     { path: '/tables', title: 'Tables', icon: () => <EventSeatIcon /> },
     { path: '/orders', title: 'Orders', icon: () => <AttachMoneyIcon /> },
     { path: '/reviews', title: 'Reviews', icon: () => <RateReviewIcon /> },
     { path: '/services', title: 'Services', icon: () => <AccessibilityIcon /> },
     { path: '/shifts', title: 'Shifts', icon: () => <PersonAddIcon /> },
-    { path: '/transactions', title: 'Transactions', icon: () => <PaymentIcon /> },
+    {
+      path: '/transactions',
+      title: 'Transactions',
+      icon: () => <PaymentIcon />,
+    },
     { path: '/visits', title: 'Visits', icon: () => <VisitIcon /> },
     // HERE: add
   ];
