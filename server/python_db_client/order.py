@@ -15,12 +15,12 @@ class Order(IEntity):
     id = 0
 
     def __init__(self,
-                 status,
-                 eta,
-                 cook,
-                 comments,
-                 shift,
-                 visit,
+                 status=Status.RECEIVE,
+                 eta=10,
+                 cook=1,
+                 comments='Terrible restaurant.',
+                 shift=1,
+                 visit=1,
                  start_time=datetime.datetime.now().isoformat(),
                  end_time=datetime.datetime.now().isoformat(),
                  id=None):

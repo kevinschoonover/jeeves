@@ -5,7 +5,10 @@ from account import Account
 
 
 class Shift(IEntity):
-    def __init__(self, server, section, start_time=datetime.datetime.now().isoformat(),
+    def __init__(self,
+                 server=1,
+                 section=1,
+                 start_time=datetime.datetime.now().isoformat(),
                  end_time=datetime.datetime.now().isoformat(),
                  id=None):
         super().__init__(False, id)
