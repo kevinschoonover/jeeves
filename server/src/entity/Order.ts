@@ -62,7 +62,7 @@ export class Order extends BaseEntity {
   @ValidateNested()
   public cookAssigned: Account;
 
-  @Column()
+  @Column({ nullable: true })
   @IsString()
   public comments: string;
 
