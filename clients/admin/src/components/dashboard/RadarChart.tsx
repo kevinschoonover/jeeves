@@ -83,7 +83,7 @@ class Graph extends React.Component<{ title: string }, typeof data> {
     }, 5000);
   }
 
-  public componentWillUpdate() {
+  public componentWillUnmount() {
     if (this.interval) {
       clearInterval(this.interval);
     }
