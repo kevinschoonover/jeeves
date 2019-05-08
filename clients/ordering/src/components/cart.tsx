@@ -11,6 +11,7 @@ import {
   withStyles,
   createStyles,
   WithStyles,
+  TextField,
 } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -49,15 +50,33 @@ const styles = (theme: Theme) =>
       textAlign: 'center',
       verticalAlign: 'middle',
     },
+    textField: {
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
+    },
   });
 
 interface CartProps extends WithStyles<typeof styles> {
   addedItems: any[];
   boughtItems: any[];
   total: number;
+  specialRequests: any[];
 }
 
-class Cart extends Component<CartProps> {
+interface CartState {
+  request: string;
+}
+
+class Cart extends Component<CartProps, CartState> {
+  constructor(props: CartProps) {
+    super(props);
+    this.state = { request: '' };
+  }
+
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ request: event.target.value });
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -122,12 +141,22 @@ class Cart extends Component<CartProps> {
               {'$' + (this.props.total + this.props.total * 0.09).toFixed(2)}
             </Typography>
           </ListItem>
+          <ListItem>
+            <TextField
+              label="Special Requests"
+              className={classes.textField}
+              value={this.state.request}
+              onChange={this.handleChange}
+              fullWidth={true}
+            />
+          </ListItem>
           <Link to="/orders" style={{ textDecoration: 'none' }}>
             <Button
               className={classes.button}
               onClick={() =>
                 (this.props as any).dispatch({
                   type: 'ADD_ORDER',
+                  request: this.state.request,
                   // tslint:disable-next-line:object-literal-shorthand
                 })
               }
@@ -146,6 +175,7 @@ const mapStateToProps = (state: CartProps) => {
     addedItems: state.addedItems,
     boughtItems: state.boughtItems,
     total: state.total,
+    specialRequests: state.specialRequests,
   };
 };
 

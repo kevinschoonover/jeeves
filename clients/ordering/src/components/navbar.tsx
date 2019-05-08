@@ -19,6 +19,7 @@ import { yellow, purple, teal } from '@material-ui/core/colors';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import Cart from './cart';
 import menuNavItems from './menunav';
+import Service from './service';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -97,16 +98,6 @@ const styles = (theme: Theme) =>
       textAlign: 'center',
       verticalAlign: 'middle',
     },
-    paper: {
-      position: 'absolute',
-      width: theme.spacing.unit * 50,
-      backgroundColor: theme.palette.background.paper,
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing.unit * 4,
-      outline: 'none',
-      marginTop: 100,
-      marginLeft: 700,
-    },
     service: {
       position: 'relative',
       justifyContent: 'center',
@@ -168,10 +159,8 @@ const Navbar: React.FC<NavbarProps> = React.forwardRef<Ref, NavbarProps>(
                 open={modalOpen}
                 onClose={() => setModal((prevOpen) => !prevOpen)}
               >
-                <div className={classes.paper}>
-                  <Typography variant={'h6'} id="modal-title">
-                    Service options
-                  </Typography>
+                <div>
+                  <Service />
                 </div>
               </Modal>
             </div>
