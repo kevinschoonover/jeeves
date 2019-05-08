@@ -1,7 +1,7 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 
-const initialState: any = {
+const data: any = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
     {
@@ -54,12 +54,15 @@ const options = {
 };
 
 class Graph extends React.Component<{}, { datasets: any[]; labels: any[] }> {
-  public componentWillMount() {
-    this.setState(initialState);
-  }
+  public state: typeof data = {
+    datasets: data.datasets,
+    labels: data.labels,
+  };
+
+  public interval: NodeJS.Timeout;
 
   public componentDidMount() {
-    setInterval(() => {
+    this.interval = setInterval(() => {
       for (let i = 0; i < this.state.datasets.length; i++) {
         const oldDataSet = this.state.datasets[i];
         const newData = [];
@@ -77,13 +80,19 @@ class Graph extends React.Component<{}, { datasets: any[]; labels: any[] }> {
         datasets[i] = newDataSet;
 
         const newState = {
-          ...initialState,
+          ...data,
           datasets,
         };
 
         this.setState(newState);
       }
     }, 5000);
+  }
+
+  public componentWillUnmount() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
   }
 
   public render() {

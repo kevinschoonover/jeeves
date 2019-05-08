@@ -47,16 +47,16 @@ const options = {
   maintainAspectRatio: false,
 };
 
-class Graph extends React.Component<
-  { title: string },
-  { datasets: any[]; labels: any[] }
-> {
-  public componentWillMount() {
-    this.setState(data);
-  }
+class Graph extends React.Component<{ title: string }, typeof data> {
+  public state: typeof data = {
+    datasets: data.datasets,
+    labels: data.labels,
+  };
+
+  public interval: NodeJS.Timeout;
 
   public componentDidMount() {
-    setInterval(() => {
+    this.interval = setInterval(() => {
       for (let i = 0; i < this.state.datasets.length; i++) {
         const oldDataSet = this.state.datasets[i];
         const newData = [];
@@ -81,6 +81,12 @@ class Graph extends React.Component<
         this.setState(newState);
       }
     }, 5000);
+  }
+
+  public componentWillUpdate() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
   }
 
   public render() {

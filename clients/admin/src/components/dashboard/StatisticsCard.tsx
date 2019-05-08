@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -11,18 +10,19 @@ interface ICardProps {
   content: string;
 }
 
-const styles = {
-  card: {
-    minHeight: 100,
-    minWidth: 180,
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-};
+const styles = (theme: Theme) =>
+  createStyles({
+    card: {
+      minHeight: 100,
+      minWidth: 180,
+    },
+    title: {
+      fontSize: 14,
+    },
+    pos: {
+      marginBottom: 12,
+    },
+  });
 
 function SimpleCard(props: ICardProps) {
   const { classes } = props;
@@ -44,9 +44,5 @@ function SimpleCard(props: ICardProps) {
     </Card>
   );
 }
-
-SimpleCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(SimpleCard);
