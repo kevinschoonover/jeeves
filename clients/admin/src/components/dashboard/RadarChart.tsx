@@ -3,34 +3,42 @@ import { Radar } from 'react-chartjs-2';
 
 const data = {
   labels: [
-    'Eating',
-    'Drinking',
-    'Sleeping',
-    'Designing',
-    'Coding',
-    'Cycling',
-    'Running',
+    'Starter',
+    'Soup',
+    'Burger',
+    'Sandwich',
+    'Snack',
+    'Dessert',
+    'Beverage',
+    'Side',
+    'Alcohol',
+    'Appetizer',
+    'Entree',
+    'Seafood',
+    'Vegetarian',
+    'Kids',
+    'Unknown',
   ],
   datasets: [
     {
-      label: 'My First dataset',
+      label: 'Restaurant 1',
       backgroundColor: 'rgba(179,181,198,0.2)',
       borderColor: 'rgba(179,181,198,1)',
       pointBackgroundColor: 'rgba(179,181,198,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(179,181,198,1)',
-      data: [65, 59, 90, 81, 56, 55, 40],
+      data: [96, 49, 9, 37, 62, 18, 72, 55, 65, 42, 53, 27, 8, 73, 2],
     },
     {
-      label: 'My Second dataset',
+      label: 'Restaurant 2',
       backgroundColor: 'rgba(255,99,132,0.2)',
       borderColor: 'rgba(255,99,132,1)',
       pointBackgroundColor: 'rgba(255,99,132,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(255,99,132,1)',
-      data: [28, 48, 40, 19, 96, 27, 100],
+      data: [25, 6, 1, 11, 41, 20, 91, 47, 98, 48, 51, 57, 26, 69, 38],
     },
   ],
 };
@@ -39,9 +47,44 @@ const options = {
   maintainAspectRatio: false,
 };
 
-class Graph extends React.Component<{ title: string }, {}> {
+class Graph extends React.Component<
+  { title: string },
+  { datasets: any[]; labels: any[] }
+> {
+  public componentWillMount() {
+    this.setState(data);
+  }
+
+  public componentDidMount() {
+    setInterval(() => {
+      for (let i = 0; i < this.state.datasets.length; i++) {
+        const oldDataSet = this.state.datasets[i];
+        const newData = [];
+        const datasets = this.state.datasets;
+
+        for (const _ of this.state.labels) {
+          newData.push(Math.floor(Math.random() * 100));
+        }
+
+        const newDataSet = {
+          ...oldDataSet,
+        };
+
+        newDataSet.data = newData;
+        datasets[i] = newDataSet;
+
+        const newState = {
+          ...data,
+          datasets,
+        };
+
+        this.setState(newState);
+      }
+    }, 5000);
+  }
+
   public render() {
-    return <Radar data={data} options={options} />;
+    return <Radar data={this.state} options={options} />;
   }
 }
 
