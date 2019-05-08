@@ -4,3 +4,4 @@ export const SUB_QUANTITY = 'SUB_QUANTITY';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const ADD_ORDER = 'ADD_ORDER';
 export const PURCHASE = 'PURCHASE';
+export const ADD_REQUEST = 'ADD_REQUEST';

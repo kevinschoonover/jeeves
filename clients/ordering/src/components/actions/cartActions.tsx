@@ -5,6 +5,7 @@ import {
   REMOVE_ITEM,
   ADD_ORDER,
   PURCHASE,
+  ADD_REQUEST,
 } from './action-types/cart-actions';
 
 export const addToCart = (id: string) => {
@@ -35,14 +36,22 @@ export const removeItem = (id: string) => {
   };
 };
 
-export const addOrder = () => {
+export const addOrder = (request: string) => {
   return {
     type: ADD_ORDER,
+    request,
   };
 };
 
 export const purchase = () => {
   return {
     type: PURCHASE,
+  };
+};
+
+export const addRequest = (request: string) => {
+  return {
+    type: ADD_REQUEST,
+    request,
   };
 };

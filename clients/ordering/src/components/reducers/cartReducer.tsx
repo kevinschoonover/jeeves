@@ -6,6 +6,7 @@ import {
   REMOVE_ITEM,
   ADD_ORDER,
   PURCHASE,
+  ADD_REQUEST,
 } from '../actions/action-types/cart-actions';
 import Entrees from '../entrees';
 
@@ -16,6 +17,7 @@ const initState = {
   boughtItems: [],
   total: 0,
   finalTotal: 0,
+  specialRequests: [],
 };
 
 const cartReducer = (state: any = initState, action: any) => {
@@ -84,15 +86,18 @@ const cartReducer = (state: any = initState, action: any) => {
     if (state.boughtItems.length === 0) {
       const allOrders = state.addedItems;
       const newTotal = state.total;
+      const allRequests = state.specialRequests.concat(action.request);
       return {
         ...state,
         addedItems: [],
         boughtItems: allOrders,
         total: 0,
         finalTotal: newTotal,
+        specialRequests: allRequests,
       };
     } else {
       const allOrders = state.boughtItems.concat(state.addedItems);
+      const allRequests = state.specialRequests.concat(action.request);
       const newTotal = state.finalTotal + state.total;
       return {
         ...state,
@@ -100,8 +105,16 @@ const cartReducer = (state: any = initState, action: any) => {
         boughtItems: allOrders,
         total: 0,
         finalTotal: newTotal,
+        specialRequests: allRequests,
       };
     }
+  }
+  if (action.type === ADD_REQUEST) {
+    const allRequests = state.specialRequests.concat(action.request);
+    return {
+      ...state,
+      specialRequests: allRequests,
+    };
   }
   if (action.type === PURCHASE) {
     return {
@@ -110,6 +123,7 @@ const cartReducer = (state: any = initState, action: any) => {
       boughtItems: [],
       total: 0,
       finalTotal: 0,
+      specialRequests: [],
     };
   } else {
     return {

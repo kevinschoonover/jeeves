@@ -10,6 +10,7 @@ import {
   withStyles,
   createStyles,
   WithStyles,
+  TextField,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -46,6 +47,7 @@ const styles = (theme: Theme) =>
       marginBottom: 25,
       align: 'center',
     },
+    requests: {},
   });
 
 interface OrdersProps extends WithStyles<typeof styles> {
@@ -53,6 +55,7 @@ interface OrdersProps extends WithStyles<typeof styles> {
   boughtItems: any[];
   total: number;
   finalTotal: number;
+  specialRequests: any[];
 }
 
 class Orders extends Component<OrdersProps> {
@@ -79,6 +82,13 @@ class Orders extends Component<OrdersProps> {
               );
             })}
           </List>
+          <TextField
+            variant="outlined"
+            label="Special Requests"
+            value={this.props.specialRequests}
+            fullWidth={true}
+            disabled={true}
+          />
           <Link to="/checkout" style={{ textDecoration: 'none' }}>
             <Button className={classes.button}>Pay</Button>
           </Link>
@@ -93,6 +103,7 @@ const mapStateToProps = (state: OrdersProps) => {
     addedItems: state.addedItems,
     boughtItems: state.boughtItems,
     total: state.total,
+    specialRequests: state.specialRequests,
   };
 };
 
