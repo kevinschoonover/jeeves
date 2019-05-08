@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Menu, MenuItem, Badge } from '@material-ui/core';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, withRouter, Switch } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import { styles } from './styles';
 import { IApplicationProps } from '../actions/App.Actions';
@@ -56,6 +56,7 @@ import { Index as ServiceIndex } from '../pages/service/Index';
 import { Index as ShiftIndex } from '../pages/shift/Index';
 import { Index as TransactionIndex } from '../pages/transaction/Index';
 import { Index as VisitIndex } from '../pages/visit/Index';
+import { Index as DashboardIndex } from '../pages/dashboard/Index';
 
 // HERE: add
 
@@ -499,6 +500,12 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
       }
     );
 
+    const Dashboard = isAuthenticated(
+      (props: any): any => {
+        return <DashboardIndex />;
+      }
+    );
+
     // HERE: add
     return (
       <div className={classes.root}>
@@ -507,22 +514,24 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
 
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route path="/" exact={true} component={RestaurantsBoard} />
-          <Route path="/restaurants" component={RestaurantsBoard} />
-          <Route path="/accounts" component={AccountsBoard} />
-          <Route path="/menus" component={MenusBoard} />
-          <Route path="/menuItems" component={MenuItemsBoard} />
-          <Route path="/reservations" component={ReservationsBoard} />
-          <Route path="/inventoryItems" component={InventoryItemsBoard} />
-          <Route path="/sections" component={SectionBoard} />
-          <Route path="/tables" component={TableBoard} />
-          <Route path="/orders" component={OrderBoard} />
-          <Route path="/reviews" component={ReviewBoard} />
-          <Route path="/services" component={ServiceBoard} />
-          <Route path="/shifts" component={ShiftBoard} />
-          <Route path="/transactions" component={TransactionBoard} />
-          <Route path="/visits" component={VisitBoard} />
-          <Route path="/account" render={this.renderAccount} />
+          <Switch>
+            <Route path="/" exact={true} component={Dashboard} />
+            <Route path="/restaurants" component={RestaurantsBoard} />
+            <Route path="/accounts" component={AccountsBoard} />
+            <Route path="/menus" component={MenusBoard} />
+            <Route path="/menuItems" component={MenuItemsBoard} />
+            <Route path="/reservations" component={ReservationsBoard} />
+            <Route path="/inventoryItems" component={InventoryItemsBoard} />
+            <Route path="/sections" component={SectionBoard} />
+            <Route path="/tables" component={TableBoard} />
+            <Route path="/orders" component={OrderBoard} />
+            <Route path="/reviews" component={ReviewBoard} />
+            <Route path="/services" component={ServiceBoard} />
+            <Route path="/shifts" component={ShiftBoard} />
+            <Route path="/transactions" component={TransactionBoard} />
+            <Route path="/visits" component={VisitBoard} />
+            <Route path="/account" render={this.renderAccount} />
+          </Switch>
           {this.renderAlert()}
           {this.renderSpinner()}
         </main>
