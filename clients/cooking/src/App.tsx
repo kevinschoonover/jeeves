@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Button,
   withStyles,
   Theme,
   createStyles,
@@ -23,6 +22,10 @@ const styles = (theme: Theme) =>
     apple: {
       margin: theme.spacing.unit * 3,
     },
+    p: {
+      textAlign: "left",
+      marginLeft: theme.spacing.unit * 9,
+    }
   });
 
 type Props = WithStyles<typeof styles>;
@@ -60,6 +63,7 @@ const App: React.FC<Props> = ({ classes }) => {
     <div className={classes.root}>
       <Navbar innerRef={navbarRef} />
       <h2>Incoming Orders:</h2>
+      <h3 className={classes.p}>Orders in progress: {incomingOrders.length}</h3>
       {(paperComponents === undefined || paperComponents.length === 0)? <p>No incoming orders.</p>: paperComponents}
     </div>
   );

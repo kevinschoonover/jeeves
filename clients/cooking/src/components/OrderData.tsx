@@ -6,6 +6,8 @@ export interface OrderCard {
     items: Items[];
     chefAssigned: string;
     Status: string;
+    addComments: string;
+    orderFinish: string;
 }
 
 export interface Items{
@@ -27,12 +29,14 @@ const order: OrderCard[] = [
                 },
                 {
                     itemName: "Sweet and Sour Chicken",
-                    itemNumber: 4,
+                    itemNumber: 3,
                     quantity: 2, 
                 },
             ],
         chefAssigned: "Gordon",
-        Status: "Received" 
+        Status: "Received",
+        addComments: "Make it spicy", 
+        orderFinish: ''
     },
     {
         id: 2,
@@ -46,7 +50,9 @@ const order: OrderCard[] = [
                 },
             ],
         chefAssigned: "Fabio",
-        Status: "Received" 
+        Status: "Received",
+        addComments: "Less salt", 
+        orderFinish: '' 
     },
     {
         id: 3,
@@ -54,13 +60,8 @@ const order: OrderCard[] = [
         timeReceived: new Date(),
         tableNo: 5,
         items: [{
-                    itemName:"Eggrolls",
-                    itemNumber: 2,
-                    quantity: 1, 
-                },
-                {
                     itemName:"Orange Chicken",
-                    itemNumber: 3,
+                    itemNumber: 5,
                     quantity: 1, 
                 },
                 {
@@ -70,26 +71,9 @@ const order: OrderCard[] = [
                 },
             ],
         chefAssigned: "Cedric",
-        Status: "Received" 
-    },
-    {
-        id: 4,
-        orderNo: 123459,
-        timeReceived: new Date(),
-        tableNo: 7,
-        items: [{
-                    itemName:"Black Pepper Chicken",
-                    itemNumber: 12,
-                    quantity: 1, 
-                },
-                {
-                    itemName:"Orange Chicken",
-                    itemNumber: 3,
-                    quantity: 2, 
-                },
-            ],
-        chefAssigned: "Martha",
-        Status: "Received" 
+        Status: "Received",
+        addComments: "", 
+        orderFinish: '' 
     }
 ]
 

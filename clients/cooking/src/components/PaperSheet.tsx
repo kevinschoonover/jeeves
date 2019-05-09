@@ -61,7 +61,7 @@ const PaperSheet: React.FC<PaperProps> = ({ classes , index, order, addOrder, fi
         <Paper className={classes.root} elevation={1}>
         <Table className={classes.table}>
             <TableHead>
-            <TableRow>
+            <TableRow style={{fontSize: 20}}>
                 <TableCell align="center">Order No.</TableCell>
                 <TableCell align="center">Time Received</TableCell>
                 <TableCell align="center">Table No.</TableCell>
@@ -103,12 +103,22 @@ const PaperSheet: React.FC<PaperProps> = ({ classes , index, order, addOrder, fi
                       </Select>
                     </FormControl>
                   </TableCell>
-                  <TableCell align="center">{orderStatus}</TableCell>
+                  <TableCell align="center" style={{backgroundColor: orderStatus === "Received"? "#ff4f4f":
+                                                                      orderStatus === "Prep"? "#f96f0c":
+                                                                      orderStatus === "Cook"? "#f9e50c":
+                                                                      orderStatus === "Ready"? "#00bf0f":"",
+                                                    fontSize: 16}}>{orderStatus}</TableCell>
                 </TableRow>
             </TableBody>
         </Table>
-        <br /> 
-          <Button variant="contained" className={classes.button} onClick={() => orderStatus === 'Received'? 
+        <br />
+          <TableRow style={{fontSize: 15, backgroundColor: '#e6f207'}}>
+          {/* outlineColor: '#c4c4b2', outlineWidth: '10', outlineStyle: 'solid' */}
+            <TableCell colSpan={6} align="left">
+              Additional Comments: {order.addComments}
+            </TableCell>
+          </TableRow> 
+          <Button variant="contained" className={classes.button} onClick={() => (orderStatus === 'Received' && !(chefAssigned === ''))? 
                                                                                 setOrderStatus('Prep'):
                                                                                   (orderStatus === 'Prep'?
                                                                                   setOrderStatus('Cook'):
@@ -122,10 +132,10 @@ const PaperSheet: React.FC<PaperProps> = ({ classes , index, order, addOrder, fi
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
-            <DialogTitle id="alert-dialog-title">{"Order Ready!"}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{"Cannot update status!"}</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                Cannot update order any further.
+                Either Chef not assigned or order ready.
               </DialogContentText>
             </DialogContent>
             <DialogActions>
@@ -134,7 +144,8 @@ const PaperSheet: React.FC<PaperProps> = ({ classes , index, order, addOrder, fi
               </Button>
             </DialogActions>
           </Dialog>
-          <Button variant="contained" style={{backgroundColor: '#37c425', fontFamily:'Raleway'}} onClick={() => (orderStatus === 'Ready' && !(chefAssigned === ''))?
+
+          <Button variant="contained" style={{backgroundColor: '#00b712', fontFamily:'Raleway'}} onClick={() => (orderStatus === 'Ready' && !(chefAssigned === ''))?
                                                                                                   finishOrder(index):
                                                                                                   setOpen1(true)}>
               Order Finished
@@ -148,7 +159,7 @@ const PaperSheet: React.FC<PaperProps> = ({ classes , index, order, addOrder, fi
             <DialogTitle id="alert-dialog-title">{"Cannot Proceed!"}</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                Order can be finished only once it's ready and chef assigned is set.
+                Order cannnot be finished before it's ready.
               </DialogContentText>
             </DialogContent>
             <DialogActions>
