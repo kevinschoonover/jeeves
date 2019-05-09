@@ -46,10 +46,11 @@ const styles = (theme: Theme) =>
     },
     paper: {
       padding: 25,
-      marginLeft: 550,
-      marginRight: 550,
+      marginLeft: 'auto',
+      marginRight: 'auto',
       marginBottom: 25,
       align: 'center',
+      width: 750,
     },
     slider: {
       marginLeft: 40,
