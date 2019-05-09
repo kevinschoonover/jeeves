@@ -6,6 +6,8 @@ import { theme } from '@jeeves/common';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+// tslint:disable-next-line:no-var-requires
 require('typeface-raleway')
 
 ReactDOM.render(
