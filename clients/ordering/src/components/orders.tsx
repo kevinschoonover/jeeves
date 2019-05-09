@@ -42,10 +42,11 @@ const styles = (theme: Theme) =>
     },
     paper: {
       padding: 25,
-      marginLeft: 550,
-      marginRight: 550,
+      width: 750,
       marginBottom: 25,
       align: 'center',
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
     requests: {},
   });
