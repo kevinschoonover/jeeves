@@ -42,7 +42,7 @@ const styles = (theme: Theme) =>
     },
     paper: {
       padding: 25,
-      width: 650,
+      width: 750,
       marginBottom: 25,
       align: 'center',
       marginLeft: 'auto',
